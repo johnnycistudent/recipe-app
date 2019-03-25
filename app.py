@@ -5,6 +5,11 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
+app.config['MONGO_DBNAME'] = 'myRecipeDB'
+app.config['MONGO_URI'] = os.getenv('MONGO_URI')
+
+mongo = PyMongo(app)
+
 #forward slash refers to default route
 @app.route("/")
 def hello():
