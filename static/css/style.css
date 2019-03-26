@@ -1,0 +1,33 @@
+body {
+    font-family: "Roboto" sans-serif;
+}
+
+/*--- Navbar from Bootstrap  ---*/
+
+.bg-primary {
+    background-color: #3E3F3A!important;
+    width: 100%;
+}
+
+.navbar-brand {
+    font-size: 2em;
+    height: 60px;
+    font-weight: 700;
+}
+
+.nav-link {
+    font-size: 1em;
+    text-transform: capitalize;
+}
+
+.intro-container {
+    padding-right: -15px;
+    padding-left: -15px;
+    position: relative;
+    min-height: 500px;
+    background-image: url(../images/introbg.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
