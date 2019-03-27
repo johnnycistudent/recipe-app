@@ -11,7 +11,7 @@ body {
 
 .navbar-brand {
     font-size: 2em;
-    height: 60px;
+    height: 55px;
     font-weight: 700;
 }
 
@@ -24,10 +24,26 @@ body {
     padding-right: -15px;
     padding-left: -15px;
     position: relative;
-    min-height: 500px;
+    width: 100%;
+    min-height: 700px;
     background-image: url(../images/introbg.jpg);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+@media (max-width: 576px) {
+    .intro-container {
+        width: 600px;
+        padding-right: -15px;
+        padding-left: -15px;
+        position: relative;
+        min-height: 700px;
+        background-image: url(../images/introbg.jpg);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: fill;
+    }
 }
