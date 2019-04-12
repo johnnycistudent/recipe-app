@@ -25,7 +25,7 @@ body {
     padding-left: -15px;
     position: relative;
     width: 100%;
-    min-height: 700px;
+    min-height: 900px;
     background-image: url(../images/introbg.jpg);
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -33,13 +33,37 @@ body {
     background-size: cover;
 }
 
+.card {
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+.card-img-top {
+    height: 20rem;
+}
+
+.pagination {
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+    /*box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30),*/
+    /*0 15px 12px rgba(0, 0, 0, 0.22);*/
+}
+
+
+/*--- Media Queries  ---*/
+
 @media (max-width: 576px) {
     .intro-container {
         width: 600px;
         padding-right: -15px;
         padding-left: -15px;
-        position: relative;
-        min-height: 700px;
+        position: fixed;
+        background-position-x: center;
+        min-height: 900px;
         background-image: url(../images/introbg.jpg);
         -webkit-background-size: cover;
         -moz-background-size: cover;

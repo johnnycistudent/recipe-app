@@ -135,7 +135,7 @@ This website was designed by John O'Connor.
 
 ## Acknowledgements
 
-  * Bootswatch was used for the Navbar and the buttons and then edited them to suit the website. [https://bootswatch.com/](https://bootswatch.com/)
+  * Bootstrap was used for the framework for this website. [https://bootswatch.com/](https://bootswatch.com/)
   * [Stack Overflow](https://stackoverflow.com/), [W3Schools](https://www.w3schools.com/) and [Slack](https://slack.com/) were very useful when coming up against problems that many other people had also encountered.
 
 

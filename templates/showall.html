@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+
+    
+    <div class="row">
+        {% for recipe in recipes %}
+        <div class="col-sm-12 col-md-6 col-lg-4 loop-item">
+            <div class="card text-center">
+                <div class="card-body text-center">
+                    <img src="{{recipe.photo_url}}" class="card-img-top" alt="...">
+                    <h5 class="card-title">{{recipe.recipe_name}}</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-utensils"></i> Servings: {{recipe.servings}}</li>
+                        <li class="list-group-item"><i class="far fa-clock"></i> Preptime: {{recipe.preptime}}</li>
+                        <li class="list-group-item">{{recipe.tags}}</li>
+                    </ul>
+                    <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary modal-trigger">View Full Recipe</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+
+
+
+    <nav aria-label="Page navigation ">
+        <ul class="pagination text-center col-lg-6 offset-lg-3">
+
+            <li class="page-item">
+
+                <a class="page-link" href="#" tabindex="-1" href="{{prev_url}}">Previous</a>
+
+            </li>
+
+            {% for page_number in pages %} {% if page_number == current_page %}
+            <li class="page-item active"><a class="page-link">{{ page_number }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('get_recipes', current_page=page_number) }}">{{ page_number }}</a></li>
+            <!--<li class="page-item"><a class="page-link" href="{{recipes}}">2</a></li>-->
+            <!--<li class="page-item"><a class="page-link" href="#">3</a></li>-->
+            {% endif %} {% endfor %}
+
+
+            <li class="page-item">
+
+                <a class="page-link" href="{{next_url}}">Next</a>
+
+            </li>
+
+        </ul>
+    </nav>
+
+
+    {% for recipe in recipes %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="{{recipe.photo_url}}" class="card-img-top" alt="...">
+                    <h5 class="modal-title" id="exampleModalLabel">{{recipe.recipe_name}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+
+
+</div>
+{% endblock %}
