@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2>{{recipes.recipe_name}}</h2>
+            <img src="{{recipes.photo_url}}" class="card-img-top" alt="{{recipes.recipe_name}}">
+            <ul class="list-group list-group-flush text-center">
+                <li class="list-group-item"><i class="fas fa-utensils"></i> Servings: {{recipes.servings}}</li>
+                <li class="list-group-item"><i class="far fa-clock"></i> Preptime: {{recipes.preptime}}</li>
+                <li class="list-group-item"><i class="fas fa-burn"></i> Calories: {{recipes.calories}}</li>
+            </ul>
+
+            <div class="recipe-heading">
+                <strong>Ingredients:</strong>
+                <ul>
+                    {% for ingredient in recipes.ingredients %}
+                    <li class="ingredients">{{ingredient}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="recipe-heading">
+                <strong>Instructions:</strong>
+                <ul>
+                    <li class="instructions">{{recipes.instructions}}</li>
+                </ul>
+            </div>
+
+            <div class="recipe-heading"></div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
