@@ -6,9 +6,9 @@ footer {
     height: 90px;
     background-color: #3E3F3A;
     color: #adb5bd;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    /*position: fixed;*/
+    /*bottom: 0;*/
+    /*width: 100%;*/
 }
 
 /*--- Navbar from Bootstrap  ---*/
