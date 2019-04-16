@@ -137,5 +137,5 @@ This website was designed by John O'Connor.
 
   * Bootstrap was used for the framework for this website. [https://bootswatch.com/](https://bootswatch.com/)
   * [Stack Overflow](https://stackoverflow.com/), [W3Schools](https://www.w3schools.com/) and [Slack](https://slack.com/) were very useful when coming up against problems that many other people had also encountered.
-
+  * The Social Media links in the footer were taken and edited from [this link at Bootsnipp.com](https://bootsnipp.com/snippets/84kpo)
 

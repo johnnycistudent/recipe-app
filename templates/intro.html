@@ -1,10 +1,12 @@
-{% extends 'base.html' %} {% block content %} 
+{% extends 'base.html' %} {% block content %}
 
 <div class="intro-container img-responsive">
-    <a href="{{url_for('get_recipes')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">RECIPES</a>
-    <a href="{{url_for('login')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">LOGIN</a>
-    <a href="{{url_for('register')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">REGISTER</a>
-
+    
+        <div class="button-container text-center">
+            <a href="{{url_for('get_recipes')}}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">RECIPES</a>
+            <a href="{{url_for('login')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">LOGIN</a>
+            <a href="{{url_for('register')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">REGISTER</a>
+        </div>
 </div>
 
 {% endblock %}

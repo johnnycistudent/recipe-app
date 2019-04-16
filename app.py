@@ -34,8 +34,8 @@ def get_recipes():
     
 @app.route('/recipe_display/<recipe_id>')
 def recipe_display(recipe_id):
-    recipes = mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)})
-    return render_template('recipe_display.html', recipes=recipes)
+    recipe = mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)})
+    return render_template('recipe_display.html', recipe=recipe)
     
     
     
@@ -76,7 +76,7 @@ def user_auth():
                 return redirect(url_for('admin'))
             else:
                 flash("You were logged in!")
-                return redirect(url_for('profile', user=user_in_db['username']))
+                return redirect(url_for('get_recipes', user=user_in_db['username']))
 
         else:
             flash("Wrong password or user name!")
@@ -91,7 +91,7 @@ def register():
     # Check if user is not logged in already
     if 'user' in session:
         flash('You are already sign in!')
-        return redirect(url_for('index'))
+        return redirect(url_for('get_recipes'))
     if request.method == 'POST':
         form = request.form.to_dict()
         # Check if the password and password1 actualy match
@@ -99,7 +99,7 @@ def register():
             # If so try to find the user in db
             user = users.find_one({"username": form['username']})
             if user:
-                flash("{form['username']} already exists!")
+                flash("That username already exists!")
                 return redirect(url_for('register'))
             # If user does not exist register new user
             else:
@@ -136,7 +136,7 @@ def logout():
     # Clear the session
     session.clear()
     flash('You were logged out!')
-    return redirect(url_for('index'))
+    return redirect(url_for('get_recipes'))
     
     
 # Profile Page
@@ -149,7 +149,7 @@ def profile(user):
         return render_template('profile.html', user=user_in_db)
     else:
         flash("You must be logged in!")
-        return redirect(url_for('index'))
+        return redirect(url_for('get_recipes'))
 
 # Admin area
 @app.route('/admin')
@@ -159,12 +159,19 @@ def admin():
             return render_template('admin.html')
         else:
             flash('Only Admins can access this page!')
-            return redirect(url_for('index'))
+            return redirect(url_for('get_recipes'))
     else:
         flash('You must be logged')
-        return redirect(url_for('index'))
+        return redirect(url_for('get_recipes'))
     
-   
+
+@app.route('/edit_recipe/<recipe_id>')
+def edit_recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    all_categories = mongo.db.categories.find()
+    return render_template('editrecipe.html', recipe=recipe, categories=all_categories)
+
+ 
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

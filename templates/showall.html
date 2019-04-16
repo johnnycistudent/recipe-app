@@ -17,15 +17,15 @@
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="card text-center">
                 <div class="card-body text-center">
-                    <img src="{{recipe.photo_url}}" class="card-img-top" alt="{{recipe.recipe_name}}">
-                    <h5 class="card-title">{{recipe.recipe_name}}</h5>
+                    <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}"><img src="{{recipe.photo_url}}" class="card-img-top" alt="{{recipe.recipe_name}}"></a>
+                    <h5 class="card-title">{{recipe.recipe_name|title}}</h5>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><i class="fas fa-utensils"></i> Servings: {{recipe.servings}}</li>
                         <li class="list-group-item"><i class="far fa-clock"></i> Preptime: {{recipe.preptime}}</li>
                         
                         <li class="list-group-item">
                             {% for tag in recipe.tags%}
-                            <span style="capitalize!important">{{ tag }}</span>
+                            <span style="capitalize!important">({{ tag|title }})</span>
                             {% endfor %}
                         </li>
                     </ul>
@@ -34,13 +34,8 @@
             </div>
         </div>
         {% endfor %}
-    </div>
-
-
-
-
-    <nav aria-label="Page navigation ">
-        <ul class="pagination text-center col-lg-6 offset-lg-3">
+        <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
+        <ul class="pagination justify-content-center">
 
             <li class="page-item">
 
@@ -65,6 +60,13 @@
 
         </ul>
     </nav>
+    
+    </div>
+
+
+
+
+    
 
 </div>
 {% endblock %}

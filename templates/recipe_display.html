@@ -4,18 +4,31 @@
 
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <h2>{{recipes.recipe_name}}</h2>
-            <img src="{{recipes.photo_url}}" class="card-img-top" alt="{{recipes.recipe_name}}">
+            <h2 class="text-center">{{recipe.recipe_name|title}}</h2>
+            <img src="{{recipe.photo_url}}" class="card-img-top" alt="{{recipe.recipe_name}}">
             <ul class="list-group list-group-flush text-center">
-                <li class="list-group-item"><i class="fas fa-utensils"></i> Servings: {{recipes.servings}}</li>
-                <li class="list-group-item"><i class="far fa-clock"></i> Preptime: {{recipes.preptime}}</li>
-                <li class="list-group-item"><i class="fas fa-burn"></i> Calories: {{recipes.calories}}</li>
+                <li class="list-group-item"><i class="fas fa-utensils"></i><strong> Servings:</strong> {{recipe.servings}}</li>
+                <li class="list-group-item"><i class="far fa-clock"></i><strong> Preptime:</strong> {{recipe.preptime}}</li>
+                <li class="list-group-item"><i class="fas fa-burn"></i><strong> Calories:</strong> {{recipe.calories}}</li>
+                
+                <li class="list-group-item"><i class="fas fa-tags"></i> 
+                    <strong>Tags:</strong>  
+                    {% for tag in recipe.tags %}
+                    <span> ({{ tag|title }})</span>
+                    {% endfor %}
+                </li>
             </ul>
+
+            <div class="text-center">
+                <a role="button" class="btn btn-primary" href="#">Save Recipe</a>
+                <a role="button" class="btn btn-info" href="#">Edit Recipe</a>
+                <a role="button" class="btn btn-danger" href="#">Delete Recipe</a>
+            </div>
 
             <div class="recipe-heading">
                 <strong>Ingredients:</strong>
                 <ul>
-                    {% for ingredient in recipes.ingredients %}
+                    {% for ingredient in recipe.ingredients %}
                     <li class="ingredients">{{ingredient}}</li>
                     {% endfor %}
                 </ul>
@@ -23,7 +36,7 @@
             <div class="recipe-heading">
                 <strong>Instructions:</strong>
                 <ul>
-                    <li class="instructions">{{recipes.instructions}}</li>
+                    <li class="instructions">{{recipe.instructions}}</li>
                 </ul>
             </div>
 
