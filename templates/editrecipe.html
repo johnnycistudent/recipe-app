@@ -1,0 +1,99 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container-fluid">
+
+
+    <div class="row">
+        <div class="col-12 col-sm-8 offset-sm-2">
+            <form action="{{ url_for('update_task', recipe_id=recipe._id) }}" method="POST">
+                <fieldset>
+                    <h2>Edit Recipe</h2>
+                    <div class="form-group">
+                        <label for="recipe_name"><h5>Recipe Name</h5></label>
+                        <input type="text" class="form-control" id="recipe_name" value="{{ recipe.recipe_name|title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="photo_url"><h5>Recipe Image URL</h5></label>
+                        <input type="text" class="form-control" id="photo_url" value="{{ recipe.photo_url }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="preptime"><h5>Preptime <em>(minutes)</em></h5></label>
+                        <input type="text" class="form-control" id="preptime" value="{{ recipe.preptime }}">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-6">
+                            <label for="servings"><h5>Servings</h5></label>
+                            <input type="number" min="1" class="form-control" id="servings" value="{{ recipe.servings }}">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="calories"><h5>Calories</h5></label>
+                            <input type="text" class="form-control" id="calories" value="{{ recipe.calories }}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6 col-sm-4">
+                            <label for="fat"><h6>Fats</h6></label>
+                            <input type="text" class="form-control" id="fat" value="{{ recipe.fat }}">
+                        </div>
+                        <div class="form-group col-6 col-sm-4">
+                            <label for="satfat"><h6>Saturated Fats</h6></label>
+                            <input type="text" class="form-control" id="satfat" value="{{ recipe.satfat }}">
+                        </div>
+                        <div class="form-group col-6 col-sm-4">
+                            <label for="carbs"><h6>Carbs</h6></label>
+                            <input type="text" class="form-control" id="carbs" value="{{ recipe.carbs }}">
+                        </div>
+                        <div class="form-group col-6 col-sm-4">
+                            <label for="fiber"><h6>Fiber</h6></label>
+                            <input type="text" class="form-control" id="fiber" value="{{ recipe.fiber }}">
+                        </div>
+                        <div class="form-group col-6 col-sm-4">
+                            <label for="sugar"><h6>Sugar</h6></label>
+                            <input type="text" class="form-control" id="sugar" value="{{ recipe.sugar }}">
+                        </div>
+                        <div class="form-group col-6 col-sm-4">
+                            <label for="protein"><h6>Protein</h6></label>
+                            <input type="text" class="form-control" id="protein" value="{{ recipe.protein }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ingredients"><h5>Ingredients</h5></label> 
+                        {% for ingredient in recipe.ingredients %}
+                        <div class="input-group add-on ingredient-block" id="ingredient-block">
+                            <input type="text" class="form-control ingredient" name="ingredient" id="ingredient" value="{{ ingredient }}"> 
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-danger delete-ingredient-button">Delete</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <button type="button" id="new-ingredient" class="btn btn-info btn-sm">Add New Ingredient +</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="instructions"><h5>Instructions</h5></label>
+                        <textarea class="form-control" id="instructions" rows="8" value="{{ recipe.instructions }}">{{ recipe.instructions }}</textarea>
+                    </div>
+                        <div class="input-group">
+                            <label for="tags"><h5>Tags</h5></label>
+                            {% for tag in recipe.tags %}
+                            <div class="input-group add-on tag-block">
+                                <input type="text" class="form-control" value="{{ tag|title }}">
+                                <div class="input-group-append" >
+                                    <button type="button" class="btn btn-danger delete-tag-button">Delete</button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <button type="button" class="btn btn-info btn-sm new-tag-button">Add New Tag +</button>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a role="button" class="btn btn-danger" onclick="history.go(-1)">Cancel</a>
+                        </div>
+
+                    
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

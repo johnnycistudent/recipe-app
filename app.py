@@ -37,9 +37,38 @@ def recipe_display(recipe_id):
     recipe = mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)})
     return render_template('recipe_display.html', recipe=recipe)
     
+
     
     
+@app.route('/edit_recipe/<recipe_id>')
+def edit_recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     
+    return render_template('editrecipe.html', recipe=recipe)
+    
+@app.route('/update_recipe/<recipe_id>', methods=["POST"])
+def update_task(recipe_id):
+    recipes = mongo.db.recipes
+    recipes.update({'_id':ObjectId(recipe_id)},
+    {
+        'recipe_name':request.form.get('recipe_name'),
+        'photo_url':request.form.get('photo_url'),
+        'preptime': request.form.get('preptime'),
+        'servings': int(request.form.get('servings')),
+        'calories':request.form.get('calories'),
+        'fat':request.form.get('fat'),
+        'satfat':request.form.get('satfat'),
+        'carbs':request.form.get('carbs'),
+        'fiber':request.form.get('fiber'),
+        'sugar':request.form.get('sugar'),
+        'protein':request.form.get('protein'),
+        'ingredients':request.form.getlist('ingredients'),
+        'instructions':request.form.get('instructions')
+    })
+    
+    return redirect(url_for('get_recipes'))
+
+
 @app.route('/search_recipes')
 def search_recipes():
     
@@ -121,7 +150,7 @@ def register():
                     session['user'] = user_in_db['username']
                     return redirect(url_for('profile', user=user_in_db['username']))
                 else:
-                    flash("There was a problem savaing your profile")
+                    flash("There was a problem saving your profile")
                     return redirect(url_for('register'))
 
         else:
@@ -165,11 +194,7 @@ def admin():
         return redirect(url_for('get_recipes'))
     
 
-@app.route('/edit_recipe/<recipe_id>')
-def edit_recipe(recipe_id):
-    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
-    all_categories = mongo.db.categories.find()
-    return render_template('editrecipe.html', recipe=recipe, categories=all_categories)
+
 
  
     

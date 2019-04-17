@@ -11,6 +11,24 @@ footer {
     /*width: 100%;*/
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-align: center;
+    font-weight: 700;
+}
+
+.form-control {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.btn {
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+}
+
 /*--- Navbar from Bootstrap  ---*/
 
 .bg-primary {
@@ -111,20 +129,47 @@ footer {
 }
 
 
+/* -- Edit Recipe page -- */
+
+.input-group {
+    padding-bottom: 2px;
+}
+
+.form-buttons {
+    padding-top: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+
 /*--- Media Queries  ---*/
 
 /*@media (max-width: 576px) {*/
+
 /*    .intro-container {*/
+
 /*        width: 600px;*/
+
 /*        padding-right: -15px;*/
+
 /*        padding-left: -15px;*/
+
 /*        position: fixed;*/
+
 /*        background-position-x: center;*/
+
 /*        min-height: 900px;*/
+
 /*        background-image: url(../images/introbg.jpg);*/
+
 /*        -webkit-background-size: cover;*/
+
 /*        -moz-background-size: cover;*/
+
 /*        -o-background-size: cover;*/
+
 /*        background-size: fill;*/
+
 /*    }*/
+
 /*}*/
