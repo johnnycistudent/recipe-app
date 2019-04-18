@@ -2,98 +2,96 @@
 
 <div class="container-fluid">
 
-
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2">
-            <form action="{{ url_for('update_task', recipe_id=recipe._id) }}" method="POST">
+            <form action="{{ url_for('insert_recipe') }}" method="POST">
                 <fieldset>
-                    <h2>Edit Recipe</h2>
+                    <h2>Add New Recipe</h2>
                     <div class="form-group">
                         <label for="recipe_name"><h5>Recipe Name</h5></label>
-                        <input type="text" class="form-control" name="recipe_name" id="recipe_name" value="{{ recipe.recipe_name|title }}">
+                        <input type="text" class="form-control" name="recipe_name" id="recipe_name" placeholder="Add Recipe Name Here">
                     </div>
                     <div class="form-group">
                         <label for="photo_url"><h5>Recipe Image URL</h5></label>
-                        <input type="text" class="form-control" name="photo_url" id="photo_url" value="{{ recipe.photo_url }}">
+                        <input type="text" class="form-control" name="photo_url" id="photo_url" placeholder="Add Photo URL Here">
                     </div>
                     <div class="form-group">
                         <label for="preptime"><h5>Preptime <em>(minutes)</em></h5></label>
-                        <input type="text" class="form-control" name="preptime" id="preptime" value="{{ recipe.preptime }}">
+                        <input type="text" class="form-control" name="preptime" id="preptime" placeholder="Add Preptime Here">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-sm-6">
                             <label for="servings"><h5>Servings</h5></label>
-                            <input type="number" min="1" class="form-control" name="servings" id="servings" value="{{ recipe.servings }}">
+                            <input type="number" min="1" class="form-control" name="servings" id="servings" placeholder="Add Servings Here">
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="calories"><h5>Calories</h5></label>
-                            <input type="text" class="form-control" id="calories" name="calories" value="{{ recipe.calories }}">
+                            <input type="text" class="form-control" id="calories" name="calories" placeholder="Add Calories Here">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-6 col-sm-4">
                             <label for="fat"><h6>Fats</h6></label>
-                            <input type="text" class="form-control" id="fat" name="fat" value="{{ recipe.fat }}">
+                            <input type="text" class="form-control" id="fat" name="fat" placeholder="Add Fat Here">
                         </div>
                         <div class="form-group col-6 col-sm-4">
                             <label for="satfat"><h6>Saturated Fats</h6></label>
-                            <input type="text" class="form-control" id="satfat" name="satfat" value="{{ recipe.satfat }}">
+                            <input type="text" class="form-control" id="satfat" name="fat" placeholder="Add Saturated Fat Here">
                         </div>
                         <div class="form-group col-6 col-sm-4">
                             <label for="carbs"><h6>Carbs</h6></label>
-                            <input type="text" class="form-control" id="carbs" name="carbs" value="{{ recipe.carbs }}">
+                            <input type="text" class="form-control" id="carbs" name="carbs" placeholder="Add Instructions Here">
                         </div>
                         <div class="form-group col-6 col-sm-4">
                             <label for="fiber"><h6>Fiber</h6></label>
-                            <input type="text" class="form-control" id="fiber" name="fiber" value="{{ recipe.fiber }}">
+                            <input type="text" class="form-control" id="fiber" name="fiber" placeholder="Add Fiber Here">
                         </div>
                         <div class="form-group col-6 col-sm-4">
                             <label for="sugar"><h6>Sugar</h6></label>
-                            <input type="text" class="form-control" id="sugar" name="sugar" value="{{ recipe.sugar }}">
+                            <input type="text" class="form-control" id="sugar" name="sugar" placeholder="Add Sugar Here">
                         </div>
                         <div class="form-group col-6 col-sm-4">
                             <label for="protein"><h6>Protein</h6></label>
-                            <input type="text" class="form-control" id="protein" name="protein" value="{{ recipe.protein }}">
+                            <input type="text" class="form-control" id="protein" name="protein" placeholder="Add Protein Here">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="ingredients"><h5>Ingredients</h5></label> 
-                        {% for ingredient in recipe.ingredients %}
                         <div class="input-group add-on ingredient-block" id="ingredient-block">
-                            <input type="text" class="form-control ingredient" name="ingredients" id="ingredient" value="{{ ingredient }}"> 
+                            <input type="text" class="form-control ingredient" name="ingredients" id="ingredient" placeholder="Add Ingredient Here">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-danger delete-ingredient-button">Delete</button>
                             </div>
                         </div>
-                        {% endfor %}
                         <button type="button" id="new-ingredient" class="btn btn-info btn-sm">Add New Ingredient +</button>
                     </div>
                     <div class="form-group">
                         <label for="instructions"><h5>Instructions</h5></label>
-                        <textarea class="form-control" id="instructions" rows="8" name="instructions" value="{{ recipe.instructions }}">{{ recipe.instructions }}</textarea>
+                        <textarea class="form-control" id="instructions" rows="8" name="instructions" placeholder="Add Instructions Here"></textarea>
                     </div>
-                        <div class="input-group">
-                            <label for="tags"><h5>Tags</h5></label>
-                            {% for tag in recipe.tags %}
-                            <div class="input-group add-on tag-block">
-                                <input type="text" class="form-control" name="tags" value="{{ tag|title }}">
-                                <div class="input-group-append" >
-                                    <button type="button" class="btn btn-danger delete-tag-button">Delete</button>
-                                </div>
+                    <div class="input-group">
+                        <label for="tags"><h5>Tags</h5></label> 
+                        <div class="input-group add-on tag-block">
+                            <input type="text" class="form-control" name="tags" placeholder="Add Tag Here">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-danger delete-tag-button">Delete</button>
                             </div>
-                            {% endfor %}
-                            <button type="button" class="btn btn-info btn-sm new-tag-button">Add New Tag +</button>
                         </div>
-                        <div class="form-buttons">
-                            <button type="submit" class="btn btn-primary" name="action">Submit</button>
-                            <a role="button" class="btn btn-danger" onclick="history.go(-1)">Cancel</a>
-                        </div>
+                        
+                        <button type="button" class="btn btn-info btn-sm new-tag-button">Add New Tag +</button>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary" name="action">Submit</button>
+                        <a role="button" class="btn btn-danger" onclick="history.go(-1)">Cancel</a>
+                    </div>
 
-                    
+
                 </fieldset>
             </form>
         </div>
     </div>
+
+
 </div>
 
 {% endblock %}

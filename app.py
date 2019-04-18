@@ -49,12 +49,43 @@ def edit_recipe(recipe_id):
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_task(recipe_id):
     recipes = mongo.db.recipes
-    recipes.update({'_id':ObjectId(recipe_id)},
-    {
+    recipes.update_one({'_id':ObjectId(recipe_id), 
+    }, {
+        '$set': {
+    'recipe_name':request.form.get('recipe_name'),
+    'photo_url':request.form.get('photo_url'),
+    'preptime': request.form.get('preptime'),
+    'servings': request.form.get('servings'),
+    'calories':request.form.get('calories'),
+    'fat':request.form.get('fat'),
+    'satfat':request.form.get('satfat'),
+    'carbs':request.form.get('carbs'),
+    'fiber':request.form.get('fiber'),
+    'sugar':request.form.get('sugar'),
+    'protein':request.form.get('protein'),
+    'ingredients':request.form.getlist('ingredients'),
+    'instructions':request.form.get('instructions'),
+    'tags':request.form.getlist('tags')
+    }
+    })
+    
+    flash('Recipe updated.')
+    return redirect(url_for('get_recipes'))
+
+
+@app.route('/add_recipe')
+def add_recipe():
+    recipes=mongo.db.recipes.find()
+    return render_template('addrecipe.html', recipes=recipes)
+    
+@app.route('/insert_recipe', methods=["POST"])
+def insert_recipe():  
+    recipes = mongo.db.recipes
+    recipes.insert_one({
         'recipe_name':request.form.get('recipe_name'),
         'photo_url':request.form.get('photo_url'),
         'preptime': request.form.get('preptime'),
-        'servings': int(request.form.get('servings')),
+        'servings': request.form.get('servings'),
         'calories':request.form.get('calories'),
         'fat':request.form.get('fat'),
         'satfat':request.form.get('satfat'),
@@ -63,11 +94,11 @@ def update_task(recipe_id):
         'sugar':request.form.get('sugar'),
         'protein':request.form.get('protein'),
         'ingredients':request.form.getlist('ingredients'),
-        'instructions':request.form.get('instructions')
+        'instructions':request.form.get('instructions'),
+        'tags':request.form.getlist('tags')
     })
     
     return redirect(url_for('get_recipes'))
-
 
 @app.route('/search_recipes')
 def search_recipes():
