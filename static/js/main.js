@@ -5,7 +5,7 @@ $(document).ready(function() {
 	/* -- Adds a new "Ingredient" input field in form on Edit Recipe/Add Recipe page --*/
 
 	$('#new-ingredient').on('click', function() {
-		$('<div class="input-group add-on ingredient-block" id="ingredient-block"><input type="text" class="form-control ingredient" name="ingredient" id="ingredient" placeholder="Add New Ingredient"><div class="input-group-append"><button type="button" class="btn btn-danger delete-ingredient-button">Delete</button></div>').insertBefore('#new-ingredient');
+		$('<div class="input-group add-on ingredient-block" id="ingredient-block"><input type="text" class="form-control ingredient" name="ingredients" id="ingredients" placeholder="Add New Ingredient"><div class="input-group-append"><button type="button" class="btn btn-danger delete-ingredient-button">Delete</button></div>').insertBefore('#new-ingredient');
 	});
 	
 	/* -- Deletes an ingredient input field in form on Edit Recipe/Add Recipe page --*/

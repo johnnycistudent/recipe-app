@@ -3,9 +3,11 @@
 <div class="container-fluid">
 
 
+
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2">
             <form action="{{ url_for('update_task', recipe_id=recipe._id) }}" method="POST">
+                <button type="button" class="btn btn-primary btn-lg" onclick="history.go(-1)">Back to Recipe</button>
                 <fieldset>
                     <h2>Edit Recipe</h2>
                     <div class="form-group">
@@ -60,7 +62,7 @@
                         <label for="ingredients"><h5>Ingredients</h5></label> 
                         {% for ingredient in recipe.ingredients %}
                         <div class="input-group add-on ingredient-block" id="ingredient-block">
-                            <input type="text" class="form-control ingredient" name="ingredients" id="ingredient" value="{{ ingredient }}"> 
+                            <input type="text" class="form-control ingredient" name="ingredients" id="ingredients" value="{{ ingredient }}"> 
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-danger delete-ingredient-button">Delete</button>
                             </div>

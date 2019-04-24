@@ -1,28 +1,38 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container-fluid">
-    <h2>REGISTER</h2>
-    
-    <form class="form-signin" method="POST" action="/register">
-        <div class="form-group">
-            <label for="formGroupExampleInput2">Enter Email</label>
-            <input name="email" type="email" class="form-control" id="email" placeholder="Enter Email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+    <div class="row">
+        <div class="card text-white bg-primary mb-3 text-center register-card">
+            <div class="card-body">
+                <h2><u>REGISTER</u></h2>
+                <form class="form-signin" method="POST" action="/register">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Enter Email</label>
+                        <input name="email" type="email" class="form-control" id="email" placeholder="Enter Email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Create Username</label>
+                        <input name="username" type="text" class="form-control" id="sign-in-username" placeholder="Enter Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Create Password</label>
+                        <input name="user_password" type="password" class="form-control" id="sign-in-password" placeholder="Enter Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Confirm Password</label>
+                        <input name="user_password1" type="password" class="form-control" id="sign-in-password1" placeholder="Confirm Password">
+                    </div>
+                    <button class="btn btn-primary btn-lg btn-block user-form-button" type="submit">Sign Up</button>
+                    <div>
+                        <p><em>Already Registered? Login <a href="{{ url_for('login') }}">HERE!</em></a>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="formGroupExampleInput">Create Username</label>
-            <input name="username" type="text" class="form-control" id="sign-in-username" placeholder="Enter Username">
-        </div>
-        <div class="form-group">
-            <label for="formGroupExampleInput2">Create Password</label>
-            <input name="user_password" type="password" class="form-control" id="sign-in-password" placeholder="Enter Password">
-        </div>
-        <div class="form-group">
-            <label for="formGroupExampleInput2">Confirm Password</label>
-            <input name="user_password1" type="password" class="form-control" id="sign-in-password1" placeholder="Confirm Password">
-        </div>
-        <button class="btn btn-outline-success btn-lg btn-block" type="submit">Sign Up</button>
-    </form>
+    </div>
 
 </div>
 

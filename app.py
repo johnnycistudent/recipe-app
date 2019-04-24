@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, session, flash
+from flask import Flask, render_template, redirect, request, url_for, session, flash, jsonify, json
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -32,6 +32,25 @@ def get_recipes():
     
     return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages)
     
+    
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    p_limit = 9
+    current_page = int(request.args.get('current_page', 1))
+    
+    word_search = request.form.get('word_search')
+    results = mongo.db.recipes.find({'$text': {'$search': str(word_search) }}).sort('_id', pymongo.ASCENDING).skip((current_page -1)*p_limit).limit(p_limit)
+    results_count = mongo.db.recipes.find({'$text': {'$search': str(word_search) }}).count()
+    results_pages = range(1, int(round(results_count / p_limit)) + 1)
+    
+    return render_template("search.html", 
+                            results=results,
+                            current_page=current_page, 
+                            results_count=results_count,
+                            word_search=word_search,
+                            results_pages=results_pages)    
+    
+    
 @app.route('/recipe_display/<recipe_id>')
 def recipe_display(recipe_id):
     recipe = mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)})
@@ -48,6 +67,7 @@ def edit_recipe(recipe_id):
     
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_task(recipe_id):
+    edited_recipe = mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)})
     recipes = mongo.db.recipes
     recipes.update_one({'_id':ObjectId(recipe_id), 
     }, {
@@ -70,7 +90,7 @@ def update_task(recipe_id):
     })
     
     flash('Recipe updated.')
-    return redirect(url_for('get_recipes'))
+    return redirect(url_for('recipe_display', recipe_id=recipe_id))
 
 
 @app.route('/add_recipe')
@@ -99,12 +119,6 @@ def insert_recipe():
     })
     
     return redirect(url_for('get_recipes'))
-
-@app.route('/search_recipes')
-def search_recipes():
-    
-    
-    return render_template("search.html")
     
     
 @app.route('/login', methods=['GET'])
