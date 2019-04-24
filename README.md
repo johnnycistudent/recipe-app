@@ -2,6 +2,8 @@
 
 Welcome to my Data-Centric Development Milestone Project. This website...  
 
+Deployed here: [https://my-recipe-db.herokuapp.com/](https://my-recipe-db.herokuapp.com/)
+
 ## UX
 This website will be used by people looking to
   * As a user...     
