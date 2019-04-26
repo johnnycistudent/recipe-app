@@ -1,4 +1,4 @@
-import os
+import os, math
 from flask import Flask, render_template, redirect, request, url_for, session, flash, jsonify, json
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
@@ -33,21 +33,22 @@ def get_recipes():
     return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages)
     
     
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/search')
 def search():
     p_limit = 9
     current_page = int(request.args.get('current_page', 1))
     
-    word_search = request.form.get('word_search')
+    word_search = request.args.get('word_search')
     results = mongo.db.recipes.find({'$text': {'$search': str(word_search) }}).sort('_id', pymongo.ASCENDING).skip((current_page -1)*p_limit).limit(p_limit)
     results_count = mongo.db.recipes.find({'$text': {'$search': str(word_search) }}).count()
-    results_pages = range(1, int(round(results_count / p_limit)) + 1)
+    results_pages = range(1, int(math.ceil(results_count / p_limit)) + 1)
     
     return render_template("search.html", 
-                            results=results,
+                           
                             current_page=current_page, 
                             results_count=results_count,
                             word_search=word_search,
+                            results=results,
                             results_pages=results_pages)    
     
     
@@ -118,7 +119,7 @@ def insert_recipe():
         'tags':request.form.getlist('tags')
     })
     
-    return redirect(url_for('get_recipes'))
+    return redirect(url_for('recipe_display', recipe_id=recipe_id))
     
     
 @app.route('/login', methods=['GET'])
@@ -184,7 +185,8 @@ def register():
                     {
                         'username': form['username'],
                         'email': form['email'],
-                        'password': hash_pass
+                        'password': hash_pass,
+                        "favourite_recipes" : []
                     }
                 )
                 # Check if user is actualy saved
@@ -225,23 +227,6 @@ def profile(user):
         flash("You must be logged in!")
         return redirect(url_for('get_recipes'))
 
-# Admin area
-@app.route('/admin')
-def admin():
-    if 'user' in session:
-        if session['user'] == "admin":
-            return render_template('admin.html')
-        else:
-            flash('Only Admins can access this page!')
-            return redirect(url_for('get_recipes'))
-    else:
-        flash('You must be logged')
-        return redirect(url_for('get_recipes'))
-    
-
-
-
- 
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

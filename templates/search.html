@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2">
-            <form class="recipe-search input-group" method="POST" action="{{ url_for('search', word_search=word_search, current_page=current_page) }}">
+            <form class="recipe-search input-group" action="{{ url_for('search', word_search=word_search, current_page=current_page) }}">
                 <input type="text" class="form-control" placeholder="Search Recipes" id="word_search" name="word_search">
                 <div class="input-group-append">
                     <button class="btn btn-secondary" type="submit" name="action"><i class="fa fa-search"></i></button>

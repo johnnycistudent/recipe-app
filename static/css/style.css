@@ -69,21 +69,7 @@ h6 {
     -o-transition-duration: 0.5s;
 }
 
-#social-fb:hover {
-    color: #3B5998;
-}
 
-#social-li:hover {
-    color: #0077B5;
-}
-
-#social-gh:hover {
-    color: #fff;
-}
-
-#social-in:hover {
-    color: #cd486b;
-}
 
 /* -- Container in Intro Page -- */
 
@@ -125,6 +111,19 @@ h6 {
 
 .card-img-top {
     height: 20rem;
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+    position:relative;
+    border-radius: 10px;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.instructions {
+    white-space: pre-wrap;
+    list-style: none;
 }
 
 /* -- Pagination Styling -- */
