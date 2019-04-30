@@ -7,7 +7,7 @@
             <form class="recipe-search input-group" action="{{ url_for('search', word_search=word_search, current_page=current_page) }}">
                 <input type="text" class="form-control" placeholder="Search Recipes" id="word_search" name="word_search">
                 <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit" name="action"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-info" type="submit" name="action"><i class="fa fa-search"></i></button>
                 </div>
             </form>
         </div>
@@ -22,17 +22,38 @@
             <div class="card text-center">
                 <div class="card-body text-center">
                     <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}"><img src="{{recipe.photo_url}}" class="card-img-top" alt="{{recipe.recipe_name}}"></a>
-                    <h5 class="card-title">{{recipe.recipe_name|title}}</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><i class="fas fa-utensils"></i> Servings: {{recipe.servings}}</li>
-                        <li class="list-group-item"><i class="far fa-clock"></i> Preptime: {{recipe.preptime}}</li>
-                        
-                        <li class="list-group-item">
-                            {% for tag in recipe.tags%}
-                            <span style="capitalize!important">({{ tag|title }})</span>
-                            {% endfor %}
-                        </li>
-                    </ul>
+                    <h4 class="card-title">{{recipe.recipe_name|title}}</h4>
+                    <hr>
+                    
+                    <div class="row card-details-wrapper">
+                        <div class="card-details col-6 ">
+                            <span class="recipe-icon"><i class="fas fa-user fa-2x"></i></span>
+                            <span class="recipe-input"> {{recipe.servings}} </span>
+                            <span class="recipe-variable">Servings</span>
+                        </div>
+                        <div class="card-details col-6 ">
+                            <span class="recipe-icon"><i class="fas fa-clock fa-2x"></i></span> 
+                            <span class="recipe-input">{{recipe.preptime}}</span> 
+                            <span class="recipe-variable">Minutes</span>
+                        </div>
+                        <div class="card-details col-6 offset-3 ">
+                            <span class="recipe-icon"><i class="fas fa-burn fa-2x"></i></span> 
+                            <span class="recipe-input">{{recipe.calories}}</span> 
+                            <span class="recipe-variable">Calories</span>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    <!--<ul class="list-group list-group-horizontal">-->
+                    <!--    <li class="list-group-item"><i class="fas fa-utensils"></i> Servings: {{recipe.servings}}</li>-->
+                    <!--    <li class="list-group-item"><i class="far fa-clock"></i> Preptime: {{recipe.preptime}}</li>-->
+                    <!--    <br>-->
+                        <!--<li class="list-group-item">-->
+                        <!--    {% for tag in recipe.tags%}-->
+                        <!--    <span style="capitalize!important">({{ tag|title }})</span>-->
+                        <!--    {% endfor %}-->
+                        <!--</li>-->
+                    <!--</ul>-->
                     <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}" class="btn btn-primary modal-trigger">View Full Recipe</a>
                 </div>
             </div>

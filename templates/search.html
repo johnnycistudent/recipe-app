@@ -25,16 +25,40 @@
             <div class="card text-center">
                 <div class="card-body text-center">
                     <a href="{{ url_for('recipe_display', recipe_id=result._id) }}"><img src="{{result.photo_url}}" class="card-img-top" alt="{{result.recipe_name}}"></a>
-                    <h5 class="card-title">{{result.recipe_name|title}}</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><i class="fas fa-utensils"></i> Servings: {{result.servings}}</li>
-                        <li class="list-group-item"><i class="far fa-clock"></i> Preptime: {{result.preptime}}</li>
+                    <h4 class="card-title">{{result.recipe_name|title}}</h4>
+                    <hr>
+                    
+                    <div class="row card-details-wrapper">
+                        <div class="card-details col-6 ">
+                            <span class="recipe-icon"><i class="fas fa-user fa-2x"></i></span>
+                            <span class="recipe-input"> {{result.servings}} </span>
+                            <span class="recipe-variable">Servings</span>
+                        </div>
+                        <div class="card-details col-6 ">
+                            <span class="recipe-icon"><i class="fas fa-clock fa-2x"></i></span> 
+                            <span class="recipe-input">{{result.preptime}}</span> 
+                            <span class="recipe-variable">Minutes</span>
+                        </div>
+                        <div class="card-details col-6 offset-3 ">
+                            <span class="recipe-icon"><i class="fas fa-burn fa-2x"></i></span> 
+                            <span class="recipe-input">{{result.calories}}</span> 
+                            <span class="recipe-variable">Calories</span>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    
+                    
+                    <!--<ul class="list-group list-group-flush">-->
+                    <!--    <li class="list-group-item"><i class="fas fa-utensils"></i> Servings: {{result.servings}}</li>-->
+                    <!--    <li class="list-group-item"><i class="far fa-clock"></i> Preptime: {{result.preptime}}</li>-->
 
-                        <li class="list-group-item">
-                            {% for tag in result.tags%}
-                            <span style="capitalize!important">({{ tag|title }})</span> {% endfor %}
-                        </li>
-                    </ul>
+                    <!--    <li class="list-group-item">-->
+                    <!--        {% for tag in result.tags%}-->
+                    <!--        <span style="capitalize!important">({{ tag|title }})</span> {% endfor %}-->
+                    <!--    </li>-->
+                    <!--</ul>-->
                     <a href="{{ url_for('recipe_display', recipe_id=result._id) }}" class="btn btn-primary">View Full Recipe</a>
                 </div>
             </div>

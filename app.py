@@ -122,6 +122,13 @@ def insert_recipe():
     return redirect(url_for('recipe_display', recipe_id=recipe_id))
     
     
+@app.route('/delete_task/<recipe_id>')
+def delete_task(recipe_id):
+    mongo.db.tasks.remove({'_id': ObjectId(recipe_id)})
+    
+    flash('Recipe Deleted.')
+    return redirect(url_for('get_recipes'))    
+    
 @app.route('/login', methods=['GET'])
 def login():
     # Check if user is not logged in already
