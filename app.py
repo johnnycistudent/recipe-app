@@ -14,6 +14,7 @@ mongo = PyMongo(app)
 
 users = mongo.db.users
 recipes = mongo.db.recipes
+deleted = mongo.db.deleted
 
 @app.route('/')
 def intro():
@@ -131,8 +132,20 @@ def insert_recipe():
     
     
 @app.route('/delete_recipe/<recipe_id>')
-def delete_task(recipe_id):
-    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
+def delete_recipe(recipe_id):
+    
+    if 'user' in session:
+    
+        deleted_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
+        
+        deleted.insert_one(deleted_recipe)
+        
+        recipes.remove({'_id': ObjectId(recipe_id)})
+        
+    else:
+        flash("You must be logged in to Edit, Save or Delete a recipe!")
+        return redirect(url_for('get_recipes'))
+    
     
     flash('Recipe Deleted.')
     return redirect(url_for('get_recipes'))    

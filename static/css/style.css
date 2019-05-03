@@ -178,6 +178,26 @@ h6 {
     list-style: none;
 }
 
+/* -- Delete Recipe -- */
+
+.modal-header .close {
+    margin-left: 0px;
+}
+
+.modal-title {
+    margin: 0 auto;
+}
+
+.delete-warning {
+    text-align: center;
+    margin-bottom: 0px
+}
+
+.delete-buttons {
+    padding-bottom: 16px;
+}
+
+
 /* -- Pagination Styling -- */
 
 .pagination {
