@@ -44,7 +44,6 @@ def search():
     results_pages = range(1, int(math.ceil(results_count / p_limit)) + 1)
     
     return render_template("search.html", 
-                           
                             current_page=current_page, 
                             results_count=results_count,
                             word_search=word_search,
@@ -62,13 +61,19 @@ def recipe_display(recipe_id):
     
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
-    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    
+    if 'user' in session:
+    
+        recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+        
+    else:
+        flash("You must be logged in to Edit, Save or Delete a recipe!")
+        return redirect(url_for('get_recipes')) 
     
     return render_template('editrecipe.html', recipe=recipe)
     
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_task(recipe_id):
-    edited_recipe = mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)})
     recipes = mongo.db.recipes
     recipes.update_one({'_id':ObjectId(recipe_id), 
     }, {
@@ -119,12 +124,15 @@ def insert_recipe():
         'tags':request.form.getlist('tags')
     })
     
-    return redirect(url_for('recipe_display', recipe_id=recipe_id))
+    recipe_id = recipes.find({'_id':ObjectId(recipe_id)}).sort({ '_id': -1 }).limit(1);
+    newrecipe = recipes.find_one({'_id':ObjectId(recipe_id)}).sort({ '_id': -1 }).limit(1);
+    
+    return redirect(url_for('recipe_display', recipe_id=recipe_id, newrecipe=newrecipe))
     
     
-@app.route('/delete_task/<recipe_id>')
+@app.route('/delete_recipe/<recipe_id>')
 def delete_task(recipe_id):
-    mongo.db.tasks.remove({'_id': ObjectId(recipe_id)})
+    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
     
     flash('Recipe Deleted.')
     return redirect(url_for('get_recipes'))    

@@ -3,9 +3,9 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="recipe col-md-6 offset-md-3">
             <h2 class="text-center">{{recipe.recipe_name|title}}</h2>
-            <img src="{{recipe.photo_url}}" class="card-img-top" alt="{{recipe.recipe_name}}">
+            <img src="{{recipe.photo_url}}" class="card-img-display" alt="{{recipe.recipe_name}}">
             <ul class="list-group list-group-flush text-center">
                 <li class="list-group-item"><i class="fas fa-utensils"></i><strong> Servings:</strong> {{recipe.servings}}</li>
                 <li class="list-group-item"><i class="far fa-clock"></i><strong> Preptime:</strong> {{recipe.preptime}}</li>
@@ -19,7 +19,7 @@
                 </li>
             </ul>
 
-            <div class="text-center">
+            <div class="recipe-buttons text-center">
                 
                 {% if session.user %}
                 <a role="button" class="btn btn-primary" href="#">Save Recipe</a>
