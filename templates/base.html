@@ -21,6 +21,13 @@
   </button>
         <div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto active">
+                {% if session.user == "admin" %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('admin')}}">Admin Area</a>
+                </li>
+                
+                {% else %}
+                
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('get_recipes')}}">Browse Recipes</a>
                 </li>
@@ -42,25 +49,30 @@
                     <a class="nav-link" href="{{url_for('register')}}">Register</a>
                 </li>
                 {% endif %}
+                {% endif %}
             </ul>
         </div>
     </nav>
 
     <!--- /Navbar from Bootstrap  --->
 
-    <div id="alerts " class="container-fluid ">
-		<div class="row justify-content-around ">
-			<div id="messages ">
-				{% with messages = get_flashed_messages() %}
-				{% if messages %}
-				{% for message in messages %}
-				<p class="text-center ">{{ message }}</p>
-				{% endfor %}
-				{% endif %}
-				{% endwith %}
-			</div>
-		</div>
-	</div>
+    <div class="container-fluid">
+        <div id="alerts">
+            <div class="row justify-content-center ">
+                <div id="messages " class="col-8 ">
+
+                    {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                    <div class="alert alert-warning ">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                        <p class="text-center ">{{ message }}</p>
+                    </div>
+                    {% endfor %} {% endif %} {% endwith %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     {% block content %} {% endblock %}

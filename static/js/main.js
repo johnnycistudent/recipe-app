@@ -30,7 +30,7 @@ Alerts modal
 */
 
 function flashed_messages() {
-	let messages = parseInt($("#messages p").length);
+	let messages = parseInt($("#messages .alert ").length);
 	if (messages) {
 		$("#alerts").slideDown(1500);
 		setTimeout(() => {

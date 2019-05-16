@@ -1,4 +1,4 @@
-import os, math
+import os, math, datetime
 from flask import Flask, render_template, redirect, request, url_for, session, flash, jsonify, json
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
@@ -108,6 +108,7 @@ def add_recipe():
 @app.route('/insert_recipe', methods=["POST"])
 def insert_recipe():  
     recipes = mongo.db.recipes
+    user = users.find_one({"username": session['user']})
     recipes.insert_one({
         'recipe_name':request.form.get('recipe_name'),
         'photo_url':request.form.get('photo_url'),
@@ -122,23 +123,35 @@ def insert_recipe():
         'protein':request.form.get('protein'),
         'ingredients':request.form.getlist('ingredients'),
         'instructions':request.form.get('instructions'),
-        'tags':request.form.getlist('tags')
+        'tags':request.form.getlist('tags'),
+        'added_on' : datetime.datetime.utcnow(), 
+        'author' : user
     })
     
-    recipe_id = recipes.find({'_id':ObjectId(recipe_id)}).sort({ '_id': -1 }).limit(1);
-    newrecipe = recipes.find_one({'_id':ObjectId(recipe_id)}).sort({ '_id': -1 }).limit(1);
+    # recipe_id = recipes.recipe._id
     
-    return redirect(url_for('recipe_display', recipe_id=recipe_id, newrecipe=newrecipe))
+    # newrecipe = recipes.find_one({'_id':ObjectId(recipe_id)}).sort({ '_id': -1 }).limit(1);
+    
+    
+    flash('Recipe Added.')
+    return redirect(url_for('get_recipes'))
     
     
 @app.route('/delete_recipe/<recipe_id>')
 def delete_recipe(recipe_id):
     
     if 'user' in session:
+        
+        user = users.find_one({"username": session['user']})
     
         deleted_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
         
         deleted.insert_one(deleted_recipe)
+        
+        deleted.update_one({'_id': ObjectId(recipe_id)}, 
+                                                {"$set" :
+                                                    {"deleted_on" : datetime.datetime.utcnow(), 
+                                                    "deleted_by" : user}})
         
         recipes.remove({'_id': ObjectId(recipe_id)})
         
@@ -254,7 +267,20 @@ def profile(user):
     else:
         flash("You must be logged in!")
         return redirect(url_for('get_recipes'))
-
+        
+        
+# Admin area
+@app.route('/admin')
+def admin():
+    if 'user' in session:
+        if session['user'] == "admin":
+            return render_template('admin.html')
+        else:
+            flash('Only Admins can access this page!')
+            return redirect(url_for('get_recipes'))
+    else:
+        flash('You must be logged')
+        return redirect(url_for('get_recipes'))
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

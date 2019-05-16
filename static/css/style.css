@@ -46,6 +46,10 @@ h6 {
     text-transform: capitalize;
 }
 
+#alerts {
+    margin-top: 10px;
+}
+
 /* -- Social Media Links in Footer -- */
 
 /*--- Social Media Links in Footer taken from Bootsnipp.com, link in README under Acknowledgements  ---*/
