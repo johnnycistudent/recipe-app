@@ -21,12 +21,7 @@
   </button>
         <div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto active">
-                {% if session.user == "admin" %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('admin')}}">Admin Area</a>
-                </li>
                 
-                {% else %}
                 
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('get_recipes')}}">Browse Recipes</a>
@@ -38,9 +33,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('add_recipe')}}">Add Recipe</a>
                 </li>
+                {% if session.user == "admin" %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('admin')}}">Admin Area</a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('logout')}}">Log Out</a>
                 </li>
+                
+                
+                
+                
+                
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('login')}}">Login</a>
@@ -49,7 +54,7 @@
                     <a class="nav-link" href="{{url_for('register')}}">Register</a>
                 </li>
                 {% endif %}
-                {% endif %}
+                
             </ul>
         </div>
     </nav>
