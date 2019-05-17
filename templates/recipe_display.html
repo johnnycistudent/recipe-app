@@ -15,6 +15,7 @@
                     <strong>Tags:</strong> {% for tag in recipe.tags %}
                     <span> ({{ tag|title }})</span> {% endfor %}
                 </li>
+                <li class="list-group-item"><i class="fas fa-user"></i><strong> Added by:</strong> {{ recipe.author.username|title }}</li>
             </ul>
 
             <div class="recipe-buttons text-center">
@@ -45,9 +46,9 @@
                 </ul>
             </div>
             <div class="recipe-heading">
-                <strong>Created by:</strong>
+                <strong>Date added:</strong>
                 <ul>
-                    <li class="author">{{recipe.deleted_by.username}}</li>
+                    <li class="author">{{ recipe['_id'].generation_time.date().strftime('%d %m %Y, %H:%M:%S') }}</li>
                 </ul>
             </div>
 
