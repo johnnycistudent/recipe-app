@@ -109,7 +109,7 @@ def add_recipe():
 def insert_recipe():  
     recipes = mongo.db.recipes
     user = users.find_one({"username": session['user']})
-    recipes.insert_one({
+    new_recipe = recipes.insert_one({
         'recipe_name':request.form.get('recipe_name'),
         'photo_url':request.form.get('photo_url'),
         'preptime': request.form.get('preptime'),
@@ -134,7 +134,7 @@ def insert_recipe():
     
     
     flash('Recipe Added.')
-    return redirect(url_for('get_recipes'))
+    return redirect(url_for('recipe_display', recipe_id = new_recipe.inserted_id))
     
     
 @app.route('/delete_recipe/<recipe_id>')
