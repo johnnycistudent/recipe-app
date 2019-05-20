@@ -134,7 +134,7 @@ This website was designed by John O'Connor.
    
    - []().  
 
-  The favicon image was made using [https://favicon.io/](https://favicon.io/).
+  The favicon image was found at [https://icons8.com/icons/set/cookbook](https://icons8.com/icons/set/cookbook).
 
 
 ## Acknowledgements
