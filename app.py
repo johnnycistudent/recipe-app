@@ -55,7 +55,8 @@ def search():
 @app.route('/recipe_display/<recipe_id>')
 def recipe_display(recipe_id):
     recipe = mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)})
-    return render_template('recipe_display.html', recipe=recipe)
+    user = users.find_one({"username": session['user']})
+    return render_template('recipe_display.html', user=user, recipe=recipe)
     
 
     
@@ -74,7 +75,7 @@ def edit_recipe(recipe_id):
     return render_template('editrecipe.html', recipe=recipe)
     
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
-def update_task(recipe_id):
+def update_recipe(recipe_id):
     recipes = mongo.db.recipes
     recipes.update_one({'_id':ObjectId(recipe_id), 
     }, {
@@ -159,9 +160,30 @@ def delete_recipe(recipe_id):
     return redirect(url_for('get_recipes'))   
     
     
-@app.route('/add_to_favourites')
-def add_to_favourites():
-     return 
+@app.route('/add_to_favourites/<recipe_id>', methods=["GET", "POST"])
+def add_to_favourites(recipe_id):
+    
+    if 'user' in session:
+        
+        users = mongo.db.users
+        
+        user = users.find_one({"username": session['user']})
+    
+        favourited_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
+        
+        users.update_one({"username": session['user']}, 
+                                                {"$push" :
+                                                    {"favourite_recipes" : favourited_recipe}})
+        
+        
+        
+    else:
+        flash("You must be logged in to Edit, Save or Delete a recipe!")
+        return redirect(url_for('get_recipes'))
+    
+    
+    flash('Added to Favourites.')
+    return redirect(url_for('recipe_display', user=user, recipe_id=recipe_id))
 
     
     
@@ -229,8 +251,7 @@ def register():
                     {
                         'username': form['username'],
                         'email': form['email'],
-                        'password': hash_pass,
-                        "favourite_recipes" : []
+                        'password': hash_pass
                     }
                 )
                 # Check if user is actualy saved
