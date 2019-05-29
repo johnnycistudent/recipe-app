@@ -287,7 +287,9 @@ def profile(user):
     if 'user' in session:
         # If so get the user and pass him to template for now
         user_in_db = users.find_one({"username": user})
-        return render_template('profile.html', user=user_in_db)
+        favourites = mongo.db.users.find(user_in_db)
+        
+        return render_template('profile.html', user=user_in_db, favourites=favourites)
     else:
         flash("You must be logged in!")
         return redirect(url_for('get_recipes'))
