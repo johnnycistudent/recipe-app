@@ -165,28 +165,46 @@ def add_to_favourites(recipe_id):
     
     if 'user' in session:
         
-        users = mongo.db.users
-        
         user = users.find_one({"username": session['user']})
+        favourites = user['favourite_recipes']
     
         favourited_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
         
-        users.update_one({"username": session['user']}, 
-                                                {"$push" :
-                                                    {"favourite_recipes" : favourited_recipe}})
-        
-        
-        
+        if favourited_recipe not in favourites:
+            users.update_one({"username": session['user']}, 
+                                                    {"$push" :
+                                                        {"favourite_recipes" : favourited_recipe}})
+        else:
+            flash("You have already added this recipe to your Favourites")
+            return redirect(url_for('recipe_display', user=user['username'], recipe_id=recipe_id))
     else:
         flash("You must be logged in to Edit, Save or Delete a recipe!")
         return redirect(url_for('get_recipes'))
     
     
     flash('Added to Favourites.')
-    return redirect(url_for('recipe_display', user=user, recipe_id=recipe_id))
+    return redirect(url_for('recipe_display', user=user['username'], recipe_id=recipe_id))
 
+@app.route('/remove_from_favourites/<recipe_id>', methods=["GET", "POST"])
+def remove_from_favourites(recipe_id):
     
-    
+    if 'user' in session:
+        user = users.find_one({"username": session['user']})
+        # favourites = mongo.db.users.find(user)
+        
+        
+        remove_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
+        users.update_one({"username": session['user']}, 
+                                                    {"$pull" :
+                                                        {"favourite_recipes" : remove_recipe}})
+        
+                                                        
+    else:
+        flash("You must be logged in to Edit, Save or Delete a recipe!")
+        return redirect(url_for('get_recipes'))
+        
+    flash('Removed from Favourites.')
+    return redirect(url_for('profile', user=user['username'], recipe_id=recipe_id))
     
 @app.route('/login', methods=['GET'])
 def login():
