@@ -11,7 +11,7 @@ This website will be used by people looking to
   * As a user,...
   * As a user,...    
 
-                <!--<li class="list-group-item"><i class="fas fa-user"></i><strong> Added by:</strong> {{ recipe.author.username|title }}</li>-->
+                
 
 
 ## Wireframes
