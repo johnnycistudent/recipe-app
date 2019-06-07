@@ -192,22 +192,25 @@ def remove_from_favourites(recipe_id):
     
     if 'user' in session:
         user = users.find_one({"username": session['user']})
-        # favourites = mongo.db.users.find(user)
+        favourites = user['favourite_recipes']
         
             
-            
+        
         remove_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
-        users.update_one({"username": session['user']}, 
-                                                        {"$pull" :
-                                                            {"favourite_recipes" : remove_recipe}})
         
+        if remove_recipe in favourites:
+            users.update_one({"username": session['user']}, 
+                                                            {"$pull" :
+                                                                {"favourite_recipes" : remove_recipe}})
+            flash('Removed from Favourites.')
+            return redirect(url_for('profile', user=user['username'], recipe_id=recipe_id))
+            
                                                         
-    # else:
-    #     flash("You must be logged in to Edit, Save or Delete a recipe!")
-    #     return redirect(url_for('get_recipes'))
+    else:
+        flash("You must be logged in to Edit, Save or Delete a recipe!")
+        return redirect(url_for('get_recipes'))
         
-    flash('Removed from Favourites.')
-    return redirect(url_for('profile', user=user['username'], recipe_id=recipe_id))
+    
     
 # Login - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/login', methods=['GET'])
@@ -240,7 +243,7 @@ def user_auth():
                 return redirect(url_for('admin'))
             else:
                 flash("You were logged in!")
-                return redirect(url_for('get_recipes', user=user_in_db['username']))
+                return redirect(url_for('profile', user=user_in_db['username']))
 
         else:
             flash("Wrong password or user name!")
@@ -254,11 +257,11 @@ def user_auth():
 def register():
     # Check if user is not logged in already
     if 'user' in session:
-        flash('You are already sign in!')
+        flash('You are already signed in!')
         return redirect(url_for('get_recipes'))
     if request.method == 'POST':
         form = request.form.to_dict()
-        # Check if the password and password1 actualy match
+        # Check if the password and password1 actually match
         if form['user_password'] == form['user_password1']:
             # If so try to find the user in db
             user = users.find_one({"username": form['username']})
