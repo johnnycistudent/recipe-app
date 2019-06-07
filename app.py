@@ -209,6 +209,7 @@ def remove_from_favourites(recipe_id):
     flash('Removed from Favourites.')
     return redirect(url_for('profile', user=user['username'], recipe_id=recipe_id))
     
+# Login - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/login', methods=['GET'])
 def login():
     # Check if user is not logged in already
@@ -223,6 +224,7 @@ def login():
         return render_template("login.html")
 
 # Check user login details from login form
+# - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/user_auth', methods=['POST'])
 def user_auth():
     form = request.form.to_dict()

@@ -105,6 +105,7 @@ My project began with the wireframes in the links below.
 ### Bugs
   * On iOS touchscreen devices, 
   * When...
+  * When making the function that removes a users' favourite recipes from their profile page, I could only remove recipes from the current or very recent session. When I cleared the cache or used a different browser, I found I could not reach the recipe with the code I had written. I solved this by...
 
 ### Validation
 
@@ -142,4 +143,5 @@ This website was designed by John O'Connor.
   * Bootstrap was used for the framework for this website. [https://bootswatch.com/](https://bootswatch.com/)
   * [Stack Overflow](https://stackoverflow.com/), [W3Schools](https://www.w3schools.com/) and [Slack](https://slack.com/) were very useful when coming up against problems that many other people had also encountered.
   * The Social Media links in the footer were taken and edited from [this link at Bootsnipp.com](https://bootsnipp.com/snippets/84kpo)
+  * The code for the User Login, Registration, User Authentication, Profile and Admin Pages functions were all taken and modified from Miroslav Svec's (username Miro) sessions from the Slack channel Data-Centric-Dev. 
 
