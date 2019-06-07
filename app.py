@@ -55,8 +55,7 @@ def search():
 @app.route('/recipe_display/<recipe_id>')
 def recipe_display(recipe_id):
     recipe = mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)})
-    user = users.find_one({"username": session['user']})
-    return render_template('recipe_display.html', user=user, recipe=recipe)
+    return render_template('recipe_display.html', recipe=recipe)
     
 
     
