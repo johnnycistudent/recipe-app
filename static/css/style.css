@@ -254,6 +254,25 @@ h6 {
 }
 
 
+/*--- Admin Page  ---*/
+
+.card-accordion {
+    min-height: 0;
+}
+
+.accordion .card-header:after {
+    font-family: 'FontAwesome';  
+    content: "\f068";
+    float: right; 
+}
+.accordion .card-header.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f067"; 
+}
+
+
+
+
 /*--- Media Queries  ---*/
 
 /*@media (max-width: 576px) {*/

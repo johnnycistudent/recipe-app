@@ -67,7 +67,11 @@ My project began with the wireframes in the links below.
 
 * [GitHub](https://github.com)
 
-    This website's repository is hosted and published on GitHub. 
+    This website's repository is published on GitHub.   
+    
+* [Heroku](https://www.heroku.com/)
+
+    This website is hosted and deployed on Heroku. 
 
 ## Testing
 
@@ -113,7 +117,7 @@ My project began with the wireframes in the links below.
 
 ## Deployment
 The code for this website was pushed from Cloud9 to a repository in GitHub and is published on Heroku where you can access it here:
-[]()
+[https://my-recipe-db.herokuapp.com/](https://my-recipe-db.herokuapp.com/)
 
 
 

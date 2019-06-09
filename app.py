@@ -327,8 +327,15 @@ def profile(user):
 @app.route('/admin')
 def admin():
     if 'user' in session:
+        
+        
+        
         if session['user'] == "admin":
-            return render_template('admin.html')
+            users = mongo.db.users.find()
+            recipes = mongo.db.recipes.find()
+            deleted = mongo.db.deleted.find()
+            
+            return render_template('admin.html', users=users, recipes=recipes, deleted=deleted)
         else:
             flash('Only Admins can access this page!')
             return redirect(url_for('get_recipes'))

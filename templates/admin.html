@@ -1,9 +1,96 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container-fluid">
-    
+
     <h2> Welcome Admin </h2>
-    
+
+    <div id="accordion" class="accordion">
+        <div class="card card-accordion">
+            <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
+                <a class="card-title">
+                    <b>Users Report</b>
+                </a>
+            </div>
+            <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">No of Favourites</th>
+                            <th scope="col">Recipes Added</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <th scope="row">{{ user.username }}</th>
+                            <td>{{ user['_id'].generation_time.date().strftime('%d.%m.%Y') }}</td>
+                            <td>{{ user.favourite_recipes|length }}</td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                <a class="card-title">
+                  <b>Recipes Report</b>
+                </a>
+            </div>
+            <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Recipe</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">Author</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for recipe in recipes %}
+                        <tr>
+                            <th scope="row"><a href="{{url_for('recipe_display', recipe_id=recipe._id)}}">{{ recipe.recipe_name }}</a></th>
+                            <td>{{ recipe['_id'].generation_time.date().strftime('%d.%m.%Y') }}</td>
+                            <td>{{ recipe.author.username }}</td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                <a class="card-title">
+                  <b>Deleted Recipes Report</b>
+                </a>
+            </div>
+            <div id="collapseThree" class="collapse" data-parent="#accordion">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Recipe</th>
+                            <th scope="col">Date Deleted</th>
+                            <th scope="col">Deleted By</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for recipe in deleted %}
+                        <tr>
+                            <th scope="row"><a href="{{url_for('recipe_display', recipe_id=recipe._id)}}">{{ recipe.recipe_name }}</a></th>
+                            <td>{{ recipe.added }}</td>
+                            <td>{{ recipe.deleted_by.username }}</td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 {% endblock %}

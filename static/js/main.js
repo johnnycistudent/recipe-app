@@ -7,7 +7,7 @@ $(document).ready(function() {
 	$('#new-ingredient').on('click', function() {
 		$('<div class="input-group add-on ingredient-block" id="ingredient-block"><input type="text" class="form-control ingredient" name="ingredients" id="ingredients" placeholder="Add New Ingredient"><div class="input-group-append"><button type="button" class="btn btn-danger delete-ingredient-button">Delete</button></div>').insertBefore('#new-ingredient');
 	});
-	
+
 	/* -- Deletes an ingredient input field in form on Edit Recipe/Add Recipe page --*/
 	$('.delete-ingredient-button').on('click', function() {
 		$(this).closest('.ingredient-block').remove();
@@ -22,6 +22,20 @@ $(document).ready(function() {
 	/* -- Deletes "Tag" input field in form on Edit Recipe/Add Recipe page --*/
 	$('.delete-tag-button').on('click', function() {
 		$(this).closest('.tag-block').remove();
+	});
+
+	$(function() {
+		$(".expand").on("click", function() {
+			// $(this).next().slideToggle(200);
+			$expand = $(this).find(">:first-child");
+
+			if ($expand.text() == "+") {
+				$expand.text("-");
+			}
+			else {
+				$expand.text("+");
+			}
+		});
 	});
 
 });
