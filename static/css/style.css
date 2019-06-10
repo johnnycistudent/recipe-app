@@ -127,10 +127,6 @@ h6 {
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
-.card-details-wrapper{
-    
-}
-
 .card-details {
     padding-left: 5px;
     padding-right: 5px;
@@ -209,7 +205,7 @@ h6 {
 }
 
 
-/* -- Edit Recipe page -- */
+/* -- Edit/Add Recipe page -- */
 
 .input-group {
     padding-bottom: 2px;
@@ -220,6 +216,11 @@ h6 {
     color: white;
     cursor: pointer;
 }
+
+.form-headings {
+    text-align: left!important;
+}
+
 
 /* -- Login/Register page -- */
 

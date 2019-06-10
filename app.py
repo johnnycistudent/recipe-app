@@ -125,7 +125,9 @@ def insert_recipe():
         'instructions':request.form.get('instructions'),
         'tags':request.form.getlist('tags'),
         'added_on' : datetime.datetime.utcnow(), 
-        'author' : user
+        'author' : {
+            '_id': user['_id'],
+            'username': user['username']}
     })
     
     flash('Recipe Added.')
@@ -148,7 +150,10 @@ def delete_recipe(recipe_id):
         deleted.update_one({'_id': ObjectId(recipe_id)}, 
                                                 {"$set" :
                                                     {"deleted_on" : datetime.datetime.utcnow(), 
-                                                    "deleted_by" : user}})
+                                                    "deleted_by" : {
+                                                                '_id': user['_id'],
+                                                                'username': user['username']}}
+                                                })
         
         recipes.remove({'_id': ObjectId(recipe_id)})
         

@@ -12,7 +12,10 @@
                         <input type="text" class="form-control" name="recipe_name" id="recipe_name" placeholder="Add Recipe Name Here">
                     </div>
                     <div class="form-group">
-                        <label for="photo_url"><h5>Recipe Image URL</h5></label>
+                        <label for="photo_url">
+                            <h5 class="form-headings">Recipe Image URL</h5>
+                            <small class="form-text text-muted"><em>Copy the link of an image and paste it below.</em></small>    
+                        </label>
                         <input type="text" class="form-control" name="photo_url" id="photo_url" placeholder="Add Photo URL Here">
                     </div>
                     <div class="form-group">
@@ -70,9 +73,15 @@
                         <textarea class="form-control" id="instructions" rows="8" name="instructions" placeholder="Add Instructions Here"></textarea>
                     </div>
                     <div class="input-group">
-                        <label for="tags"><h5>Tags</h5></label> 
+                        <label for="tags">
+                            <h5 class="form-headings">Tags</h5>
+                            <small class="form-text text-muted"><em>Add Tags to make your recipe easier to search.</em></small>
+                        </label> 
+                        
+                            <!--<div class="text-muted form-descriptor">Add a "Tag" term/s to make your recipe easier to search</div>-->
                         <div class="input-group add-on tag-block">
                             <input type="text" class="form-control" name="tags" placeholder="Add Tag Here">
+                            
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-danger delete-tag-button">Delete</button>
                             </div>
@@ -80,6 +89,7 @@
                         
                         <button type="button" class="btn btn-info btn-sm new-tag-button">Add New Tag +</button>
                     </div>
+                    
                     <div class="form-buttons">
                         <button type="submit" class="btn btn-primary" name="action">Submit</button>
                         <a role="button" class="btn btn-danger" onclick="history.go(-1)">Cancel</a>

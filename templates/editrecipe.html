@@ -15,7 +15,10 @@
                         <input type="text" class="form-control" name="recipe_name" id="recipe_name" value="{{ recipe.recipe_name|title }}">
                     </div>
                     <div class="form-group">
-                        <label for="photo_url"><h5>Recipe Image URL</h5></label>
+                        <label for="photo_url">
+                            <h5 class="form-headings">Recipe Image URL</h5>
+                            <small class="form-text text-muted"><em>Copy the link of an image and paste it below.</em></small>    
+                        </label>
                         <input type="text" class="form-control" name="photo_url" id="photo_url" value="{{ recipe.photo_url }}">
                     </div>
                     <div class="form-group">
@@ -75,7 +78,10 @@
                         <textarea class="form-control" id="instructions" rows="8" name="instructions" value="{{ recipe.instructions }}">{{ recipe.instructions }}</textarea>
                     </div>
                         <div class="input-group">
-                            <label for="tags"><h5>Tags</h5></label>
+                            <label for="tags">
+                                <h5 class="form-headings">Tags</h5>
+                                <small class="form-text text-muted"><em>Add Tags to make your recipe easier to search.</em></small>
+                            </label> 
                             {% for tag in recipe.tags %}
                             <div class="input-group add-on tag-block">
                                 <input type="text" class="form-control" name="tags" value="{{ tag|title }}">
