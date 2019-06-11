@@ -166,6 +166,11 @@ h6 {
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
+.recipe-stats {
+    color:#ff4f87;
+    font-weight: bold;
+}
+
 .recipe-buttons {
     padding-top: 5px;
     padding-bottom: 5px;
