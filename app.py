@@ -37,7 +37,7 @@ def get_recipes():
     
 @app.route('/search')
 def search():
-    p_limit = 9
+    p_limit = 6
     current_page = int(request.args.get('current_page', 1))
     
     word_search = request.args.get('word_search')
