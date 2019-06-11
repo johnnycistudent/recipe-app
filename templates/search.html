@@ -63,10 +63,8 @@
         <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
             <ul class="pagination justify-content-center">
 
-                <li class="page-item">
-
-                    <a class="page-link" href="#" tabindex="-1" href="{{prev_url}}">Previous</a>
-
+                <li {% if current_page|int == 1 %} class="d-none" {% else %} class="page-item"{% endif %}>
+                    <a class="page-link" {% if current_page|int > 1 %} href="{{ url_for('search', word_search=word_search, current_page=current_page|int -1 ) }}" {% endif %}tabindex="-1">Previous</a>
                 </li>
 
                 {% for page_number in results_pages %} {% if page_number == current_page %}
@@ -76,10 +74,8 @@
                 {% endif %} {% endfor %}
 
 
-                <li class="page-item">
-
-                    <a class="page-link" href="{{next_url}}">Next</a>
-
+                <li {% if current_page|int >= total_page_no|int %} class="d-none"  {% else %}  class="page-item" {% endif %}>
+                    <a class="page-link" {% if current_page|int < total_page_no|int %} href="{{ url_for('search', word_search=word_search, current_page=current_page|int +1 ) }}" {% endif %}>Next</a>
                 </li>
 
             </ul>

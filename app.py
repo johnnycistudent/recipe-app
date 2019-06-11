@@ -25,13 +25,14 @@ def get_recipes():
     
     
     # # Results per page
-    p_limit = 9
+    p_limit = 6
     current_page = int(request.args.get('current_page', 1))
     collection = mongo.db.recipes.count()
-    pages = range(1, int(round(collection / p_limit)) + 1)
+    pages = range(1, int(math.ceil(collection / p_limit)) + 1)
+    total_page_no = int(math.ceil(collection/p_limit))
     recipes = mongo.db.recipes.find().skip((current_page -1)*p_limit).limit(p_limit)
     
-    return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages)
+    return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages, total_page_no=total_page_no)
     
     
 @app.route('/search')
@@ -43,13 +44,15 @@ def search():
     results = mongo.db.recipes.find({'$text': {'$search': str(word_search) }}).sort('_id', pymongo.ASCENDING).skip((current_page -1)*p_limit).limit(p_limit)
     results_count = mongo.db.recipes.find({'$text': {'$search': str(word_search) }}).count()
     results_pages = range(1, int(math.ceil(results_count / p_limit)) + 1)
+    total_page_no = int(math.ceil(results_count/p_limit))
     
     return render_template("search.html", 
                             current_page=current_page, 
                             results_count=results_count,
                             word_search=word_search,
                             results=results,
-                            results_pages=results_pages)    
+                            results_pages=results_pages,
+                            total_page_no=total_page_no)    
     
     
 @app.route('/recipe_display/<recipe_id>')
@@ -138,8 +141,6 @@ def insert_recipe():
 def delete_recipe(recipe_id):
     
     if 'user' in session:
-        
-        
         
         user = users.find_one({"username": session['user']})
     

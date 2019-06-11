@@ -32,13 +32,17 @@ My project began with the wireframes in the links below.
 
 ### Features Left to Implement
 
+  * Improve UX - make more clear
+  * Implement Admin Features  
+  * Tidy up Front End
+  * Fix bugs
   * Add comments to code. 
   * Finish README
 
 ## Technologies Used
 * [HTML](https://www.w3schools.com/html/html5_intro.asp) - [CSS](https://www.w3schools.com/css/) - [Javascript](https://www.w3schools.com/js/)
 
-    This website is written using HTML, SCSS and Javascript.
+    This website is written using HTML, CSS and Javascript.
 
 * [Cloud9](https://c9.io/login)
 
