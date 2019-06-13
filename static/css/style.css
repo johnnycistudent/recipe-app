@@ -311,14 +311,29 @@ h6 {
     /*background-size: cover;*/
 }
 
+.heading-container {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
 .intro-heading {
     color: #fff;
     font-family: 'Roboto Slab', serif;
     text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);
 }
 
+.intro-subheading {
+    text-transform: capitalize;
+    color: #fff;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.3rem;
+    text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);
+}
+
 .intro-icon {
     font-size: 7em;
+    padding-top: 5px;
 }
 
 /* -- Search features -- */

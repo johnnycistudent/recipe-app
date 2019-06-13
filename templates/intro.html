@@ -1,10 +1,11 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="intro-container img-responsive">
+<div class="intro-container img-responsive container-fluid">
     
     <div class="heading-container">
     
         <h1 class="intro-heading">Welcome to Recipe Book</h1>
+        <h3 class="intro-subheading">Your Online cook book for browsing, storing and creating recipes</h3>
 
     </div>
 
@@ -21,14 +22,14 @@
             <a href="{{url_for('login')}}" class="btn btn-pink btn-sq-lg ">
                 <i class="fas fa-sign-in-alt fa-5x intro-icon"></i><br/>
                  
-                <span style="line-height: 46px; font-size: 14px;">
+                <span style="line-height: 38px; font-size: 14px;">
                     Sign In 
                 </span>
             </a>
             
             <a href="{{url_for('register')}}" class="btn btn-sq-lg btn-details">
                   <i class="fas fa-user-plus fa-5x intro-icon"></i><br/>
-                <span style="line-height: 46px; font-size: 14px;">
+                <span style="line-height: 38px; font-size: 14px;">
                     Create Account
                 </span>
             </a>
