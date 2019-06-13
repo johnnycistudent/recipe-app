@@ -10,7 +10,7 @@
     <!--Bootstrap 4.1.3 CSS CDN Link-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Google Fonts Link -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700|Roboto+Slab" rel="stylesheet">
     <!-- Stylesheets -->
     <!--Bootswatch Sandstone Link -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}" type="text/css" />
@@ -37,7 +37,7 @@
                 </li>
                 {% if session.user %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('profile', user=session.user)}}">My Favourites</a>
+                    <a class="nav-link" href="{{url_for('my_favourites', user=session.user)}}">My Favourites</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('add_recipe')}}">Add Recipe</a>
@@ -91,7 +91,7 @@
 
     {% block content %} {% endblock %}
 
-    <footer class="d-flex mt-auto">
+    <footer class="footer d-flex mt-auto">
         <div class="container-fluid text-center ">
             <div class="text-center center-block ">
                 <br />

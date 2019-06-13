@@ -6,11 +6,8 @@
     
     <h3>My Favourite Recipes</h3>
     
-    <div class="row">
-        <div class="text-center">
-            <h6>You have {{ user.favourite_recipes|length }} recipes in your favourites</h6>
-        </div>
-    </div>
+    <h6>You currently have {{ user.favourite_recipes|length }} {% if user.favourite_recipes|length == 1 %}recipe {% else %} recipes {% endif %} in your Favourites </h6>
+    
     
     <div class="row">
         {% for favourite in user.favourite_recipes %}
@@ -41,8 +38,8 @@
                     
                     <hr>
 
-                    <a href="{{ url_for('recipe_display', recipe_id=favourite._id) }}" class="btn btn-primary">View Full Recipe</a>
-                    <a role="button" href="{{ url_for('remove_from_favourites', recipe_id=favourite._id, user=user['username']) }}" class="btn btn-danger">Remove from Favourites</a>
+                    <a href="{{ url_for('recipe_display', recipe_id=favourite._id) }}" class="btn btn-main">View Full Recipe</a>
+                    <a role="button" href="{{ url_for('remove_from_favourites', recipe_id=favourite._id, user=user['username']) }}" class="btn btn-delete">Remove from Favourites</a>
                 </div>
             </div>
         </div>

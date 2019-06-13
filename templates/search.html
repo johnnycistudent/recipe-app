@@ -7,14 +7,14 @@
             <form class="recipe-search input-group" action="{{ url_for('search', word_search=word_search, current_page=current_page) }}">
                 <input type="text" class="form-control" placeholder="Search Recipes" id="word_search" name="word_search">
                 <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit" name="action"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-details" type="submit" name="action"><i class="fa fa-search"></i></button>
                 </div>
             </form>
         </div>
     </div>
 
     <div class="search-results text-center">
-        <h6>Your search for <em>"{{ word_search }}"</em> produced {{ results_count }} search results</h6>
+        <h6>Your search for <em>" <span class="recipe-stats">{{ word_search }}</span> "</em> produced <span class="recipe-stats">{{ results_count }}</span> search results</h6>
     </div>
 
     <hr>
@@ -48,7 +48,7 @@
                     
                     <hr>
 
-                    <a href="{{ url_for('recipe_display', recipe_id=result._id) }}" class="btn btn-primary">View Full Recipe</a>
+                    <a href="{{ url_for('recipe_display', recipe_id=result._id) }}" class="btn btn-main">View Full Recipe</a>
                 </div>
             </div>
         </div>

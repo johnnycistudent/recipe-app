@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2">
             <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
-                <button type="button" class="btn btn-info btn-lg" onclick="history.go(-1)">Back to Recipe</button>
+                <button type="button" class="btn btn-details btn-lg" onclick="history.go(-1)">Back to Recipe</button>
                 <fieldset>
                     <h2>Edit Recipe</h2>
                     <div class="form-group">
@@ -67,11 +67,11 @@
                         <div class="input-group add-on ingredient-block" id="ingredient-block">
                             <input type="text" class="form-control ingredient" name="ingredients" id="ingredients" value="{{ ingredient }}"> 
                             <div class="input-group-append">
-                                <button type="button" class="btn btn-danger delete-ingredient-button">Delete</button>
+                                <button type="button" class="btn btn-delete delete-ingredient-button">Delete</button>
                             </div>
                         </div>
                         {% endfor %}
-                        <button type="button" id="new-ingredient" class="btn btn-info btn-sm">Add New Ingredient +</button>
+                        <button type="button" id="new-ingredient" class="btn btn-details btn-sm">Add New Ingredient +</button>
                     </div>
                     <div class="form-group">
                         <label for="instructions"><h5>Instructions</h5></label>
@@ -86,15 +86,15 @@
                             <div class="input-group add-on tag-block">
                                 <input type="text" class="form-control" name="tags" value="{{ tag|title }}">
                                 <div class="input-group-append" >
-                                    <button type="button" class="btn btn-danger delete-tag-button">Delete</button>
+                                    <button type="button" class="btn btn-delete delete-tag-button">Delete</button>
                                 </div>
                             </div>
                             {% endfor %}
-                            <button type="button" class="btn btn-info btn-sm new-tag-button">Add New Tag +</button>
+                            <button type="button" class="btn btn-details btn-sm new-tag-button">Add New Tag +</button>
                         </div>
                         <div class="form-buttons">
-                            <button type="submit" class="btn btn-primary" name="action">Submit</button>
-                            <a role="button" class="btn btn-danger" onclick="history.go(-1)">Cancel</a>
+                            <button type="submit" class="btn btn-main" name="action">Submit</button>
+                            <a role="button" class="btn btn-delete" onclick="history.go(-1)">Cancel</a>
                         </div>
 
                     

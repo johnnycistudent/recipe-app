@@ -7,7 +7,7 @@
             <form class="recipe-search input-group" action="{{ url_for('search', word_search=word_search, current_page=current_page) }}">
                 <input type="text" class="form-control" placeholder="Search Recipes" id="word_search" name="word_search">
                 <div class="input-group-append">
-                    <button class="btn btn-info" type="submit" name="action"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-details" type="submit" name="action"><i class="fa fa-search"></i></button>
                 </div>
             </form>
         </div>
@@ -44,17 +44,8 @@
                     </div>
                     
                     <hr>
-                    <!--<ul class="list-group list-group-horizontal">-->
-                    <!--    <li class="list-group-item"><i class="fas fa-utensils"></i> Servings: {{recipe.servings}}</li>-->
-                    <!--    <li class="list-group-item"><i class="far fa-clock"></i> Preptime: {{recipe.preptime}}</li>-->
-                    <!--    <br>-->
-                        <!--<li class="list-group-item">-->
-                        <!--    {% for tag in recipe.tags%}-->
-                        <!--    <span style="capitalize!important">({{ tag|title }})</span>-->
-                        <!--    {% endfor %}-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                    <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}" class="btn btn-primary modal-trigger">View Full Recipe</a>
+                    
+                    <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}" class="btn btn-main modal-trigger">View Full Recipe</a>
                 </div>
             </div>
         </div>

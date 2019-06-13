@@ -208,7 +208,7 @@ def remove_from_favourites(recipe_id):
                                                             {"$pull" :
                                                                 {"favourite_recipes" : remove_recipe}})
             flash('Removed from Favourites.')
-            return redirect(url_for('profile', user=user['username'], recipe_id=recipe_id))
+            return redirect(url_for('my_favourites', user=user['username'], recipe_id=recipe_id))
             
                                                         
     else:
@@ -224,9 +224,9 @@ def login():
     if 'user' in session:
         user_in_db = users.find_one({"username": session['user']})
         if user_in_db:
-            # If so redirect user to his profile
+            # If so redirect user to their "My Favourites" page
             flash("You are logged in already!")
-            return redirect(url_for('profile', user=user_in_db['username']))
+            return redirect(url_for('my_favourites', user=user_in_db['username']))
     else:
         # Render the page for user to be able to log in
         return render_template("login.html")
@@ -248,7 +248,7 @@ def user_auth():
                 return redirect(url_for('admin'))
             else:
                 flash("You were logged in!")
-                return redirect(url_for('profile', user=user_in_db['username']))
+                return redirect(url_for('my_favourites', user=user_in_db['username']))
 
         else:
             flash("Wrong password or user name!")
@@ -292,7 +292,7 @@ def register():
                 if user_in_db:
                     # Log user in (add to session)
                     session['user'] = user_in_db['username']
-                    return redirect(url_for('profile', user=user_in_db['username']))
+                    return redirect(url_for('my_favourites', user=user_in_db['username']))
                 else:
                     flash("There was a problem saving your profile")
                     return redirect(url_for('register'))
@@ -314,16 +314,16 @@ def logout():
     
     
     
-# Profile Page - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
-@app.route('/profile/<user>')
-def profile(user):
+# My Favourites Page - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
+@app.route('/my_favourites/<user>')
+def my_favourites(user):
     # Check if user is logged in
     if 'user' in session:
         # If so get the user and pass him to template for now
         user_in_db = users.find_one({"username": user})
         favourites = mongo.db.users.find(user_in_db)
         
-        return render_template('profile.html', user=user_in_db, favourites=favourites)
+        return render_template('my_favourites.html', user=user_in_db, favourites=favourites)
     else:
         flash("You must be logged in!")
         return redirect(url_for('get_recipes'))
