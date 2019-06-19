@@ -35,9 +35,10 @@ h6 {
 }
 
 .btn-sq-lg {
-  width: 150px !important;
-  height: 150px !important;
-  padding-top: 15px;
+    width: 150px !important;
+    height: 150px !important;
+    padding-top: 15px;
+    border-radius: 0.5rem;
 }
 
 .btn-pink.active {
@@ -528,6 +529,10 @@ h6 {
 .accordion .card-header.collapsed:after {
     /* symbol for "collapsed" panels */
     content: "\f067";
+}
+
+.table th, .table td {
+    font-size: small;
 }
 
 

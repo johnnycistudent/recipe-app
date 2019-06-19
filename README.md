@@ -152,6 +152,6 @@ This website was designed by John O'Connor.
   * [Stack Overflow](https://stackoverflow.com/), [W3Schools](https://www.w3schools.com/) and [Slack](https://slack.com/) were very useful when coming up against problems that many other people had also encountered.
   * The Social Media links in the footer were taken and edited from [this link at Bootsnipp.com](https://bootsnipp.com/snippets/84kpo)
   * The code for the User Login, Registration, User Authentication, Profile and Admin Pages functions were all taken and modified from Miroslav Svec's (username Miro) sessions from the Slack channel Data-Centric-Dev. 
-  * The large button group for the Intro page was taken from Bootsnipp from the following link [https://bootsnipp.com/snippets/GqBjl](https://bootsnipp.com/snippets/GqBjl)
+  * The large button group for the Intro page was taken from Bootsnipp from the following link [https://bootsnipp.com/snippets/GqBjl](https://bootsnipp.com/snippets/GqBjl) and the button styling was made with a button generator at [http://blog.koalite.com/bbg/](http://blog.koalite.com/bbg/)
   * 
 

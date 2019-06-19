@@ -1,24 +1,24 @@
 {% extends 'base.html' %} {% block content %}
 
+
 <div class="container-fluid">
 
-    <div class="row">
-        <div class="col-12 col-sm-8 offset-sm-2">
-            <form class="recipe-search input-group" action="{{ url_for('search', word_search=word_search, current_page=current_page) }}">
-                <input type="text" class="form-control" placeholder="Search Recipes" id="word_search" name="word_search">
-                <div class="input-group-append">
-                    <button class="btn btn-details" type="submit" name="action"><i class="fa fa-search"></i></button>
-                </div>
-            </form>
-        </div>
-    </div>
+    {% for current_user in users_profile%}
     
+    <h2>{{ current_user.username|title }}'s Recipes</h2>
+    
+    <h6>You have created {{ users_recipes_count }} {% if users_recipes_count == 1 %}recipe {% else %} recipes {% endif %}</h6>
+
+    
+    {% endfor %}
     
     <hr>
-
+    
     <div class="row">
-        {% for recipe in recipes %}
-        <div class="col-sm-12 col-md-6 col-lg-4">
+    {% for recipe in users_recipes %}
+    
+    
+    <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="card text-center">
                 <div class="card-body text-center">
                     <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}">
@@ -55,36 +55,46 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
-        
-        <hr>
-        
+    {% endfor %}
+    </div>
+    
+    
+    
+    
+
+    
+    
+    
+    
+    <hr>
+
         <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
         <ul class="pagination justify-content-center">
 
             <li {% if current_page|int == 1 %} class="d-none" {% else %} class="page-item"{% endif %}>
 
-                <a class="page-link" {% if current_page|int > 1 %} href="{{ url_for('get_recipes', current_page=current_page|int -1 ) }}" {% endif %}tabindex="-1">Previous</a>
+                <a class="page-link" {% if current_page|int > 1 %} href="{{ url_for('profile', user=user, current_page=current_page|int -1 ) }}" {% endif %}tabindex="-1">Previous</a>
 
             </li>
 
             {% for page_number in pages %} {% if page_number == current_page %}
             <li class="page-item active"><a class="page-link">{{ page_number }}</a></li>
             {% else %}
-            <li class="page-item"><a class="page-link" href="{{ url_for('get_recipes', current_page=page_number) }}">{{ page_number }}</a></li>
+            <li class="page-item"><a class="page-link" href="{{ url_for('profile', user=user, current_page=page_number) }}">{{ page_number }}</a></li>
             {% endif %} {% endfor %}
 
 
             <li {% if current_page|int >= total_page_no|int %} class="d-none"  {% else %}  class="page-item" {% endif %}>
 
-                <a class="page-link" {% if current_page|int < total_page_no|int %} href="{{ url_for('get_recipes', current_page=current_page|int +1 ) }}" {% endif %}>Next</a>
+                <a class="page-link" {% if current_page|int < total_page_no|int %} href="{{ url_for('profile', user=user, current_page=current_page|int +1 ) }}" {% endif %}>Next</a>
 
             </li>
 
         </ul>
-    </nav>
-    
-    </div>
+        </nav>
     
 </div>
+
+
+
 {% endblock %}

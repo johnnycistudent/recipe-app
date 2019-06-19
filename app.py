@@ -312,7 +312,31 @@ def logout():
     return redirect(url_for('get_recipes'))
     
     
+@app.route('/profile/<user>')
+def profile(user):
     
+    
+    
+    users_profile = users.find({'username': user})
+    # users_recipes = recipes.find({'author.username': user})
+    
+    
+    # # Results per page
+    p_limit = 6
+    current_page = int(request.args.get('current_page', 1))
+    users_recipes_count = recipes.find({'author.username': user}).count()
+    pages = range(1, int(math.ceil(users_recipes_count / p_limit)) + 1)
+    total_page_no = int(math.ceil(users_recipes_count/p_limit))
+    users_recipes = recipes.find({'author.username': user}).skip((current_page -1)*p_limit).limit(p_limit)
+
+    
+    return render_template('profile.html', user=user, 
+                                           users_profile=users_profile, 
+                                           users_recipes=users_recipes,
+                                           users_recipes_count=users_recipes_count,
+                                           current_page=current_page, pages=pages, total_page_no=total_page_no)
+
+
     
 # My Favourites Page - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/my_favourites/<user>')
@@ -340,6 +364,8 @@ def admin():
             users = mongo.db.users.find()
             recipes = mongo.db.recipes.find()
             deleted = mongo.db.deleted.find()
+            
+            
             
             return render_template('admin.html', users=users, recipes=recipes, deleted=deleted)
         else:
