@@ -14,7 +14,7 @@
     </div>
 
     <div class="search-results text-center">
-        <h6>Your search for <em>" <span class="recipe-stats">{{ word_search }}</span> "</em> produced <span class="recipe-stats">{{ results_count }}</span> search results</h6>
+        <h6>Your search for <em>" <span class="recipe-stats">{{ word_search }}</span> " </em> produced <span class="recipe-stats">{{ results_count }}</span> search results</h6>
     </div>
 
     <hr>
@@ -65,32 +65,31 @@
         <h4>Try search again!</h4>
 
         {% endif %}
+       
+       
+    </div>    
         
-        <hr>
+    <hr>
 
-        <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
-            <ul class="pagination justify-content-center">
+    <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
+        <ul class="pagination justify-content-center">
 
-                <li {% if current_page|int == 1 %} class="d-none" {% else %} class="page-item"{% endif %}>
-                    <a class="page-link" {% if current_page|int > 1 %} href="{{ url_for('search', word_search=word_search, current_page=current_page|int -1 ) }}" {% endif %}tabindex="-1">Previous</a>
-                </li>
+            <li {% if current_page|int == 1 %} class="d-none" {% else %} class="page-item"{% endif %}>
+                <a class="page-link" {% if current_page|int > 1 %} href="{{ url_for('search', word_search=word_search, current_page=current_page|int -1 ) }}" {% endif %}tabindex="-1">Previous</a>
+            </li>
 
-                {% for page_number in results_pages %} {% if page_number == current_page %}
-                <li class="page-item active"><a class="page-link">{{ page_number }}</a></li>
-                {% else %}
-                <li class="page-item"><a class="page-link" href="{{ url_for('search', word_search=word_search, current_page=page_number) }}">{{ page_number }}</a></li>
-                {% endif %} {% endfor %}
-
-
-                <li {% if current_page|int >= total_page_no|int %} class="d-none"  {% else %}  class="page-item" {% endif %}>
-                    <a class="page-link" {% if current_page|int < total_page_no|int %} href="{{ url_for('search', word_search=word_search, current_page=current_page|int +1 ) }}" {% endif %}>Next</a>
-                </li>
-
-            </ul>
-        </nav>
-
-    </div>
+            {% for page_number in results_pages %} {% if page_number == current_page %}
+            <li class="page-item active"><a class="page-link">{{ page_number }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('search', word_search=word_search, current_page=page_number) }}">{{ page_number }}</a></li>
+            {% endif %} {% endfor %}
 
 
+            <li {% if current_page|int >= total_page_no|int %} class="d-none"  {% else %}  class="page-item" {% endif %}>
+                <a class="page-link" {% if current_page|int < total_page_no|int %} href="{{ url_for('search', word_search=word_search, current_page=current_page|int +1 ) }}" {% endif %}>Next</a>
+            </li>
+
+        </ul>
+    </nav>
 
 {% endblock %}

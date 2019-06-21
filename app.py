@@ -32,7 +32,23 @@ def get_recipes():
     total_page_no = int(math.ceil(collection/p_limit))
     recipes = mongo.db.recipes.find().skip((current_page -1)*p_limit).limit(p_limit)
     
-    return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages, total_page_no=total_page_no)
+    
+    # # Most Liked/Favourited Recipes
+    recommended = users.aggregate( [ 
+          { "$unwind": "$favourite_recipes" },
+          {"$group": {"_id": {"link": "$favourite_recipes._id",
+                              "recipe_name": "$favourite_recipes.recipe_name",
+                              "photo_url": "$favourite_recipes.photo_url",
+                              "servings": "$favourite_recipes.servings",
+                              "preptime": "$favourite_recipes.preptime",
+                              "calories": "$favourite_recipes.calories"
+          }, "number": {"$sum": 1}}},
+          { "$sort": { "number" : -1 } },
+          { "$limit" : 3 }
+          ] )
+    
+    
+    return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages, total_page_no=total_page_no, recommended=recommended)
     
     
 @app.route('/search')
@@ -189,13 +205,13 @@ def add_to_favourites(recipe_id):
         return redirect(url_for('get_recipes'))
     
     
-    flash('Added to Favourites.')
+    flash('Added to My Favourites.')
     return redirect(url_for('recipe_display', user=user['username'], recipe_id=recipe_id))
 
 @app.route('/remove_from_favourites/<recipe_id>', methods=["GET", "POST"])
 def remove_from_favourites(recipe_id):
     
-    if 'user' in session:
+    
         user = users.find_one({"username": session['user']})
         favourites = user['favourite_recipes']
         
@@ -207,13 +223,13 @@ def remove_from_favourites(recipe_id):
             users.update_one({"username": session['user']}, 
                                                             {"$pull" :
                                                                 {"favourite_recipes" : remove_recipe}})
-            flash('Removed from Favourites.')
+            flash('Removed from My Favourites.')
             return redirect(url_for('my_favourites', user=user['username'], recipe_id=recipe_id))
             
                                                         
-    else:
-        flash("You must be logged in to Edit, Save or Delete a recipe!")
-        return redirect(url_for('get_recipes'))
+    # else:
+    #     flash("You must be logged in to Edit, Save or Delete a recipe!")
+    #     return redirect(url_for('get_recipes'))
         
     
     
@@ -318,8 +334,6 @@ def profile(user):
     
     
     users_profile = users.find({'username': user})
-    # users_recipes = recipes.find({'author.username': user})
-    
     
     # # Results per page
     p_limit = 6
@@ -364,6 +378,8 @@ def admin():
             users = mongo.db.users.find()
             recipes = mongo.db.recipes.find()
             deleted = mongo.db.deleted.find()
+            
+            
             
             
             

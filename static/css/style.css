@@ -344,6 +344,13 @@ h6 {
 }
 
 
+/* -- Featured section -- */
+
+.featured {
+    background-color: #ffb6c1;
+}
+
+
 /* -- Recipe Card Display -- */
 
 .card {

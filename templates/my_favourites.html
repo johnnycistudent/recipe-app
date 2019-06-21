@@ -3,12 +3,21 @@
 <div class="container-fluid">
 
     <h2> Welcome {{ user.username|title }} </h2>
-    
+
     <h3>My Favourite Recipes</h3>
-    
+
     <h6>You currently have {{ user.favourite_recipes|length }} {% if user.favourite_recipes|length == 1 %}recipe {% else %} recipes {% endif %} in your Favourites </h6>
-    
-    
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <p>Want to add {% if user.favourite_recipes|length >= 1 %} more {% else %} some {% endif %} recipes to your favourites?</p>
+            <a role="button" class="btn btn-details" href="{{url_for('get_recipes')}}">Browse Recipes</a>
+        </div>
+    </div>
+
+    <hr>
+
+
     <div class="row">
         {% for favourite in user.favourite_recipes %}
         <div class="col-sm-12 col-md-6 col-lg-4">
@@ -17,7 +26,7 @@
                     <a href="{{ url_for('recipe_display', recipe_id=favourite._id) }}"><img src="{{favourite.photo_url}}" class="card-img-top" alt="{{ favourite.recipe_name }}"></a>
                     <h4 class="card-title">{{ favourite.recipe_name|title }}</h4>
                     <hr>
-                    
+
                     <div class="row card-details-wrapper">
                         <div class="card-details col-6 ">
                             <span class="recipe-icon"><i class="fas fa-user fa-2x"></i></span>
@@ -25,17 +34,17 @@
                             <span class="recipe-variable">Servings</span>
                         </div>
                         <div class="card-details col-6 ">
-                            <span class="recipe-icon"><i class="fas fa-clock fa-2x"></i></span> 
-                            <span class="recipe-input">{{ favourite.preptime }}</span> 
+                            <span class="recipe-icon"><i class="fas fa-clock fa-2x"></i></span>
+                            <span class="recipe-input">{{ favourite.preptime }}</span>
                             <span class="recipe-variable">Minutes</span>
                         </div>
                         <div class="card-details col-6 offset-3 ">
-                            <span class="recipe-icon"><i class="fas fa-burn fa-2x"></i></span> 
-                            <span class="recipe-input">{{ favourite.calories }}</span> 
+                            <span class="recipe-icon"><i class="fas fa-burn fa-2x"></i></span>
+                            <span class="recipe-input">{{ favourite.calories }}</span>
                             <span class="recipe-variable">Calories</span>
                         </div>
                     </div>
-                    
+
                     <hr>
 
                     <a href="{{ url_for('recipe_display', recipe_id=favourite._id) }}" class="btn btn-main">View Full Recipe</a>
@@ -45,7 +54,9 @@
         </div>
         {% endfor %}
     </div>
-    
+
+    <hr>
+
 </div>
 
 {% endblock %}
