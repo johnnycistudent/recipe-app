@@ -174,6 +174,10 @@ def delete_recipe(recipe_id):
         
         recipes.remove({'_id': ObjectId(recipe_id)})
         
+        users.update({}, 
+                    {"$pull": {"favourite_recipes": {'_id': ObjectId(recipe_id)}}},
+                    multi=True)
+        
     else:
         flash("You must be logged in to Edit, Save or Delete a recipe!")
         return redirect(url_for('get_recipes'))
