@@ -1,6 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container-fluid">
+    
+    <!-- SEARCH BOX -->
 
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2">
@@ -10,22 +12,27 @@
                     <button class="btn btn-details" type="submit" name="action"><i class="fa fa-search"></i></button>
                 </div>
             </form>
-            <small class="form-text text-muted"><em>Enter a search term to search the recipe database - eg Desert</em></small>
+            <small class="form-text text-muted text-center" style="margin-bottom: 5px"><em>Enter a search term to search the recipe database - eg Dessert</em></small>
         </div>
     </div>
     
-    <hr>
+    <!-- /SEARCH BOX -->
     
-    <div class="row featured">
+    <!-- FEATURED SECTION -->
+    
+    <!--If statement hides the "Featured" recipes when the user navigates to a page other than the first page of the Show all section -->
+    <div {% if current_page|int == 1 %} class="row featured" {% else %} class="d-none" {% endif %}>
         
-    <div class="col-12">
-        <h3><em>Featured Recipes</em></h3>
-        <h5>Try one of the current top 3 recipes favourited by our Users below</h5>
-    </div>
+        <div class="featured-header col-12 text-center">
+            <h3><em>Featured Recipes</em></h3>
+            
+            <h5>Try one of the current top 3 recipes favourited by our Users</h5>
+            <input type="button" class="btn btn-primary btn-sm toggle-featured" value="Hide Featured">
+        </div>
     
     {% for favourite in recommended%}
     
-        <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="col-sm-12 col-md-6 col-lg-4 featured-card">
             <div class="card text-center">
                 <div class="card-body text-center">
                     <a href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}">
@@ -65,11 +72,18 @@
     {% endfor %}
     </div>
     
+    <!-- /FEATURED SECTION -->
+    
+    
     <hr>
-
+    
+    <!-- BROWSE ALL RECIPES SECTION -->
+    <h3><em>Browse All Recipes</em></h3>
     <div class="row">
+        
         {% for recipe in recipes %}
         <div class="col-sm-12 col-md-6 col-lg-4">
+            
             <div class="card text-center">
                 <div class="card-body text-center">
                     <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}">
@@ -108,11 +122,15 @@
         </div>
         {% endfor %}
         
-    </div>    
+    </div>   
+    
+    <!-- BROWSE ALL RECIPES SECTION -->
         
         <hr>
         
-        <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
+        <!-- PAGINATION CONTROLS -->
+        
+        <!--<nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">-->
             
         <ul class="pagination justify-content-center">
 
@@ -136,7 +154,9 @@
             </li>
 
         </ul>
-    </nav>
+    <!--</nav>-->
+    
+    <!-- /PAGINATION CONTROLS -->
     
     
     

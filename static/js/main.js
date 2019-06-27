@@ -1,7 +1,12 @@
 $(document).ready(function() {
 	flashed_messages();
 
-
+	$(".toggle-featured").click(function(){
+    	$(".featured-card").toggle(300);
+    	$(this).val( $(this).val() == "Hide Featured" ? "Show Featured" : "Hide Featured" );
+	});
+	
+	
 	/* -- Adds a new "Ingredient" input field in form on Edit Recipe/Add Recipe page --*/
 
 	$('#new-ingredient').on('click', function() {

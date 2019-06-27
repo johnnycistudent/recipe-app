@@ -1,5 +1,10 @@
+@import url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
+
 body {
     font-family: "Roboto", sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 footer {
@@ -7,8 +12,8 @@ footer {
     background-color: #3E3F3A;
     color: #adb5bd;
     /*position: fixed;*/
-    /*bottom: 0;*/
-    /*width: 100%;*/
+    bottom: 0;
+    width: 100%;
 }
 
 h1,
@@ -25,6 +30,17 @@ h6 {
     text-align: center;
     font-weight: 700;
 }
+
+.empty-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.page-heading {
+    margin-top: 15px;
+}
+    
 
 .form-control {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
@@ -341,6 +357,7 @@ h6 {
 
 .recipe-search {
     margin-top: 20px;
+    margin-bottom: 5px;
 }
 
 
@@ -348,6 +365,15 @@ h6 {
 
 .featured {
     background-color: #ffb6c1;
+}
+
+.featured-header {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.toggle-featured {
+    cursor: pointer;
 }
 
 
@@ -527,15 +553,21 @@ h6 {
     min-height: 0;
 }
 
+.card-header {
+    cursor: pointer;
+}
+
 .accordion .card-header:after {
     font-family: "Font Awesome 5 Free";
-   content: "\f095";
+    content: "\f068";
     float: right;
+    font-weight: 600;
 }
 
 .accordion .card-header.collapsed:after {
-    /* symbol for "collapsed" panels */
+    /*symbol for "collapsed" panels */
     content: "\f067";
+    font-weight: 600;
 }
 
 .table th, .table td {

@@ -1,14 +1,20 @@
 {% extends 'base.html' %} {% block content %}
 
 
-<div class="container-fluid">
+<div class="container-fluid empty-page">
 
     {% for current_user in users_profile%}
     
-    <h2>{{ current_user.username|title }}'s Recipes</h2>
+    <h2 class="page-heading">{{ current_user.username|title }}'s Recipes</h2>
     
-    <h6>You have created {{ users_recipes_count }} {% if users_recipes_count == 1 %}recipe {% else %} recipes {% endif %}</h6>
+    <h6>{% if session.user == current_user.username %}You have {% else %} {{ current_user.username }} has {% endif %} created {{ users_recipes_count }} {% if users_recipes_count == 1 %}recipe {% else %} recipes {% endif %}</h6>
 
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <p>Want to add a recipe? Click on the button below to get started!</p>
+            <a role="button" class="btn btn-details"  href="{{url_for('add_recipe')}}">Add a Recipe</a>
+        </div>
+    </div>
     
     {% endfor %}
     
@@ -57,41 +63,31 @@
         </div>
     {% endfor %}
     </div>
-    
-    
-    
-    
 
-    
-    
-    
-    
-    <hr>
-
-        <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
+    <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
         <ul class="pagination justify-content-center">
-
+    
             <li {% if current_page|int == 1 %} class="d-none" {% else %} class="page-item"{% endif %}>
-
+    
                 <a class="page-link" {% if current_page|int > 1 %} href="{{ url_for('profile', user=user, current_page=current_page|int -1 ) }}" {% endif %}tabindex="-1">Previous</a>
-
+    
             </li>
-
+    
             {% for page_number in pages %} {% if page_number == current_page %}
             <li class="page-item active"><a class="page-link">{{ page_number }}</a></li>
             {% else %}
             <li class="page-item"><a class="page-link" href="{{ url_for('profile', user=user, current_page=page_number) }}">{{ page_number }}</a></li>
             {% endif %} {% endfor %}
-
-
+    
+    
             <li {% if current_page|int >= total_page_no|int %} class="d-none"  {% else %}  class="page-item" {% endif %}>
-
+    
                 <a class="page-link" {% if current_page|int < total_page_no|int %} href="{{ url_for('profile', user=user, current_page=current_page|int +1 ) }}" {% endif %}>Next</a>
-
+    
             </li>
-
+    
         </ul>
-        </nav>
+    </nav>
     
 </div>
 

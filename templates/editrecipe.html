@@ -7,9 +7,9 @@
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2">
             <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
-                <button type="button" class="btn btn-details btn-lg" onclick="history.go(-1)">Back to Recipe</button>
+                <button type="button" class="btn btn-details btn-lg page-heading" onclick="history.go(-1)">Back to Recipe</button>
                 <fieldset>
-                    <h2>Edit Recipe</h2>
+                    <h2 class="page-heading">Edit Recipe</h2>
                     <div class="form-group">
                         <label for="recipe_name"><h5>Recipe Name</h5></label>
                         <input type="text" class="form-control" name="recipe_name" id="recipe_name" value="{{ recipe.recipe_name|title }}">

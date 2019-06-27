@@ -25,7 +25,7 @@ def get_recipes():
     
     
     # # Results per page
-    p_limit = 6
+    p_limit = 9
     current_page = int(request.args.get('current_page', 1))
     collection = mongo.db.recipes.count()
     pages = range(1, int(math.ceil(collection / p_limit)) + 1)
@@ -53,7 +53,7 @@ def get_recipes():
     
 @app.route('/search')
 def search():
-    p_limit = 6
+    p_limit = 9
     current_page = int(request.args.get('current_page', 1))
     
     word_search = request.args.get('word_search')
@@ -62,13 +62,28 @@ def search():
     results_pages = range(1, int(math.ceil(results_count / p_limit)) + 1)
     total_page_no = int(math.ceil(results_count/p_limit))
     
+    recommended = users.aggregate( [ 
+          { "$unwind": "$favourite_recipes" },
+          {"$group": {"_id": {"link": "$favourite_recipes._id",
+                              "recipe_name": "$favourite_recipes.recipe_name",
+                              "photo_url": "$favourite_recipes.photo_url",
+                              "servings": "$favourite_recipes.servings",
+                              "preptime": "$favourite_recipes.preptime",
+                              "calories": "$favourite_recipes.calories"
+          }, "number": {"$sum": 1}}},
+          { "$sort": { "number" : -1 } },
+          { "$limit" : 3 }
+          ] )
+    
     return render_template("search.html", 
+                            p_limit = p_limit,
                             current_page=current_page, 
                             results_count=results_count,
                             word_search=word_search,
                             results=results,
                             results_pages=results_pages,
-                            total_page_no=total_page_no)    
+                            total_page_no=total_page_no, 
+                            recommended=recommended)    
     
     
 @app.route('/recipe_display/<recipe_id>')
@@ -174,6 +189,8 @@ def delete_recipe(recipe_id):
         
         recipes.remove({'_id': ObjectId(recipe_id)})
         
+        
+        # Removes the deleted recipe from Users Favourites as well as the Recipe DB.
         users.update({}, 
                     {"$pull": {"favourite_recipes": {'_id': ObjectId(recipe_id)}}},
                     multi=True)
