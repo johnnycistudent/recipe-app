@@ -361,21 +361,21 @@ h6 {
 }
 
 
-/* -- Featured section -- */
+/* -- Most Popular section -- */
 
-.featured {
-    background-color: #ffb6c1;
+.popular {
+    
 }
 
-.featured-header {
+.popular-header {
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.toggle-featured {
+.toggle-popular {
     cursor: pointer;
+    margin-bottom: 10px;
 }
-
 
 /* -- Recipe Card Display -- */
 

@@ -16,15 +16,17 @@
         </div>
     </div>
     
+    <hr>
+    
     {% endfor %}
     
-    <hr>
+    
     
     <div class="row">
     {% for recipe in users_recipes %}
     
     
-    <div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="col-sm-12 col-md-6 col-lg-4 mx-auto">
             <div class="card text-center">
                 <div class="card-body text-center">
                     <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}">

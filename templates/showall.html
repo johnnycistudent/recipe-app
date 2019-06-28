@@ -18,21 +18,22 @@
     
     <!-- /SEARCH BOX -->
     
-    <!-- FEATURED SECTION -->
+    <hr>
     
-    <!--If statement hides the "Featured" recipes when the user navigates to a page other than the first page of the Show all section -->
-    <div {% if current_page|int == 1 %} class="row featured" {% else %} class="d-none" {% endif %}>
-        
-        <div class="featured-header col-12 text-center">
-            <h3><em>Featured Recipes</em></h3>
+    <!-- MOST POPULAR SECTION -->
+    
+    <!--If statement hides the "Most Popular" recipes when the user navigates to a page other than the first page of the Show all section -->
+    <div {% if current_page|int == 1 %} class="row popular" {% else %} class="d-none" {% endif %}>
+        <div class="popular-header col-12 text-center">
+            <h3><em>Popular Recipes</em></h3>
             
-            <h5>Try one of the current top 3 recipes favourited by our Users</h5>
-            <input type="button" class="btn btn-primary btn-sm toggle-featured" value="Hide Featured">
+            <h5>Try one of the current top 3 most popular recipes</h5>
+            <input type="button" class="btn btn-primary btn-sm toggle-popular" value="Hide Popular Recipes">
         </div>
     
-    {% for favourite in recommended%}
+        {% for favourite in recommended%}
     
-        <div class="col-sm-12 col-md-6 col-lg-4 featured-card">
+        <div class="col-sm-12 col-md-6 col-lg-4 mx-auto popular-card">
             <div class="card text-center">
                 <div class="card-body text-center">
                     <a href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}">
@@ -72,7 +73,7 @@
     {% endfor %}
     </div>
     
-    <!-- /FEATURED SECTION -->
+    <!-- /MOST POPULAR SECTION -->
     
     
     <hr>
@@ -82,7 +83,7 @@
     <div class="row">
         
         {% for recipe in recipes %}
-        <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="col-sm-12 col-md-6 col-lg-4 mx-auto">
             
             <div class="card text-center">
                 <div class="card-body text-center">

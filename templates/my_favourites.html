@@ -20,7 +20,7 @@
 
     <div class="row">
         {% for favourite in user.favourite_recipes %}
-        <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="col-sm-12 col-md-6 col-lg-4 mx-auto">
             <div class="card text-center">
                 <div class="card-body text-center">
                     <a href="{{ url_for('recipe_display', recipe_id=favourite._id) }}"><img src="{{favourite.photo_url}}" class="card-img-top" alt="{{ favourite.recipe_name }}"></a>

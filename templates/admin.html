@@ -12,6 +12,7 @@
                 </a>
             </div>
             <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
+                <p><em>User Count - {{ users.count() }}</em></p>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -39,6 +40,7 @@
                 </a>
             </div>
             <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+                <p><em>Recipe Count - {{ recipes.count() }}</em></p>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -65,7 +67,8 @@
                   <b>Deleted Recipes Report</b>
                 </a>
             </div>
-            <div id="collapseThree" class="collapse" data-parent="#accordion">
+            <div id="collapseThree" class="card-body collapse" data-parent="#accordion">
+                <p><em>Deleted Recipe Count - {{ deleted.count() }}</em></p>
                 <table class="table table-hover">
                     <thead>
                         <tr>

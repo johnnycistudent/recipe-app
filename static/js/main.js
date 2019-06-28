@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	flashed_messages();
 
-	$(".toggle-featured").click(function(){
-    	$(".featured-card").toggle(300);
-    	$(this).val( $(this).val() == "Hide Featured" ? "Show Featured" : "Hide Featured" );
+	$(".toggle-popular").click(function(){
+    	$(".popular-card").toggle(300);
+    	$(this).val( $(this).val() == "Hide Popular Recipes" ? "Show Popular Recipes" : "Hide Popular Recipes" );
 	});
 	
 	

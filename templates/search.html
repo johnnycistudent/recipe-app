@@ -68,20 +68,20 @@
             <br> or ...
             </h4>
             
-            <!-- FEATURED SECTION -->
+            <!-- MOST POPULAR SECTION -->
     
-            <!--If statement hides the "Featured" recipes when the user navigates to a page other than the first page of the Show all section -->
-            <div {% if current_page|int == 1 %} class="row featured" {% else %} class="d-none" {% endif %}>
+            <!--If statement hides the "Most Popular" recipes when the user navigates to a page other than the first page of the Show all section -->
+            <div {% if current_page|int == 1 %} class="row popular" {% else %} class="d-none" {% endif %}>
                 
-                <div class="featured-header col-12 text-center">
+                <div class="popular-header col-12 text-center">
                     
-                    <h5><em>Try one of the current top 3 recipes favourited by our Users</em></h5>
+                    <h5><em>Try one of the current top 3 most popular recipes</em></h5>
                     
                 </div>
             
                 {% for favourite in recommended%}
             
-                <div class="col-sm-12 col-md-6 col-lg-4 featured-card">
+                <div class="col-sm-12 col-md-6 col-lg-4 mx-auto popular-card">
                     <div class="card text-center">
                         <div class="card-body text-center">
                             <a href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}">
@@ -121,7 +121,7 @@
             {% endfor %}
             </div>
     
-        <!-- /FEATURED SECTION -->
+        <!-- /MOST POPULAR SECTION -->
 
         </div>
         {% endif %}
