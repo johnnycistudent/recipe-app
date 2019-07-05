@@ -267,6 +267,15 @@ h6 {
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.225);
 }
 
+/* -- Recipe Name Links -- */
+
+.name-link {
+    color: #3E3F3A;
+}
+
+.name-link:hover {
+    color: #242522;
+}
 
 /* --------------------  Navbar (from Bootstrap/Bootswatch) ----------------------- */
 

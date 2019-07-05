@@ -267,7 +267,17 @@ def delete_recipe(recipe_id):
     
     
     flash('Recipe Deleted.')
-    return redirect(url_for('get_recipes'))   
+    return redirect(url_for('get_recipes')) 
+    
+@app.route('/deleted_recipe_display/<recipe_id>')
+def deleted_recipe_display(recipe_id):
+    
+    """
+    Displays the recipe on a page of its own.
+    """
+    
+    deleted_recipe = mongo.db.deleted.find_one({'_id':ObjectId(recipe_id)})
+    return render_template('deleted_recipe_display.html', deleted_recipe=deleted_recipe)    
     
     
 @app.route('/add_to_favourites/<recipe_id>', methods=["GET", "POST"])

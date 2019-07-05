@@ -41,7 +41,8 @@
                     </a>
                     
                     <!-- Favourite Recipe Name-->
-                    <h4 class="card-title">{{ favourite.recipe_name|title }}</h4>
+                    <h4 class="card-title"><a class="name-link" href="{{url_for('recipe_display', recipe_id=favourite._id)}}">{{favourite.recipe_name|title}}</a></h4>
+                    
                     <hr>
                     
                     <div class="row card-details-wrapper">
