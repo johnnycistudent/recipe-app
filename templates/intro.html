@@ -1,7 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 
+
+<!-- Container for Background Image -->
 <div class="intro-container img-responsive container-fluid">
     
+    <!-- Website Intro Welcome Headings -->
     <div class="heading-container">
     
         <h1 class="intro-heading">Welcome to Recipe Book</h1>
@@ -10,8 +13,14 @@
     </div>
 
     <div class="row">
+        
+        <!-- Large Call-to-Action Button Group -->
         <div class="col-lg-12 text-center">
+            
+            <!-- Browse Recipes Button Link -->
             <a href="{{url_for('get_recipes')}}" class="btn btn-sq-lg btn-main">
+                    
+                    <!-- Recipe Cookbook Icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                         width="90" height="90"
                         viewBox="0 0 172 172"
@@ -19,6 +28,7 @@
                     <span style="font-size: 14px;">Start Cooking!</span>
             </a>
             
+            <!-- Sign In Button Link -->
             <a href="{{url_for('login')}}" class="btn btn-pink btn-sq-lg ">
                 <i class="fas fa-sign-in-alt fa-5x intro-icon"></i><br/>
                  
@@ -27,6 +37,7 @@
                 </span>
             </a>
             
+            <!-- Create Account Button Link -->
             <a href="{{url_for('register')}}" class="btn btn-sq-lg btn-details">
                   <i class="fas fa-user-plus fa-5x intro-icon"></i><br/>
                 <span style="line-height: 38px; font-size: 14px;">
@@ -39,6 +50,7 @@
     </div>
 </div>
 
+<!-- Hidden Link to be able to use the Recipe Cookbook image on the Browse Recipe Button -->
 <a class="d-none" href="https://icons8.com/icon/96849/cooking-book">Cooking Book icon by Icons8</a>
 
 {% endblock %}

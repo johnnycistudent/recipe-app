@@ -1,5 +1,7 @@
 @import url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
 
+/* ---------------- General rules ------------------ */
+
 body {
     font-family: "Roboto", sans-serif;
     height: 100%;
@@ -11,7 +13,6 @@ footer {
     height: 90px;
     background-color: #3E3F3A;
     color: #adb5bd;
-    /*position: fixed;*/
     bottom: 0;
     width: 100%;
 }
@@ -31,16 +32,21 @@ h6 {
     font-weight: 700;
 }
 
+/* -- Makes sure an empty page keeps the footer at the bottom -- */
+
 .empty-page {
     display: flex;
     flex-direction: column;
     min-height: 100%;
 }
 
+/* -- Page Heading -- */
+
 .page-heading {
     margin-top: 15px;
 }
     
+/* -- Form Input Fields and Button Shadows -- */
 
 .form-control {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
@@ -50,6 +56,9 @@ h6 {
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
 }
 
+/* ---------------- Button Rules ----------------- */
+/*--- Style taken from an online button generator, link in README under Acknowledgements  ---*/
+
 .btn-sq-lg {
     width: 150px !important;
     height: 150px !important;
@@ -57,6 +66,8 @@ h6 {
     border-radius: 0.5rem;
 }
 
+
+/* -- Pink button rules -- */
 .btn-pink.active {
     color: rgba(255, 255, 255, 0.75);
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -90,8 +101,6 @@ h6 {
     color: #fff;
 }
 
-
-
 .btn-pink:focus,
 .btn-pink:active,
 .btn-pink.active,
@@ -107,11 +116,11 @@ h6 {
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.225);
 }
 
-
-
 .btn-details.active {
     color: rgba(255, 255, 255, 0.75);
 }
+
+/* -- Blue Details button rules - Used for Edit recipe, add new tags and ingredients buttons -- */
 
 .btn-details {
     color: #ffffff;
@@ -161,6 +170,8 @@ h6 {
     color: rgba(255, 255, 255, 0.75);
 }
 
+/* -- Dark blue button rules - primary button colour on the website -- */
+
 .btn-main {
     color: #ffffff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -205,6 +216,8 @@ h6 {
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.225);
 }
 
+
+/* -- Red Delete button rules - used for Delete recipe, Remove from Favourites button -- */
 
 .btn-delete.active {
     color: rgba(255, 255, 255, 0.75);
@@ -255,17 +268,14 @@ h6 {
 }
 
 
-/*.btn-success:not(:disabled):not(.disabled):active:focus {*/
+/* --------------------  Navbar (from Bootstrap/Bootswatch) ----------------------- */
 
-/*    box-shadow: inset 0 3px 5px rgba(0,0,0,0.225);*/
-
-/*}*/
-
-/*--- Navbar from Bootstrap  ---*/
 
 .bg-primary {
     width: 100%;
 }
+
+/* -- Recipe Brand Name - "Recipe Book" -- */
 
 .navbar-brand {
     font-size: 2em;
@@ -273,6 +283,8 @@ h6 {
     font-weight: 700;
     text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);
 }
+
+/*--- Navbar links  ---*/
 
 .nav-link {
     font-size: 1em;
@@ -283,9 +295,9 @@ h6 {
 
 
 
-/* -- Social Media Links in Footer -- */
+/* ----------------- Social Media Links in Footer ------------------ */
 
-/*--- Social Media Links in Footer taken from Bootsnipp.com, link in README under Acknowledgements  ---*/
+/*--- taken from Bootsnipp.com, link in README under Acknowledgements  ---*/
 
 .social:hover {
     transform: scale(1.1);
@@ -308,7 +320,9 @@ h6 {
 
 
 
-/* -- Intro Page -- */
+/* ---------------------- Intro Page ------------------------ */
+
+/*--- Background Image  ---*/
 
 .intro-container {
     background: url(../images/introbg.jpg) no-repeat center center fixed;
@@ -316,28 +330,25 @@ h6 {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    /*padding-right: -15px;*/
-    /*padding-left: -15px;*/
-    /*position: relative;*/
-    /*width: 100%;*/
     min-height: 800px;
-    /*background-image: url(../images/introbg.jpg);*/
-    /*-webkit-background-size: cover;*/
-    /*-moz-background-size: cover;*/
-    /*-o-background-size: cover;*/
-    /*background-size: cover;*/
 }
+
+/*--- Welcome Intro Container  ---*/
 
 .heading-container {
     padding-top: 70px;
     padding-bottom: 70px;
 }
 
+/*--- Welcome Intro Heading  ---*/
+
 .intro-heading {
     color: #fff;
     font-family: 'Roboto Slab', serif;
     text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);
 }
+
+/*--- Welcome Intro Sub-Heading  ---*/
 
 .intro-subheading {
     text-transform: capitalize;
@@ -348,12 +359,14 @@ h6 {
     text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);
 }
 
+/*--- Font-Awesome Icon styling on Intro Page buttons ---*/
+
 .intro-icon {
     font-size: 7em;
     padding-top: 5px;
 }
 
-/* -- Search features -- */
+/* ------------------ Search features ------------------ */
 
 .recipe-search {
     margin-top: 20px;
@@ -361,23 +374,25 @@ h6 {
 }
 
 
-/* -- Most Popular section -- */
+/* ---------------- Most Popular section ----------------- */
 
-.popular {
-    
-}
+/* -- Most Popular heading --*/
 
 .popular-header {
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
+/* -- Most Popular Toggle Button --*/
+
 .toggle-popular {
     cursor: pointer;
     margin-bottom: 10px;
 }
 
-/* -- Recipe Card Display -- */
+/* ------------------ Recipe Card Display ------------------- */
+
+/* -- Full Recipe Card -- */
 
 .card {
     margin: 0 auto;
@@ -392,6 +407,8 @@ h6 {
     padding-top: 5px;
 }
 
+/* -- Recipe Card Image -- */
+
 .card-img-top {
     height: 20rem;
     margin: 0 auto;
@@ -403,6 +420,8 @@ h6 {
     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
+
+/* -- Recipe Card Details -- */
 
 .card-details {
     padding-left: 5px;
@@ -424,12 +443,14 @@ h6 {
 }
 
 
-/* -- Recipe Display Page -- */
+/* ----------------- Recipe Display Page ------------------- */
 
 .recipe {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
+/* -- Recipe Image -- */
 
 .card-img-display {
     width: 100%;
@@ -444,42 +465,53 @@ h6 {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
+/* -- Recipe variables -- */
+
 .recipe-stats {
     color: #ff4f87;
     font-weight: bold;
 }
 
-.recipe-buttons {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
 
 .instructions {
     white-space: pre-wrap;
     list-style: none;
 }
 
-/* -- Delete Recipe -- */
+/* -- Recipe Page Buttons -- */
+
+.recipe-buttons {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* ---------- Delete Recipe Modal --------- */
 
 .modal-header .close {
     margin-left: 0px;
 }
 
+/* -- Modal Heading -- */
+
 .modal-title {
     margin: 0 auto;
 }
+
+/* -- Modal paragraph -- */
 
 .delete-warning {
     text-align: center;
     margin-bottom: 0px
 }
 
+/* -- Modal Buttons -- */
+
 .delete-buttons {
     padding-bottom: 16px;
 }
 
 
-/* -- Pagination Styling -- */
+/* --------- Pagination Styling --------- */
 
 .pagination {
     margin: 0 auto;
@@ -488,11 +520,13 @@ h6 {
 }
 
 
-/* -- Edit/Add Recipe page -- */
+/* -------------------- Edit/Add Recipe Page ----------------- */
 
 .input-group {
     padding-bottom: 2px;
 }
+
+/* -- Form Buttons -- */
 
 .form-buttons {
     padding-top: 5px;
@@ -500,12 +534,15 @@ h6 {
     cursor: pointer;
 }
 
+/* -- Form Headings -- */
+
 .form-headings {
     text-align: left!important;
 }
 
+/* -------------------- Login/Register Page ----------------- */
 
-/* -- Login/Register page -- */
+/* -- Login Card -- */
 
 .login-card {
     max-width: 20rem;
@@ -515,6 +552,8 @@ h6 {
 
 }
 
+/* -- Login/Register link styles -- */
+
 .here-link {
     color: #ff4f87;
 }
@@ -523,6 +562,7 @@ h6 {
     color: #ff1c64;
 }
 
+/* -- Register Card -- */
 
 .register-card {
     max-width: 20rem;
@@ -531,6 +571,8 @@ h6 {
     height: 35rem;
 
 }
+
+/* -- Profile icon styling -- */
 
 .profile-img-card {
     width: 96px;
@@ -546,6 +588,8 @@ h6 {
     margin-top: 25px;
 }
 
+/* -- User info box -- */
+
 .form-info {
     background-color: #ffff91;
     color: #000;
@@ -554,8 +598,9 @@ h6 {
     border-radius: 4px;
 }
 
+/* -------------------- Admin Page ----------------- */
 
-/*--- Admin Page  ---*/
+/* -- Accordion Admin Report Card styles -- */
 
 .card-accordion {
     min-height: 0;
@@ -565,8 +610,11 @@ h6 {
     cursor: pointer;
 }
 
+/* -- Font-Awesome Icons change when the accordion is open/closed -- */
+
 .accordion .card-header:after {
     font-family: "Font Awesome 5 Free";
+    /* -- Minus icon -- */
     content: "\f068";
     float: right;
     font-weight: 600;
@@ -574,9 +622,12 @@ h6 {
 
 .accordion .card-header.collapsed:after {
     /*symbol for "collapsed" panels */
+    /* -- Plus icon -- */
     content: "\f067";
     font-weight: 600;
 }
+
+/* -- Admin Report Table -- */
 
 .table th, .table td {
     font-size: small;
@@ -587,32 +638,4 @@ h6 {
 
 /*--- Media Queries  ---*/
 
-/*@media (max-width: 576px) {*/
 
-/*    .intro-container {*/
-
-/*        width: 600px;*/
-
-/*        padding-right: -15px;*/
-
-/*        padding-left: -15px;*/
-
-/*        position: fixed;*/
-
-/*        background-position-x: center;*/
-
-/*        min-height: 900px;*/
-
-/*        background-image: url(../images/introbg.jpg);*/
-
-/*        -webkit-background-size: cover;*/
-
-/*        -moz-background-size: cover;*/
-
-/*        -o-background-size: cover;*/
-
-/*        background-size: fill;*/
-
-/*    }*/
-
-/*}*/

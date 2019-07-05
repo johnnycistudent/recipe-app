@@ -8,7 +8,8 @@
     <h2 class="page-heading">{{ current_user.username|title }}'s Recipes</h2>
     
     <h6>{% if session.user == current_user.username %}You have {% else %} {{ current_user.username|title }} has {% endif %} created {{ users_recipes_count }} {% if users_recipes_count == 1 %}recipe {% else %} recipes {% endif %}</h6>
-
+    
+    <!-- Section to encourage users to add recipes to the DB -->
     <div class="row">
         <div class="col-sm-12 text-center">
             <p>Want to add a recipe? Click on the button below to get started!</p>
@@ -21,7 +22,7 @@
     {% endfor %}
     
     
-    
+    <!-- USER'S RECIPES - Displays all recipes that the User has added to the DB -->
     <div class="row">
     {% for recipe in users_recipes %}
     
@@ -29,27 +30,41 @@
     <div class="col-sm-12 col-md-6 col-lg-4 mx-auto">
             <div class="card text-center">
                 <div class="card-body text-center">
+                    
+                    <!-- Link to User's Recipe Display on the Recipe Image -->
                     <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}">
+                        
+                        <!-- If no photo link is added, a stock photo is used instead -->
                         {% if recipe.photo_url == "" %}
                         <img src="/static/images/backup.jpg" class="card-img-top" alt="{{recipe.recipe_name}}">
                         {% else %}
+                        
+                        <!-- User's Recipe Image Display -->
                         <img src="{{recipe.photo_url}}" class="card-img-top" alt="{{recipe.recipe_name}}">
                         {% endif %} 
                     </a>
+                    
+                    <!-- User's Recipe Name-->
                     <h4 class="card-title">{{recipe.recipe_name|title}}</h4>
                     <hr>
                     
                     <div class="row card-details-wrapper">
+                        
+                        <!-- User's Recipe Servings -->
                         <div class="card-details col-6 ">
                             <span class="recipe-icon"><i class="fas fa-user fa-2x"></i></span>
                             <span class="recipe-input"> {{recipe.servings}} </span>
                             <span class="recipe-variable">Servings</span>
                         </div>
+                        
+                        <!-- User's Recipe Preptime -->
                         <div class="card-details col-6 ">
                             <span class="recipe-icon"><i class="fas fa-clock fa-2x"></i></span> 
                             <span class="recipe-input">{{recipe.preptime}}</span> 
                             <span class="recipe-variable">Minutes</span>
                         </div>
+                        
+                        <!-- User's Recipe Calories -->
                         <div class="card-details col-6 offset-3 ">
                             <span class="recipe-icon"><i class="fas fa-burn fa-2x"></i></span> 
                             <span class="recipe-input">{{recipe.calories}}</span> 
@@ -59,13 +74,18 @@
                     
                     <hr>
                     
+                    <!-- View Full Recipe Button -->
                     <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}" class="btn btn-main modal-trigger">View Full Recipe</a>
                 </div>
             </div>
         </div>
     {% endfor %}
     </div>
-
+    
+    <!-- /USER'S RECIPES -->
+    
+    
+    <!-- PAGINATION CONTROLS -->
     <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
         <ul class="pagination pagination-sm justify-content-center">
     
@@ -90,6 +110,7 @@
     
         </ul>
     </nav>
+    <!-- /PAGINATION CONTROLS -->
     
 </div>
 

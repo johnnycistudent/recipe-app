@@ -1,9 +1,13 @@
 $(document).ready(function() {
 	flashed_messages();
-
-	$(".toggle-popular").click(function(){
-    	$(".popular-card").toggle(300);
-    	$(this).val( $(this).val() == "Hide Popular Recipes" ? "Show Popular Recipes" : "Hide Popular Recipes" );
+	
+	
+	/* -- Toggles the Most popular section on the Browse All Recipes page--*/
+	
+	$('.toggle-popular').click(function(){
+    	$('.popular-card').toggle(300);
+    	/* -- Changes the text on the button that toggles the section --*/
+    	$(this).val( $(this).val() == 'Hide Popular Recipes' ? 'Show Popular Recipes' : 'Hide Popular Recipes' );
 	});
 	
 	
@@ -29,31 +33,17 @@ $(document).ready(function() {
 		$(this).closest('.tag-block').remove();
 	});
 
-	$(function() {
-		$(".expand").on("click", function() {
-			// $(this).next().slideToggle(200);
-			$expand = $(this).find(">:first-child");
-
-			if ($expand.text() == "+") {
-				$expand.text("-");
-			}
-			else {
-				$expand.text("+");
-			}
-		});
-	});
-
 });
 /*
 Alerts modal
 */
 
 function flashed_messages() {
-	let messages = parseInt($("#messages .alert ").length);
+	let messages = parseInt($('#messages .alert ').length);
 	if (messages) {
-		$("#alerts").slideDown(1500);
+		$('#alerts').slideDown(1500);
 		setTimeout(() => {
-			$("#alerts").slideUp(1500);
+			$('#alerts').slideUp(1500);
 		}, 7000);
 	}
 }

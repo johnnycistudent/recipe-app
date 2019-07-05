@@ -6,12 +6,18 @@
 
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2">
+            
+            <!-- Search Query Input Field -->
             <form class="recipe-search input-group" action="{{ url_for('search', word_search=word_search, current_page=current_page) }}">
                 <input type="text" class="form-control" placeholder="Search Recipes" id="word_search" name="word_search">
+                
+                <!-- Submit Search Query Button -->
                 <div class="input-group-append">
                     <button class="btn btn-details" type="submit" name="action"><i class="fa fa-search"></i></button>
                 </div>
             </form>
+            
+            <!-- Search Query Explanation Text -->
             <small class="form-text text-muted text-center" style="margin-bottom: 5px"><em>Enter a search term to search the recipe database - eg Dessert</em></small>
         </div>
     </div>
@@ -36,27 +42,40 @@
         <div class="col-sm-12 col-md-6 col-lg-4 mx-auto popular-card">
             <div class="card text-center">
                 <div class="card-body text-center">
+                    
+                    <!-- Link to Most Popular Recipe Display on the Recipe Image -->
                     <a href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}">
+                        
+                        <!-- If no photo link is added, a stock photo is used instead -->
                         {% if favourite._id.photo_url == "" %}
                         <img src="/static/images/backup.jpg" class="card-img-top" alt="{{favourite._id.recipe_name}}">
                         {% else %}
+                        
+                        <!-- Most Popular Recipe Image Display -->
                         <img src="{{favourite._id.photo_url}}" class="card-img-top" alt="{{favourite._id.recipe_name}}">
                         {% endif %} 
                     </a>
+                    
+                    <!-- Most Popular Recipe Name-->
                     <h4 class="card-title">{{favourite._id.recipe_name|title}}</h4>
-                    <!--<hr>-->
                     
                     <div class="row card-details-wrapper">
+                        
+                        <!-- Most Popular Recipe Servings -->
                         <div class="card-details col-6 ">
                             <span class="recipe-icon"><i class="fas fa-user fa-2x"></i></span>
                             <span class="recipe-input"> {{ favourite._id.servings }} </span>
                             <span class="recipe-variable">Servings</span>
                         </div>
+                        
+                        <!-- Most Popular Recipe Preptime -->
                         <div class="card-details col-6 ">
                             <span class="recipe-icon"><i class="fas fa-clock fa-2x"></i></span> 
                             <span class="recipe-input">{{ favourite._id.preptime }}</span> 
                             <span class="recipe-variable">Minutes</span>
                         </div>
+                        
+                        <!-- Most Popular Recipe Calories -->
                         <div class="card-details col-6 offset-3 ">
                             <span class="recipe-icon"><i class="fas fa-burn fa-2x"></i></span> 
                             <span class="recipe-input">{{ favourite._id.calories }}</span> 
@@ -67,6 +86,7 @@
                     
                     <hr>
                     
+                    <!-- Most Popular Full Recipe View Button -->
                     <a href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}" class="btn btn-main modal-trigger">View Full Recipe</a>
                 </div>
             </div>
@@ -88,27 +108,41 @@
             
             <div class="card text-center">
                 <div class="card-body text-center">
+                    
+                    <!-- Link to Recipe Display on the Recipe Image -->
                     <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}">
+                        
+                        <!-- If no photo link is added, a stock photo is used instead -->
                         {% if recipe.photo_url == "" %}
                         <img src="/static/images/backup.jpg" class="card-img-top" alt="{{recipe.recipe_name}}">
                         {% else %}
+                        
+                        <!-- Recipe Image Display -->
                         <img src="{{recipe.photo_url}}" class="card-img-top" alt="{{recipe.recipe_name}}">
                         {% endif %} 
                     </a>
+                    
+                    <!-- Recipe Name-->
                     <h4 class="card-title">{{recipe.recipe_name|title}}</h4>
                     <hr>
                     
                     <div class="row card-details-wrapper">
+                        
+                        <!-- Recipe Servings -->
                         <div class="card-details col-6 ">
                             <span class="recipe-icon"><i class="fas fa-user fa-2x"></i></span>
                             <span class="recipe-input"> {{recipe.servings}} </span>
                             <span class="recipe-variable">Servings</span>
                         </div>
+                        
+                        <!-- Recipe Preptime -->
                         <div class="card-details col-6 ">
                             <span class="recipe-icon"><i class="fas fa-clock fa-2x"></i></span> 
                             <span class="recipe-input">{{recipe.preptime}}</span> 
                             <span class="recipe-variable">Minutes</span>
                         </div>
+                        
+                        <!-- Recipe Calories -->
                         <div class="card-details col-6 offset-3 ">
                             <span class="recipe-icon"><i class="fas fa-burn fa-2x"></i></span> 
                             <span class="recipe-input">{{recipe.calories}}</span> 
@@ -118,6 +152,7 @@
                     
                     <hr>
                     
+                    <!-- View Full Recipe Button -->
                     <a href="{{url_for('recipe_display', recipe_id=recipe._id)}}" class="btn btn-main modal-trigger">View Full Recipe</a>
                 </div>
             </div>
@@ -126,7 +161,7 @@
         
     </div>   
     
-    <!-- BROWSE ALL RECIPES SECTION -->
+    <!-- /BROWSE ALL RECIPES SECTION -->
         
         <hr>
         
@@ -135,22 +170,27 @@
         <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
             
         <ul class="pagination pagination-sm justify-content-center">
-
+            
+            <!-- If the current page is the first page in the Recipes collection, the Previous Button is hidden -->
             <li {% if current_page|int == 1 %} class="d-none" {% else %} class="page-item"{% endif %}>
-
+                
+                <!-- Previous Button Link -->
                 <a class="page-link" {% if current_page|int > 1 %} href="{{ url_for('get_recipes', current_page=current_page|int -1 ) }}" {% endif %}tabindex="-1">Previous</a>
 
             </li>
-
+            
+            <!-- Current Page -->
             {% for page_number in pages %} {% if page_number == current_page %}
             <li class="page-item active"><a class="page-link">{{ page_number }}</a></li>
             {% else %}
+            <!-- Links to the other pages in the results -->
             <li class="page-item"><a class="page-link" href="{{ url_for('get_recipes', current_page=page_number) }}">{{ page_number }}</a></li>
             {% endif %} {% endfor %}
 
-
+            <!-- If the page is the last page in the Recipes collection, the Next Button will be hidden -->
             <li {% if current_page|int >= total_page_no|int %} class="d-none"  {% else %}  class="page-item" {% endif %}>
-
+                
+                <!-- Next Button Link -->
                 <a class="page-link" {% if current_page|int < total_page_no|int %} href="{{ url_for('get_recipes', current_page=current_page|int +1 ) }}" {% endif %}>Next</a>
 
             </li>
