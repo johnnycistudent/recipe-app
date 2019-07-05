@@ -12,19 +12,27 @@ app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+# Collections
 users = mongo.db.users
 recipes = mongo.db.recipes
 deleted = mongo.db.deleted
 
 @app.route('/')
 def intro():
+    """
+    Intro Page for the Website. Invites users to Start Browsing, Sign-In or Register a new account
+    """
     return render_template("intro.html")
     
 @app.route('/get_recipes')    
 def get_recipes():
+    """
+    Main Page for the Website. Displays all the recipes with pagination. Also features a Most Popular section.
+    """
     
+    # Pagination 
     
-    # # Results per page
+    # # Recipes per page
     p_limit = 9
     current_page = int(request.args.get('current_page', 1))
     collection = mongo.db.recipes.count()
@@ -53,15 +61,25 @@ def get_recipes():
     
 @app.route('/search')
 def search():
+    """
+    Search Results Page. Uses MongoDB's wildcard text search to search for any words that appear in the recipes that are searched.
+    The results are then paginated. If there are no results for the user's query, the Most Popular section appears as a suggestion.
+    """
+    # Wildcard text search index
+    mongo.db.recipes.create_index([("$**", pymongo.TEXT)])
+    #  Results per page
     p_limit = 9
     current_page = int(request.args.get('current_page', 1))
-    
+    #  Input term for search query
     word_search = request.args.get('word_search')
-    results = mongo.db.recipes.find({'$text': {'$search': str(word_search) }}).sort('_id', pymongo.ASCENDING).skip((current_page -1)*p_limit).limit(p_limit)
+    #  Results for search sorted by ID
+    results = mongo.db.recipes.find({'$text': {'$search': str(word_search) }}, {"score": {"$meta": 'textScore'}}).sort('_id', pymongo.ASCENDING).skip((current_page -1)*p_limit).limit(p_limit)
+    # Pagination
     results_count = mongo.db.recipes.find({'$text': {'$search': str(word_search) }}).count()
     results_pages = range(1, int(math.ceil(results_count / p_limit)) + 1)
     total_page_no = int(math.ceil(results_count/p_limit))
     
+    # Most Popular recipes - appear when there are no results to the user's query
     recommended = users.aggregate( [ 
           { "$unwind": "$favourite_recipes" },
           {"$group": {"_id": {"link": "$favourite_recipes._id",
@@ -88,6 +106,11 @@ def search():
     
 @app.route('/recipe_display/<recipe_id>')
 def recipe_display(recipe_id):
+    
+    """
+    Displays the recipe on a page of its own.
+    """
+    
     recipe = mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)})
     return render_template('recipe_display.html', recipe=recipe)
     
@@ -96,7 +119,11 @@ def recipe_display(recipe_id):
     
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
+    """
+    Path to edit the recipe currently being viewed. User is brought to a form page based on the recipe's current fields.
+    """
     
+    # Checks if user is in session
     if 'user' in session:
     
         recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
@@ -109,7 +136,11 @@ def edit_recipe(recipe_id):
     
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
-    recipes = mongo.db.recipes
+    """
+    Updates the recipe when the user submits the form displayed on the edit page.
+    """
+    
+    # Captures the form data and updates the recipe.
     recipes.update_one({'_id':ObjectId(recipe_id), 
     }, {
         '$set': {
@@ -130,18 +161,47 @@ def update_recipe(recipe_id):
     }
     })
     
+    # updated_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
+    # user_favourites = users.find({"favourite_recipes._id" : ObjectId(recipe_id)})
+    
+    # if updated_recipe in user_favourites:
+    
+    #     users.update({"favourite_recipes" : updated_recipe}, 
+    #                                         {"$set": updated_recipe},
+    #                                         multi=True)
+    
+    # users.update({"favourite_recipes._id" : ObjectId(recipe_id)},
+    #                 {"$set" : {"favourite_recipes" : 
+    #                 {
+    # 'recipe_name':request.form.get('recipe_name'),
+    # 'photo_url':request.form.get('photo_url'),
+    # 'preptime': request.form.get('preptime'),
+    # 'servings': request.form.get('servings'),
+    # 'calories':request.form.get('calories'),
+    # }}}, multi=True)
+                                                        
+    # Returns back to the recipe after update.
     flash('Recipe updated.')
     return redirect(url_for('recipe_display', recipe_id=recipe_id))
 
 
 @app.route('/add_recipe')
 def add_recipe():
+    """
+    Path to add a new recipe. User is brought to an empty form page.
+    """
+    
     recipes=mongo.db.recipes.find()
     return render_template('addrecipe.html', recipes=recipes)
     
 @app.route('/insert_recipe', methods=["POST"])
 def insert_recipe():  
+    """
+    Inserts new recipe to the Recipes collection when user submits the form from the add_recipe page.
+    """
+    
     recipes = mongo.db.recipes
+    # Identifies the current user in order to capture the author of the new recipe.
     user = users.find_one({"username": session['user']})
     new_recipe = recipes.insert_one({
         'recipe_name':request.form.get('recipe_name'),
@@ -164,21 +224,27 @@ def insert_recipe():
             'username': user['username']}
     })
     
+    # Returns the new recipe after insertion.
     flash('Recipe Added.')
     return redirect(url_for('recipe_display', recipe_id = new_recipe.inserted_id))
     
     
 @app.route('/delete_recipe/<recipe_id>')
 def delete_recipe(recipe_id):
+    """
+    Deletes the recipe currently being viewed but first adds the recipe to a collection called Deleted. 
+    This allows the site Admin to reinstate the recipe if they see fit. 
+    """
     
+    # Checks if the user is in session
     if 'user' in session:
-        
+        # # Identifies the current user in order to identify who has deleted the recipe.
         user = users.find_one({"username": session['user']})
-    
+            
         deleted_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
-        
+        # # Inserts recipe to be deleted into Deleted collection
         deleted.insert_one(deleted_recipe)
-        
+        # # Updates the deleted recipe by identifying who has deleted it and when
         deleted.update_one({'_id': ObjectId(recipe_id)}, 
                                                 {"$set" :
                                                     {"deleted_on" : datetime.datetime.utcnow(), 
@@ -186,11 +252,11 @@ def delete_recipe(recipe_id):
                                                                 '_id': user['_id'],
                                                                 'username': user['username']}}
                                                 })
-        
+        # Removes the recipe from the Recipes collection
         recipes.remove({'_id': ObjectId(recipe_id)})
         
         
-        # Removes the deleted recipe from Users Favourites as well as the Recipe DB.
+        # Removes the deleted recipe from Users Favourites.
         users.update({}, 
                     {"$pull": {"favourite_recipes": {'_id': ObjectId(recipe_id)}}},
                     multi=True)
@@ -206,19 +272,26 @@ def delete_recipe(recipe_id):
     
 @app.route('/add_to_favourites/<recipe_id>', methods=["GET", "POST"])
 def add_to_favourites(recipe_id):
-    
+    """
+    Adds the current recipe to the current users "Favourites" array in the Users collection. 
+    """
+    # Checks if user is in session
     if 'user' in session:
-        
+        # Identifies the current user 
         user = users.find_one({"username": session['user']})
+        
         favourites = user['favourite_recipes']
-    
+        
+        # Identifies the recipe to be added to the user's favourite 
         favourited_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
         
+        # Makes sure the recipe is not already in the user's favourites and then adds to favourites
         if favourited_recipe not in favourites:
             users.update_one({"username": session['user']}, 
                                                     {"$push" :
                                                         {"favourite_recipes" : favourited_recipe}})
         else:
+            # If the recipe is already in the User's favourites, the below message is displayed
             flash("You have already added this recipe to your Favourites")
             return redirect(url_for('recipe_display', user=user['username'], recipe_id=recipe_id))
     else:
@@ -231,32 +304,39 @@ def add_to_favourites(recipe_id):
 
 @app.route('/remove_from_favourites/<recipe_id>', methods=["GET", "POST"])
 def remove_from_favourites(recipe_id):
-    
-    
-        user = users.find_one({"username": session['user']})
-        favourites = user['favourite_recipes']
+    """
+    Removes the current recipe from the current users "Favourites" array in the Users collection. 
+    """
+    # Identifies the current user 
+    user = users.find_one({"username": session['user']})
+    favourites = user['favourite_recipes']
         
             
+    # Identifies the recipe to be removed from the user's favourite
+    remove_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
         
-        remove_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
-        
-        if remove_recipe in favourites:
-            users.update_one({"username": session['user']}, 
-                                                            {"$pull" :
-                                                                {"favourite_recipes" : remove_recipe}})
-            flash('Removed from My Favourites.')
-            return redirect(url_for('my_favourites', user=user['username'], recipe_id=recipe_id))
+    # Removes recipe from user's favourites
+    if remove_recipe in favourites:
+        users.update({"username": session['user']}, 
+                                                {"$pull" :
+                                                    {"favourite_recipes" : remove_recipe}})
+        flash('Removed from My Favourites.')
+        return redirect(url_for('my_favourites', user=user['username'], recipe_id=recipe_id))
             
                                                         
-    # else:
-    #     flash("You must be logged in to Edit, Save or Delete a recipe!")
-    #     return redirect(url_for('get_recipes'))
+    else:
+        flash("You must be logged in to Edit, Save or Delete a recipe!")
+        return redirect(url_for('get_recipes'))
         
     
     
 # Login - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/login', methods=['GET'])
 def login():
+    """
+    Logs the user into the website. 
+    """
+    
     # Check if user is not logged in already
     if 'user' in session:
         user_in_db = users.find_one({"username": session['user']})
@@ -268,10 +348,14 @@ def login():
         # Render the page for user to be able to log in
         return render_template("login.html")
 
-# Check user login details from login form
-# - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
+
+# # Taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/user_auth', methods=['POST'])
 def user_auth():
+    """
+    Checks user login details from login form
+    """
+    
     form = request.form.to_dict()
     user_in_db = users.find_one({"username": form['username']})
     # Check for user in database
@@ -297,6 +381,10 @@ def user_auth():
 # Sign up - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    Registers new users to the website.
+    """
+    
     # Check if user is not logged in already
     if 'user' in session:
         flash('You are already signed in!')
@@ -343,21 +431,29 @@ def register():
 # Log out- taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/logout')
 def logout():
+    """
+    Logs the users out of the session
+    """
+    
+    
     # Clear the session
     session.clear()
-    flash('You were logged out!')
+    flash('You have been logged out!')
     return redirect(url_for('get_recipes'))
     
     
 @app.route('/profile/<user>')
 def profile(user):
-    
-    
+    """
+    Users Profile page displays the recipes the user has created.
+    """
     
     users_profile = users.find({'username': user})
     
-    # # Results per page
-    p_limit = 6
+    # Pagination if Users recipes exceed 9 recipes per page
+    
+    # Results per page
+    p_limit = 9
     current_page = int(request.args.get('current_page', 1))
     users_recipes_count = recipes.find({'author.username': user}).count()
     pages = range(1, int(math.ceil(users_recipes_count / p_limit)) + 1)
@@ -373,12 +469,14 @@ def profile(user):
 
 
     
-# My Favourites Page - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
+#  Taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/my_favourites/<user>')
 def my_favourites(user):
+    """
+    My Favourites Page displays all the recipes the user has added as their favourites. 
+    """
     # Check if user is logged in
     if 'user' in session:
-        # If so get the user and pass him to template for now
         user_in_db = users.find_one({"username": user})
         favourites = mongo.db.users.find(user_in_db)
         
@@ -388,20 +486,22 @@ def my_favourites(user):
         return redirect(url_for('get_recipes'))
         
         
-# Admin area
+
 @app.route('/admin')
 def admin():
+    """
+    Admin area. Allows the Admin to check on statistics about the Users, Recipes and Deleted recipes collections.
+    """
+    # Check if user is logged in
     if 'user' in session:
         
         
-        
+        # Checks if user is the Admin
         if session['user'] == "admin":
+            # Queries for Admin reports
             users = mongo.db.users.find()
             recipes = mongo.db.recipes.find()
             deleted = mongo.db.deleted.find()
-            
-            
-            
             
             
             return render_template('admin.html', users=users, recipes=recipes, deleted=deleted)

@@ -27,7 +27,7 @@
         <div class="popular-header col-12 text-center">
             <h3><em>Popular Recipes</em></h3>
             
-            <h5>Try one of the current top 3 most popular recipes</h5>
+            <h5>Need some inspiration? Try one of the current top 3 most popular recipes</h5>
             <input type="button" class="btn btn-main btn-sm toggle-popular" value="Hide Popular Recipes">
         </div>
     
@@ -62,6 +62,7 @@
                             <span class="recipe-input">{{ favourite._id.calories }}</span> 
                             <span class="recipe-variable">Calories</span>
                         </div>
+                        <p>{{ favourite.number }}</p>
                     </div>
                     
                     <hr>
@@ -131,9 +132,9 @@
         
         <!-- PAGINATION CONTROLS -->
         
-        <!--<nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">-->
+        <nav aria-label="Page navigation" class="col-lg-6 offset-lg-3">
             
-        <ul class="pagination justify-content-center">
+        <ul class="pagination pagination-sm justify-content-center">
 
             <li {% if current_page|int == 1 %} class="d-none" {% else %} class="page-item"{% endif %}>
 
@@ -155,7 +156,7 @@
             </li>
 
         </ul>
-    <!--</nav>-->
+        </nav>
     
     <!-- /PAGINATION CONTROLS -->
     

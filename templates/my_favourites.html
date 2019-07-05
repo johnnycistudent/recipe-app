@@ -23,7 +23,13 @@
         <div class="col-sm-12 col-md-6 col-lg-4 mx-auto">
             <div class="card text-center">
                 <div class="card-body text-center">
-                    <a href="{{ url_for('recipe_display', recipe_id=favourite._id) }}"><img src="{{favourite.photo_url}}" class="card-img-top" alt="{{ favourite.recipe_name }}"></a>
+                    <a href="{{ url_for('recipe_display', recipe_id=favourite._id) }}">
+                        {% if favourite.photo_url == "" %}
+                        <img src="/static/images/backup.jpg" class="card-img-top" alt="{{favourite.recipe_name}}">
+                        {% else %}
+                        <img src="{{favourite.photo_url}}" class="card-img-top" alt="{{favourite.recipe_name}}">
+                        {% endif %} 
+                    </a>
                     <h4 class="card-title">{{ favourite.recipe_name|title }}</h4>
                     <hr>
 

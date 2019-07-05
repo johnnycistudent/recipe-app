@@ -57,3 +57,4 @@ function flashed_messages() {
 		}, 7000);
 	}
 }
+
