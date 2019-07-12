@@ -99,75 +99,73 @@
 
             <p>NO RESULTS!</p>
 
-            <h4>Change your search terms 
-            <br> or ...
-            </h4>
+            <h4>Change your search terms and try again.</h4>
             
             <!-- MOST POPULAR SECTION -->
     
-            <div class="row popular">
+        <!--    <div class="row popular">-->
                 
-                <div class="popular-header col-12 text-center">
+        <!--        <div class="popular-header col-12 text-center">-->
                     
-                    <h5><em>Try one of the current top 3 most popular recipes</em></h5>
+        <!--            <h5><em>Try one of the current top 3 most popular recipes</em></h5>-->
                     
-                </div>
+        <!--        </div>-->
             
-                {% for favourite in recommended%}
+        <!--        {% for favourite in recommended%}-->
             
-                <div class="col-sm-12 col-md-6 col-lg-4 mx-auto popular-card">
-                    <div class="card text-center">
-                        <div class="card-body text-center">
+        <!--        <div class="col-sm-12 col-md-6 col-lg-4 mx-auto popular-card">-->
+        <!--            <div class="card text-center">-->
+        <!--                <div class="card-body text-center">-->
                                 
                             <!-- Link to Most Popular Recipe Display on the Recipe Image -->
-                            <a href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}">
+        <!--                    <a href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}">-->
                                 
                                 <!-- If no photo link is added, a stock photo is used instead -->
-                                {% if favourite._id.photo_url == "" %}
-                                <img src="/static/images/backup.jpg" class="card-img-top" alt="{{favourite._id.recipe_name}}">
-                                {% else %}
+        <!--                        {% if favourite._id.photo_url == "" %}-->
+        <!--                        <img src="/static/images/backup.jpg" class="card-img-top" alt="{{favourite._id.recipe_name}}">-->
+        <!--                        {% else %}-->
                                 
                                 <!-- Most Popular Recipe Image Display -->
-                                <img src="{{favourite._id.photo_url}}" class="card-img-top" alt="{{favourite._id.recipe_name}}">
-                                {% endif %} 
-                            </a>
+        <!--                        <img src="{{favourite._id.photo_url}}" class="card-img-top" alt="{{favourite._id.recipe_name}}">-->
+        <!--                        {% endif %} -->
+        <!--                    </a>-->
                             
                             <!-- Most Popular Recipe Name-->
-                            <h4 class="card-title"><a class="name-link" href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}">{{favourite._id.recipe_name|title}}</a></h4>
+        <!--                    <h4 class="card-title"><a class="name-link" href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}">{{favourite._id.recipe_name|title}}</a></h4>-->
                             
-                            <div class="row card-details-wrapper">
+        <!--                    <div class="row card-details-wrapper">-->
                                 
                                 <!-- Most Popular Recipe Servings -->
-                                <div class="card-details col-6 ">
-                                    <span class="recipe-icon"><i class="fas fa-user fa-2x"></i></span>
-                                    <span class="recipe-input"> {{ favourite._id.servings }} </span>
-                                    <span class="recipe-variable">Servings</span>
-                                </div>
+        <!--                        <div class="card-details col-6 ">-->
+        <!--                            <span class="recipe-icon"><i class="fas fa-user fa-2x"></i></span>-->
+        <!--                            <span class="recipe-input"> {{ favourite._id.servings }} </span>-->
+        <!--                            <span class="recipe-variable">Servings</span>-->
+        <!--                        </div>-->
                                 
                                 <!-- Most Popular Recipe Preptime -->
-                                <div class="card-details col-6 ">
-                                    <span class="recipe-icon"><i class="fas fa-clock fa-2x"></i></span> 
-                                    <span class="recipe-input">{{ favourite._id.preptime }}</span> 
-                                    <span class="recipe-variable">Minutes</span>
-                                </div>
+        <!--                        <div class="card-details col-6 ">-->
+        <!--                            <span class="recipe-icon"><i class="fas fa-clock fa-2x"></i></span> -->
+        <!--                            <span class="recipe-input">{{ favourite._id.preptime }}</span> -->
+        <!--                            <span class="recipe-variable">Minutes</span>-->
+        <!--                        </div>-->
                                 
                                 <!-- Most Popular Recipe Calories -->
-                                <div class="card-details col-6 offset-3 ">
-                                    <span class="recipe-icon"><i class="fas fa-burn fa-2x"></i></span> 
-                                    <span class="recipe-input">{{ favourite._id.calories }}</span> 
-                                    <span class="recipe-variable">Calories</span>
-                                </div>
-                            </div>
+        <!--                        <div class="card-details col-6 offset-3 ">-->
+        <!--                            <span class="recipe-icon"><i class="fas fa-burn fa-2x"></i></span> -->
+        <!--                            <span class="recipe-input">{{ favourite._id.calories }}</span> -->
+        <!--                            <span class="recipe-variable">Calories</span>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
                             
-                            <hr>
+        <!--                    <hr>-->
                             
                             <!-- Most Popular Full Recipe View Button -->
-                            <a href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}" class="btn btn-main modal-trigger">View Full Recipe</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-            </div>
+        <!--                    <a href="{{url_for('recipe_display', recipe_id=favourite._id.link)}}" class="btn btn-main modal-trigger">View Full Recipe</a>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--    {% endfor %}-->
+        <!--    </div>-->
     
         <!-- /MOST POPULAR SECTION -->
 

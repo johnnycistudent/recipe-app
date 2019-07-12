@@ -1,4 +1,4 @@
-import os, math, datetime, pprint
+import os, math, datetime
 from flask import Flask, render_template, redirect, request, url_for, session, flash, jsonify, json
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
@@ -42,42 +42,21 @@ def get_recipes():
     
     
     # # Most Liked/Favourited Recipes
-    # recommended = users.aggregate( [ 
-    #       { "$unwind": "$favourite_recipes" },
-    #       {"$group": {"_id": {"link": "$favourite_recipes._id",
-    #                           "recipe_name": "$favourite_recipes.recipe_name",
-    #                           "photo_url": "$favourite_recipes.photo_url",
-    #                           "servings": "$favourite_recipes.servings",
-    #                           "preptime": "$favourite_recipes.preptime",
-    #                           "calories": "$favourite_recipes.calories"
-    #       }, "number": {"$sum": 1}}},
-    #       { "$sort": { "number" : -1 } },
-    #       { "$limit" : 3 }
-    #       ] )
-          
-    # recommended = users.aggregate( [ 
-    #       { "$unwind": "$favourite_recipes" },
-    #       {"$group": {"_id": {"_id": "$favourite_recipes._id"}, 
-    #       "number": {"$sum": 1}}},
-    #       { "$sort": { "number" : -1 } },
-    #       { "$limit" : 3 },
-    #       { "$project": {"_id._id" : True }}
-    #       ] )
-          
+    recommended = users.aggregate( [ 
+          { "$unwind": "$favourite_recipes" },
+          {"$group": {"_id": {"link": "$favourite_recipes._id",
+                              "recipe_name": "$favourite_recipes.recipe_name",
+                              "photo_url": "$favourite_recipes.photo_url",
+                              "servings": "$favourite_recipes.servings",
+                              "preptime": "$favourite_recipes.preptime",
+                              "calories": "$favourite_recipes.calories"
+          }, "number": {"$sum": 1}}},
+          { "$sort": { "number" : -1 } },
+          { "$limit" : 3 }
+          ] )
     
     
-    # for x in recommended:
-    #     rec = x["_id"]
-    #     favlist = []
-    #     new = favlist.append(rec)
-    #     # for y in favlist:
-    #     favs = mongo.db.recipes.find({"_id" : {
-    #                                 "$in" : rec }
-    #                         });
-    #     for f in favs:
-    #         print(f)
-                          
-    return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages, total_page_no=total_page_no)
+    return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages, total_page_no=total_page_no, recommended=recommended)
     
     
 @app.route('/search')
@@ -101,18 +80,18 @@ def search():
     total_page_no = int(math.ceil(results_count/p_limit))
     
     # Most Popular recipes - appear when there are no results to the user's query
-    # recommended = users.aggregate( [ 
-    #       { "$unwind": "$favourite_recipes" },
-    #       {"$group": {"_id": {"link": "$favourite_recipes._id",
-    #                           "recipe_name": "$favourite_recipes.recipe_name",
-    #                           "photo_url": "$favourite_recipes.photo_url",
-    #                           "servings": "$favourite_recipes.servings",
-    #                           "preptime": "$favourite_recipes.preptime",
-    #                           "calories": "$favourite_recipes.calories"
-    #       }, "number": {"$sum": 1}}},
-    #       { "$sort": { "number" : -1 } },
-    #       { "$limit" : 3 }
-    #       ] )
+    recommended = users.aggregate( [ 
+          { "$unwind": "$favourite_recipes" },
+          {"$group": {"_id": {"link": "$favourite_recipes._id",
+                              "recipe_name": "$favourite_recipes.recipe_name",
+                              "photo_url": "$favourite_recipes.photo_url",
+                              "servings": "$favourite_recipes.servings",
+                              "preptime": "$favourite_recipes.preptime",
+                              "calories": "$favourite_recipes.calories"
+          }, "number": {"$sum": 1}}},
+          { "$sort": { "number" : -1 } },
+          { "$limit" : 3 }
+          ] )
     
     return render_template("search.html", 
                             p_limit = p_limit,
@@ -121,7 +100,8 @@ def search():
                             word_search=word_search,
                             results=results,
                             results_pages=results_pages,
-                            total_page_no=total_page_no)    
+                            total_page_no=total_page_no, 
+                            recommended=recommended)    
     
     
 @app.route('/recipe_display/<recipe_id>')
@@ -180,6 +160,14 @@ def update_recipe(recipe_id):
     'tags':request.form.getlist('tags')
     }
     })
+    
+    updated_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
+    
+    
+    # users.update({"favourite_recipes._id" : updated_recipe["_id"] },
+    #                                             {"$set": {"recipe_name": "TEST"}}, multi=True)
+    
+    
                    
                                                         
     # Returns back to the recipe after update.
@@ -260,7 +248,7 @@ def delete_recipe(recipe_id):
         
         # Removes the deleted recipe from Users Favourites.
         users.update({}, 
-                    {"$pull": {"favourite_recipes": ObjectId(recipe_id)}},
+                    {"$pull": {"favourite_recipes": {'_id': ObjectId(recipe_id)}}},
                     multi=True)
         
     else:
@@ -294,11 +282,14 @@ def add_to_favourites(recipe_id):
         
         favourites = user['favourite_recipes']
         
+        # Identifies the recipe to be added to the user's favourite 
+        favourited_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
+        
         # Makes sure the recipe is not already in the user's favourites and then adds to favourites
-        if ObjectId(recipe_id) not in favourites:
+        if favourited_recipe not in favourites:
             users.update_one({"username": session['user']}, 
                                                     {"$push" :
-                                                        {"favourite_recipes" : ObjectId(recipe_id)}})
+                                                        {"favourite_recipes" : favourited_recipe}})
         else:
             # If the recipe is already in the User's favourites, the below message is displayed
             flash("You have already added this recipe to your Favourites")
@@ -322,13 +313,13 @@ def remove_from_favourites(recipe_id):
         
             
     # Identifies the recipe to be removed from the user's favourite
-    # remove_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
+    remove_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
         
     # Removes recipe from user's favourites
-    if ObjectId(recipe_id) in favourites:
+    if remove_recipe in favourites:
         users.update({"username": session['user']}, 
                                                 {"$pull" :
-                                                    {"favourite_recipes" : ObjectId(recipe_id)}})
+                                                    {"favourite_recipes" : remove_recipe}})
         flash('Removed from My Favourites.')
         return redirect(url_for('my_favourites', user=user['username'], recipe_id=recipe_id))
             
@@ -491,20 +482,25 @@ def my_favourites(user):
         
         favourites_recipes = user_in_db["favourite_recipes"]
         
-        favs = recipes.find({"_id" : {
-                                    "$in" : favourites_recipes }
-                            });
-                            
+        new = user_in_db["favourite_recipes._id"]
+        
+        print(new)
         
         
+        # userfavs = users.find({"favourite_recipes._id": recipes["_id"] })
         
+        # recipefavs = recipes.find({"_id": new})
+        
+        
+        # recipe_id = recipes.find({"_id": ObjectId })
+        
+        # recipefavs = recipes.find({"_id": favourites_recipes["_id"]})
+        
+        
+        return render_template('my_favourites.html', user=user_in_db, favourites=favourites, favourites_recipes=favourites_recipes, userfavs=userfavs, recipefavs=recipefavs)
     else:
         flash("You must be logged in!")
         return redirect(url_for('get_recipes'))
-        
-    return render_template('my_favourites.html', user=user_in_db, favourites=favourites, favourites_recipes=favourites_recipes, favs=favs)
-    
-    
         
         
 

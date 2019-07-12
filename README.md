@@ -18,8 +18,8 @@ This website will be used by people looking to
 My project began with the wireframes in the links below.
 
 
- * [Mobile Wireframes]()
- * [Desktop Wireframes]()
+ * [Mobile Wireframes](https://github.com/johnnycistudent/recipe-app/blob/master/static/images/Mobile%20Wireframes%20PDF.pdf)
+ * [Desktop Wireframes](https://github.com/johnnycistudent/recipe-app/blob/master/static/images/Desktop%20Wireframes%20PDF.pdf)
 
 
 ## Features
