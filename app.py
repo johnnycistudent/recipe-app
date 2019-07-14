@@ -39,45 +39,13 @@ def get_recipes():
     pages = range(1, int(math.ceil(collection / p_limit)) + 1)
     total_page_no = int(math.ceil(collection/p_limit))
     recipes = mongo.db.recipes.find().skip((current_page -1)*p_limit).limit(p_limit)
-    
-    
-    # # Most Liked/Favourited Recipes
-    # recommended = users.aggregate( [ 
-    #       { "$unwind": "$favourite_recipes" },
-    #       {"$group": {"_id": {"link": "$favourite_recipes._id",
-    #                           "recipe_name": "$favourite_recipes.recipe_name",
-    #                           "photo_url": "$favourite_recipes.photo_url",
-    #                           "servings": "$favourite_recipes.servings",
-    #                           "preptime": "$favourite_recipes.preptime",
-    #                           "calories": "$favourite_recipes.calories"
-    #       }, "number": {"$sum": 1}}},
-    #       { "$sort": { "number" : -1 } },
-    #       { "$limit" : 3 }
-    #       ] )
-          
-    # recommended = users.aggregate( [ 
-    #       { "$unwind": "$favourite_recipes" },
-    #       {"$group": {"_id": {"_id": "$favourite_recipes._id"}, 
-    #       "number": {"$sum": 1}}},
-    #       { "$sort": { "number" : -1 } },
-    #       { "$limit" : 3 },
-    #       { "$project": {"_id._id" : True }}
-    #       ] )
+
+    # Most Popular recipes
+    recommended = mongo.db.recipes.find().sort("favourite_count", pymongo.DESCENDING).limit(3)
           
     
-    
-    # for x in recommended:
-    #     rec = x["_id"]
-    #     favlist = []
-    #     new = favlist.append(rec)
-    #     # for y in favlist:
-    #     favs = mongo.db.recipes.find({"_id" : {
-    #                                 "$in" : rec }
-    #                         });
-    #     for f in favs:
-    #         print(f)
                           
-    return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages, total_page_no=total_page_no)
+    return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages, total_page_no=total_page_no, recommended=recommended)
     
     
 @app.route('/search')
@@ -101,18 +69,7 @@ def search():
     total_page_no = int(math.ceil(results_count/p_limit))
     
     # Most Popular recipes - appear when there are no results to the user's query
-    # recommended = users.aggregate( [ 
-    #       { "$unwind": "$favourite_recipes" },
-    #       {"$group": {"_id": {"link": "$favourite_recipes._id",
-    #                           "recipe_name": "$favourite_recipes.recipe_name",
-    #                           "photo_url": "$favourite_recipes.photo_url",
-    #                           "servings": "$favourite_recipes.servings",
-    #                           "preptime": "$favourite_recipes.preptime",
-    #                           "calories": "$favourite_recipes.calories"
-    #       }, "number": {"$sum": 1}}},
-    #       { "$sort": { "number" : -1 } },
-    #       { "$limit" : 3 }
-    #       ] )
+    recommended = mongo.db.recipes.find().sort("favourite_count", pymongo.DESCENDING).limit(3)
     
     return render_template("search.html", 
                             p_limit = p_limit,
@@ -121,7 +78,8 @@ def search():
                             word_search=word_search,
                             results=results,
                             results_pages=results_pages,
-                            total_page_no=total_page_no)    
+                            total_page_no=total_page_no,
+                            recommended=recommended)    
     
     
 @app.route('/recipe_display/<recipe_id>')
@@ -132,6 +90,7 @@ def recipe_display(recipe_id):
     """
     
     recipe = mongo.db.recipes.find_one({'_id':ObjectId(recipe_id)})
+    
     return render_template('recipe_display.html', recipe=recipe)
     
 
@@ -194,6 +153,7 @@ def add_recipe():
     """
     
     recipes=mongo.db.recipes.find()
+    
     return render_template('addrecipe.html', recipes=recipes)
     
 @app.route('/insert_recipe', methods=["POST"])
@@ -223,7 +183,8 @@ def insert_recipe():
         'added_on' : datetime.datetime.utcnow(), 
         'author' : {
             '_id': user['_id'],
-            'username': user['username']}
+            'username': user['username']},
+        'favourite_count': int(0)
     })
     
     # Returns the new recipe after insertion.
@@ -250,6 +211,7 @@ def delete_recipe(recipe_id):
         deleted.update_one({'_id': ObjectId(recipe_id)}, 
                                                 {"$set" :
                                                     {"deleted_on" : datetime.datetime.utcnow(), 
+                                                    "favourite_count": int(0),
                                                     "deleted_by" : {
                                                                 '_id': user['_id'],
                                                                 'username': user['username']}}
@@ -299,6 +261,10 @@ def add_to_favourites(recipe_id):
             users.update_one({"username": session['user']}, 
                                                     {"$push" :
                                                         {"favourite_recipes" : ObjectId(recipe_id)}})
+            
+            recipes.update({'_id':ObjectId(recipe_id)},
+                                                {'$inc': {'favourite_count': 1}})
+            
         else:
             # If the recipe is already in the User's favourites, the below message is displayed
             flash("You have already added this recipe to your Favourites")
@@ -318,6 +284,7 @@ def remove_from_favourites(recipe_id):
     """
     # Identifies the current user 
     user = users.find_one({"username": session['user']})
+    
     favourites = user['favourite_recipes']
         
             
@@ -329,6 +296,9 @@ def remove_from_favourites(recipe_id):
         users.update({"username": session['user']}, 
                                                 {"$pull" :
                                                     {"favourite_recipes" : ObjectId(recipe_id)}})
+                                                    
+        recipes.update({'_id':ObjectId(recipe_id)},
+                                                {'$inc': {'favourite_count': -1}})                                            
         flash('Removed from My Favourites.')
         return redirect(url_for('my_favourites', user=user['username'], recipe_id=recipe_id))
             
@@ -494,9 +464,6 @@ def my_favourites(user):
         favs = recipes.find({"_id" : {
                                     "$in" : favourites_recipes }
                             });
-                            
-        
-        
         
     else:
         flash("You must be logged in!")
