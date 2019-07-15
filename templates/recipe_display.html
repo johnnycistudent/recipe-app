@@ -42,6 +42,15 @@
                         <a class="here-link" href="{{url_for('profile', user=recipe.author.username) }}">{{ recipe.author.username|title }}</a>
                     </span>
                 </li>
+                <li class="list-group-item">
+                    <strong><em> 
+                        {% if recipe.favourite_count|int == 0 %}
+                        This Recipe has not been Favourited yet
+                        {% else %}
+                        This Recipe has been Favourited <span class="recipe-stats">{{ recipe.favourite_count }}</span> {% if recipe.favourite_count|int == 1 %} time {% else %} times{% endif %}
+                    </em></strong>
+                        {% endif %}
+                </li>
             </ul>
 
             <div class="recipe-buttons text-center">

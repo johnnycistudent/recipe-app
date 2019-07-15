@@ -63,7 +63,7 @@
                             <th scope="col">Recipe</th>
                             <th scope="col">Date Created</th>
                             <th scope="col">Author</th>
-                            <th scope="col"></th>
+                            <th scope="col">Favourited</th>
                         </tr>
                     </thead>
                     
@@ -75,7 +75,7 @@
                             <th scope="row"><a href="{{url_for('recipe_display', recipe_id=recipe._id)}}">{{ recipe.recipe_name }}</a></th>
                             <td>{{ recipe['_id'].generation_time.date().strftime('%d.%m.%Y') }}</td>
                             <td>{{ recipe.author.username }}</td>
-                            <td></td>
+                            <td>{{ recipe.favourite_count }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

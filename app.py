@@ -38,7 +38,7 @@ def get_recipes():
     collection = mongo.db.recipes.count()
     pages = range(1, int(math.ceil(collection / p_limit)) + 1)
     total_page_no = int(math.ceil(collection/p_limit))
-    recipes = mongo.db.recipes.find().skip((current_page -1)*p_limit).limit(p_limit)
+    recipes = mongo.db.recipes.find().skip((current_page -1)*p_limit).limit(p_limit).sort('_id', pymongo.DESCENDING)
 
     # Most Popular recipes
     recommended = mongo.db.recipes.find().sort("favourite_count", pymongo.DESCENDING).limit(3)
@@ -446,9 +446,6 @@ def profile(user):
                                            users_recipes_count=users_recipes_count,
                                            current_page=current_page, pages=pages, total_page_no=total_page_no)
 
-
-    
-#  Taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/my_favourites/<user>')
 def my_favourites(user):
     """
@@ -459,8 +456,10 @@ def my_favourites(user):
         user_in_db = users.find_one({"username": user})
         favourites = mongo.db.users.find(user_in_db)
         
+        # Defines favourite_recipes array from current User document
         favourites_recipes = user_in_db["favourite_recipes"]
         
+        # Finds favourite recipes in Recipe collection in order to display full recipes
         favs = recipes.find({"_id" : {
                                     "$in" : favourites_recipes }
                             });
