@@ -167,10 +167,14 @@ The pink colour is used to make vital statistics stand out next to the dark grey
 
 ## User Stories
 
-  * As a user...     
-  * As a user...
-  * As a user,...
-  * As a user,...    
+  **1.** As a non-registered user, I would like to browse recipes the site has to offer without signing up.  
+  **2.** As a registered or non-registered user, I would like some suggestions as to what recipes other users are using to get some cooking inspiration. 
+  **3.** As a registered or non-registered user, I would like to search the database with a query and have the results match my text search. 
+  **4.** As a registered or non-registered user, I would like to be able to browse the profile and recipes of a User who has added recipes that I like. 
+  **5.** As a registered user, I would like to save recipes that I like and find them with ease. 
+  **6.** As a registered user, I would like to be able to have the recipes I've made compiled in one go to page. 
+  **7.** As a registered user, I would like to edit or delete a recipe I have added to the site. 
+  **8.** As the Administrator of the site, I would like to be able to see the vital statistics of the site in one comprehensive and interactive list. i.e. how many recipes there currently are, how many users, how many deleted recipes etc. 
 
                 
 
@@ -188,18 +192,16 @@ As mentioned in the [Skeleton](#skeleton) above, here are the wireframes.
 
 ### Existing Features
 
-  *   **Navbar** - The Navbar is ...
+  *   **User Accounts**
   *   **Search bar** - The Search bar...
   *   **Footer** - The Footer...
 
 ### Features Left to Implement
 
-  * Improve UX - make more clear
-  * Implement Admin Features  
-  * Tidy up Front End
-  * Fix bugs
-  * Add comments to code. 
-  * Finish README
+  * Filter by tags
+  * Delete recipe restore
+  * User ability to upload their own photos
+  * 
 
 ## Technologies Used
 * [HTML](https://www.w3schools.com/html/html5_intro.asp) - [CSS](https://www.w3schools.com/css/) - [Javascript](https://www.w3schools.com/js/)
@@ -317,5 +319,6 @@ This website was designed by John O'Connor.
   * The logic for the pagination was inspired by Shane Muirhead and Heather Olcott's milestone projects. I was also inspired by Heather for her delete recipe process, which removed the deleted recipe from the recipe DB but first added it to another back up Database.
   * The recipe cards were inspired by [this demo](https://codepen.io/ahmedhosna95/pen/rZKLgg) on [https://freefrontend.com/css-cards/](https://freefrontend.com/css-cards/). 
   * The large button group for the Intro page was taken from Bootsnipp from the following link [https://bootsnipp.com/snippets/GqBjl](https://bootsnipp.com/snippets/GqBjl) and the button styling was made with a button generator at [http://blog.koalite.com/bbg/](http://blog.koalite.com/bbg/)
-  * The logic for the Recommended Section on the Browse All recipes page was taken from MongoDB's documentantion - [Here](https://docs.mongodb.com/manual/tutorial/aggregation-with-user-preference-data/#return-the-five-most-common-likes)
+  * The logic for the Recommended Section on the Browse All recipes page was taken from MongoDB's documentantion - [Here](https://docs.mongodb.com/manual/tutorial/aggregation-with-user-preference-data/#return-the-five-most-common-likes).
+  * I looked to various sources for UX theory and inspiration but mostly returned to [UX Planet](https://uxplanet.org/). 
 

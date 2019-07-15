@@ -244,6 +244,48 @@ def deleted_recipe_display(recipe_id):
     return render_template('deleted_recipe_display.html', deleted_recipe=deleted_recipe)    
     
     
+@app.route('/restore_recipe/<recipe_id>')
+def restore_recipe(recipe_id):
+    """
+    Restores the deleted recipe to the Recipe database and removes if from deleted. 
+    Sets new fields in the recipe document stating who restored the recipe and when. 
+    """
+    
+    # Checks if the user is in session
+    if 'user' in session:
+        
+        # Checks if user is the Admin
+        if session['user'] == "admin":
+            # # Identifies the current user in order to identify who has deleted the recipe.
+            user = users.find_one({"username": session['user']})
+                
+            restored_recipe = deleted.find_one({'_id': ObjectId(recipe_id)})
+            # # Inserts recipe to be deleted into Deleted collection
+            recipes.insert_one(restored_recipe)
+            # # Updates the deleted recipe by identifying who has deleted it and when
+            recipes.update_one({'_id': ObjectId(recipe_id)}, 
+                                                    {"$set" :
+                                                        {"restored_on" : datetime.datetime.utcnow(), 
+                                                        "restored_by" : {
+                                                                    '_id': user['_id'],
+                                                                    'username': user['username']}}
+                                                    })
+            # Removes the recipe from the Deleted collection after restoration into Recipe collection
+            deleted.remove({'_id': ObjectId(recipe_id)})
+        
+        else:
+            flash("Only the Admin can restore recipes!")
+            return redirect(url_for('get_recipes'))                
+        
+    else:
+        flash("You must be logged in to Edit, Save or Delete a recipe!")
+        return redirect(url_for('get_recipes'))
+    
+    
+    flash('Recipe Restored.')
+    return redirect(url_for('get_recipes'))     
+    
+    
 @app.route('/add_to_favourites/<recipe_id>', methods=["GET", "POST"])
 def add_to_favourites(recipe_id):
     """
@@ -492,6 +534,7 @@ def admin():
             users = mongo.db.users.find()
             recipes = mongo.db.recipes.find()
             deleted = mongo.db.deleted.find()
+            
             
             
             return render_template('admin.html', users=users, recipes=recipes, deleted=deleted)
