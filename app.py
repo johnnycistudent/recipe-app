@@ -464,11 +464,14 @@ def my_favourites(user):
                                     "$in" : favourites_recipes }
                             });
         
+        # Most Popular recipes - appear when there are no results to the user's query
+        recommended = mongo.db.recipes.find().sort("favourite_count", pymongo.DESCENDING).limit(3)
+        
     else:
         flash("You must be logged in!")
         return redirect(url_for('get_recipes'))
         
-    return render_template('my_favourites.html', user=user_in_db, favourites=favourites, favourites_recipes=favourites_recipes, favs=favs)
+    return render_template('my_favourites.html', user=user_in_db, favourites=favourites, favourites_recipes=favourites_recipes, favs=favs, recommended=recommended)
     
     
         

@@ -7,7 +7,7 @@
     
     <h2 class="page-heading">{{ current_user.username|title }}'s Recipes</h2>
     
-    <h6>{% if session.user == current_user.username %}You have {% else %} {{ current_user.username|title }} has {% endif %} created {{ users_recipes_count }} {% if users_recipes_count == 1 %}recipe {% else %} recipes {% endif %}</h6>
+    <h6>{% if session.user == current_user.username %}You have {% else %} {{ current_user.username|title }} has {% endif %} created <span class="recipe-stats">{{ users_recipes_count }}</span> {% if users_recipes_count == 1 %}recipe {% else %} recipes {% endif %}</h6>
     
     <!-- Section to encourage users to add recipes to the DB -->
     <div class="row">

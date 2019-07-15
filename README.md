@@ -9,7 +9,7 @@ Recipe Book can be accessed here: [https://my-recipe-db.herokuapp.com/](https://
 
 #### Strategy
 *WHY does this site exist? And for who? (Target Audience) Detail goal of creator/user.*  
-The idea behind this website is to have an online resource to store, look up, create and save recipes. As with any good idea, the basic premise is simple and the user should find it simple to use if it is to be successful. The target audience for this website is any one who needs to store recipes online. The advantages of an online recipe book are numerous as online resources are consistenly replacing more traditional media such as books or magazines. 
+The idea behind this website is to have an online resource to store, look up, create and save recipes. As with any good idea, the basic premise is simple and the user should find it simple to use if it is to be successful. The target audience for this website is any one who needs to store recipes online. The advantages of an online recipe book are numerous as online resources are consistenly replacing more traditional media such as books or magazines. The User stories [here](#user-stories) outline some of the main goals that users of this site would look to achieve.
 
 #### Scope
 *WHAT are we doing? Outline features and functions that help achieve goals from Strategy.*  
@@ -126,7 +126,7 @@ The information architecture of the database consists of three collections - Rec
 }
 ```
 
-The interaction design for this site tries to keep things as simple as possible. The Initial page entitled Intro presents the three main steps for a user in big tempting, clickable buttons - Browse Recipes, Login or Register. The navigational structures from the Navbar are standard and should be familiar with all browser users that collapse to a hamburger menu on smaller devices. It was important to ensure that the user is presented with as many interactive elements as possible when navigation the site. 
+The interaction design for this site tries to keep things as simple as possible. The Initial page entitled Intro presents the three main steps for a user in big tempting, clickable buttons - Browse Recipes, Login or Register. The navigational structures from the Navbar are standard and should be familiar with all browser users that collapse to a hamburger menu on smaller devices. It was important to ensure that the user is presented with as many interactive elements as possible when navigating the site. 
 
 Once the User logs in or registers, they are immediately sent to their profile page. From there they are encouraged to go to the "Browse Recipes" page.
 
