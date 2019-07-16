@@ -27,7 +27,7 @@
                 
                 <!-- Recipe Tags -->
                 <li class="list-group-item"><i class="fas fa-tags"></i>
-                    <strong>Tags:</strong> 
+                <strong>Tags:</strong> 
                     {% for tag in recipe.tags %}
                     <span class="recipe-stats"> #{{ tag|title }}</span> 
                     {% endfor %}
@@ -43,13 +43,13 @@
                     </span>
                 </li>
                 <li class="list-group-item">
-                    <strong><em> 
+                <strong><em> 
                         {% if recipe.favourite_count|int == 0 %}
                         This Recipe has not been Favourited yet
                         {% else %}
-                        This Recipe has been Favourited <span class="recipe-stats">{{ recipe.favourite_count }}</span> {% if recipe.favourite_count|int == 1 %} time {% else %} times{% endif %}
-                    </em></strong>
-                        {% endif %}
+                        This Recipe has been Favourited <span class="recipe-stats">{{ recipe.favourite_count }}</span> {% if recipe.favourite_count|int == 1 %} time {% else %} times{% endif %}{% endif %}
+                </em></strong>
+                        
                 </li>
             </ul>
 
@@ -73,17 +73,17 @@
                 <a role="button" class="btn btn-details disabled" href="#">Edit Recipe</a>
                 <a role="button" class="btn btn-delete disabled" href="#">Delete Recipe</a>
                 <p class="text-muted">
-                    <em>You must be logged in to Edit or Delete a recipe!
-                        <!-- Links to Login or Register -->
-                        <br>Click to <a class="here-link" href="{{url_for('login')}}">Login</a> or <a class="here-link" href="{{url_for('register')}}">Register</a> Now
-                    </em>
+                <em>You must be logged in to Edit or Delete a recipe!
+                    <!-- Links to Login or Register -->
+                    <br>Click to <a class="here-link" href="{{url_for('login')}}">Login</a> or <a class="here-link" href="{{url_for('register')}}">Register</a> Now
+                </em>
                 </p>
                 {% endif %}
             </div>
             
             <!-- Recipe Ingredients -->
             <div class="recipe-heading">
-                <strong>Ingredients:</strong>
+            <strong>Ingredients:</strong>
                 <ul>
                     {% for ingredient in recipe.ingredients %}
                     <li class="ingredients">{{ingredient}}</li>
@@ -93,7 +93,7 @@
             
             <!-- Recipe Instructions -->
             <div class="recipe-heading">
-                <strong>Instructions:</strong>
+            <strong>Instructions:</strong>
                 <ul>
                     <li class="instructions">{{recipe.instructions}}</li>
                 </ul>
@@ -101,7 +101,7 @@
             
             <!-- Recipe Nutrional Info -->
             <div class="recipe-heading">
-                <strong>Nutritional Info:</strong>
+            <strong>Nutritional Info:</strong>
                 <ul class="nutritional-info">
                     <li>
                         Fats: {{ recipe.fat }}

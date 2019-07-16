@@ -1,6 +1,6 @@
 # Data-Centric Development Milestone Project
 
-Welcome to my Data-Centric Development Milestone Project which I have entitled "Recipe Book". The purpose of this project is to create an interactive database of recipes that allows users to create, read, update and delete (CRUD) recipes. Recipe Book can be used for general browsing by non-registered users or the users can create an individual account to avail fully of all the features of the website.   
+Welcome to my Data-Centric Development Milestone Project which I have entitled "Recipe Book". The purpose of this project is to create an interactive database of recipes that allows users to create, read, update and delete (CRUD) recipes. Recipe Book can be used for general browsing by non-registered users or users can register and create an individual account to avail fully of all the features of the website.   
 
 Recipe Book can be accessed here: [https://my-recipe-db.herokuapp.com/](https://my-recipe-db.herokuapp.com/)
 
@@ -15,11 +15,11 @@ The idea behind this website is to have an online resource to store, look up, cr
 *WHAT are we doing? Outline features and functions that help achieve goals from Strategy.*  
 I chose a Non-relational database in the form of MongoDB for this project.  
 ###### Functional requirements
-The most basic requirements for this project are the ability to perform CRUD (Create, Read, Update and Delete) operations on the primary documents in this database - the recipes. The user should also be able to search the database with relative ease, including queries and searching the entire database with pagination where necessary.  
+The most basic requirements for this project are the ability to perform CRUD (Create, Read, Update and Delete) operations on the primary documents in this database - the recipes. The user should also be able to search the database with relative ease, including queries and navigating the entire database with pagination where necessary.  
 
-Although having a user registration function was not necessarily required for this project, I believed it was important to have it to be able to properly implement an integral resource - specifically for the creation and deletion of recipes. This decision meant that there needed to be two views for the target audience of the site; Registered Users and Non-registered Users. The majority of the functionality of the website would be aimed at the registered user. The non-registered user would be able to view recipes but not be able to create, edit, save or delete recipes. This would create accountability and protection for recipe documents. The User collection also gives the option for any user to view all the recipes made by one User.   
+Although having a user registration function was not necessarily required for this project, I believed it was important to have it to be able to properly implement an integral resource - specifically for the creation and deletion of recipes. This decision meant that there needed to be two views for the target audience of the site; Registered Users and Non-registered Users. The majority of the functionality of the website would be aimed at the registered user. The non-registered user would be able to view recipes but not be able to create, edit, save or delete recipes. This would create accountability and protection for the documents in the Recipe collection. The User collection also gives the option for any user to view all the recipes made by one User.   
 
-I created a third collection to back up the deleted recipes in order to give the Users freedom to delete recipes but the Admin would also have the ability to restore a deleted recipe if they saw fit. The Admin would need a the ability to oversee the changes that have happened to the database i.e. Recipes that have been deleted, no of recipes/users/deleted recipes.   
+I created a third collection to back up the deleted recipes in order to give the Users freedom to delete recipes but the Admin would also have the ability to restore a deleted recipe if they saw fit. The Admin would need the ability to oversee the changes that have happened to the database i.e. Recipes that have been deleted, no of recipes/users/deleted recipes and other relevant information.   
 
 The site should be responsive and work on all browsers.   
 
@@ -147,7 +147,7 @@ The information structure is laid out in the wireframes below:
  * [Mobile Wireframes](https://github.com/johnnycistudent/recipe-app/blob/master/static/images/Mobile%20Wireframes%20PDF.pdf)
  * [Desktop Wireframes](https://github.com/johnnycistudent/recipe-app/blob/master/static/images/Desktop%20Wireframes%20PDF.pdf)
 
-The five primary functions are represented in the Navbar links; Browse Recipes, My Recipes(User created recipes), My Favourites, Add a Recipe and the Log Out function. If the Admin is logged in, the Admin's reports area are represented in the Navbar links to under "Admin Area". The only pages not represented in the Navbar links are the individual Recipes page (including edit recipe) and the view of another Users' recipes i.e. other Users' profile page. For the Admin, the deleted recipe view page is also not represented in the Navbar. Otherwise, all of the users' wants from the website should be easily clicked from the page they are currently on. The browse recipes page is linked in the Brand name at the top left of the page and is essentially the home page. 
+The five primary functions are represented in the Navbar links; Browse Recipes, My Recipes(User created recipes), My Favourites, Add a Recipe and the Log Out function. If the Admin is logged in, the Admin's reports area are represented in the Navbar links under "Admin Area". The only pages not represented in the Navbar links are the individual Recipes page (including edit recipe) and the view of another Users' recipes i.e. other Users' profile page. For the Admin, the deleted recipe view page is also not represented in the Navbar. Otherwise, all of the users' wants from the website should be easily clicked from the page they are currently on. The browse recipes page is linked in the Brand name at the top left of the page and is essentially the home page. 
 
 Non-registered Users can have only the Login, Register and Browse Recipes pages linked in the Navbar. 
 
@@ -155,26 +155,35 @@ Non-registered Users can have only the Login, Register and Browse Recipes pages 
 *What will the finished product look like?*
 *What colours, typography and design elements will be used?*
 
-Repeating the mantra "keep it simple stupid", I used the Sandstone theme from [Bootswatch](https://bootswatch.com/sandstone/) and adjusted it fit my site's needs. I felt this theme was understated enough in its subtle tones to allow the website's content to flourish. The dark grey navbar and footer colour provides the upper and lower margins of the page and the white background allowed the vibrant colour of the buttons to stand out on the page and draw the users' eyes to call to action components.
+Repeating the mantra "keep it simple stupid", I used the Sandstone theme from [Bootswatch](https://bootswatch.com/sandstone/) and adjusted it fit my site's needs. I felt this theme was understated enough in its subtle tones to allow the website's content to flourish. The dark grey navbar and footer colour provides the upper and lower margins of the page and the white background allowed the vibrant colour of the buttons to stand out on the page and draw the users' eyes to the call to action components.
 
-The recipes' cards represent the vital stats and the use of FontAwesome's iconography is used liberally throughout the site and reinforce its simplicity to the user. The cards themselves are large and made to stand out with the box shadowing around them and indicate their importance to the user. The cards were inspired by [this demo](https://codepen.io/ahmedhosna95/pen/rZKLgg) on [FreeFrontEnd.com](https://freefrontend.com/) although I did not copy the code from this demo, I only took inspiration from the styling. 
+The recipes' cards represent the vital stats and the use of FontAwesome's iconography is used liberally throughout the site and reinforces its simplicity to the user. The cards themselves are large and made to stand out with the box shadowing around them and indicate their importance to the user. The cards were inspired by [this demo](https://codepen.io/ahmedhosna95/pen/rZKLgg) on [FreeFrontEnd.com](https://freefrontend.com/) although I did not copy the code from this demo, I only took inspiration from the styling. 
 
 The buttons through out the whole site are shaded and hoverable in four main colours; a navy blue, a bright vibrant blue and pink. The danger buttons are in a stark red. They are designed to make the user want to click them and they also benefit from the box shadow effect. 
 
-The pink colour is used to make vital statistics stand out next to the dark grey font colour of the main text. The largest three headings (H1, H2, H3) all have text shadowing as well as the pink card stats. The font used for the main body and headings is Roboto from Google Fonts. The only other font used on the site is the intro page heading Roboto Slab. The majority of the headings on the site have a font-weight of 700 and appear in the centre of the screen, except the heading above the input fields on the edit/add recipe pages. 
+The pink colour is used to make vital statistics stand out next to the dark grey font colour of the main text. The largest three headings (H1, H2, H3) all have text shadowing as well as the pink card stats. The font used for the main body and headings is Roboto from Google Fonts. The only other font used on the site is the intro page heading Roboto Slab. The majority of the headings on the site have a font-weight of 700 and appear in the centre of the screen, except the headings above the input fields on the edit/add recipe pages. 
 
 
 
 ## User Stories
 
   **1.** As a non-registered user, I would like to browse recipes the site has to offer without signing up.  
-  **2.** As a registered or non-registered user, I would like some suggestions as to what recipes other users are using to get some cooking inspiration. 
+  
+  **2.** As a registered or non-registered user, I would like some suggestions as to what recipes other users are using to get some cooking inspiration.
+  
   **3.** As a registered or non-registered user, I would like to search the database with a query and have the results match my text search. 
+  
   **4.** As a registered or non-registered user, I would like to be able to browse the profile and recipes of a User who has added recipes that I like. 
+  
   **5.** As a registered user, I would like to save recipes that I like and find them with ease. 
-  **6.** As a registered user, I would like to be able to have the recipes I've made compiled in one go to page. 
+  
+  **6.** As a registered user, I would like to be able to have the recipes I've made compiled in one go-to page. 
+  
   **7.** As a registered user, I would like to edit or delete a recipe I have added to the site. 
+  
   **8.** As the Administrator of the site, I would like to be able to see the vital statistics of the site in one comprehensive and interactive list. i.e. how many recipes there currently are, how many users, how many deleted recipes etc. 
+  
+  **9.** As the Administrator of the site, I would like to restore a recipe I deleted previously to the active recipe collection. 
 
                 
 
@@ -192,83 +201,80 @@ As mentioned in the [Skeleton](#skeleton) above, here are the wireframes.
 
 ### Existing Features
 
-  *   **User Accounts**
-  *   **Search bar** - The Search bar...
-  *   **Footer** - The Footer...
+  *   **Navbar** - The Navbar offers an easy navigational view through the site for both non-registered and registered users and is always available to act as a reference point for any user not necessarily sure of their whereabouts on the site. 
+  *   **Intro Page** - The Intro Page welcomes new Users to the site with a brief explainer and offers three options - Browse Recipes, Log in or Create an Account. 
+  *   **Browse All Recipes** - This function and page acts as the home page for the site and is linked by the Brand Name in the top left corner of the Navbar. The recipes are ordered by last added first so users can see their latest recipes feature full prominence on the site to encourage user activity inclusion.
+  *   **Search bar** - The Search bar on the Browse Recipes page is designed to match the text query of the user. The results of the user's queries follow best practices of UX design - the user is reminded of their query and informed of the number of results their query has generated. The search submit button can be triggered by the return or enter key on any device that the site is being viewed through.
+  *   **Full Recipe Display** - The full recipe view is rendered when a registered or non registered user clicks on one of the cards displaying a recipes' information. The user is then taken to a page dedicated to only that particular recipe where all the recipe information is presented. This page offers many options to the registered user - Add Recipe to Favourites, Edit the Recipe or Delete it. It also offers both registered and non-registered Users the option to view the recipe author's other additions to the site by clicking on their username. 
+  *   **User Accounts** - Each user has the ability to create their own account which enables them to access a wider array of features on the website such as saving(favouriting), editing, deleting and creating recipes. 
+  *   **Add and Edit Recipes** - Satisfying the Create and Update part of CRUD functions required for this site, registered users can add a new recipe to the site and also edit any one's recipes by interacting with the recipe forms, 
+  *   **Favourite/Save Recipes** - Registered users can easily save recipes they like and want to refer to later. The recipes are stored in the "My Favourites" page which is represented in the Navbar so easy to navigate to. The ability to "favourite" a recipe ties in with the rating system in the Most Popular section, mentioned next. 
+  *   **Most Popular Recipes Section** - The Most Popular section is designed to promote the most "favourited" recipes on the site, to inspire users to add to their favourites or give ideas for adding their own recipes and also as a recipe rating system. It appears when the User has no favourites on their "My Favourites" page, at the top of the browse all recipes page and when a user's search query returns no results. The Most Popular recipes appear on bootstrap customised cards in the same way the rest of the recipes on the site are represented except they also display the number of times the recipes have been favourited. 
+  *   **Delete Recipes** - Because a recipe that is deleted is sent to a back up collection called "Deleted",  Registered users can delete any recipe from the website. If a recipe is deleted, it is removed from any users that may have it stored in their "My Favourites" and the recipes' favourite count field is reset to zero. 
+  *   **Deleted Recipe View/Restore Deleted Recipes** - The Admin has the ability to review deleted recipes and restore them if they see fit. 
+  *   **User Profiles** - The User Profile is used to view your own recipes as well as other user's recipes. The "My Recipes" link in the navbar allows the user to view the recipes they themselves have added. As mentioned in the Full Recipe Display feature above, if a user wants to view another user's profile, they can follow the link by clicking on the name of the recipe author displayed on the full recipe display. 
+  *   **Admin Area** - The Admin Area allows the site Administrator to view a list of information/statistics about each collection in the database. The information includes the total number of documents in each collection, each document and a link to said document as well as the date each document was created. This view also links each user profile as well as offering a path to the deleted recipe display, where the deleted recipe can be restored. 
+  *   **Footer** - The footer features links to the social media accounts of myself, the site developer and my Github profile. 
 
 ### Features Left to Implement
 
-  * Filter by tags
-  * Delete recipe restore
+  * Comments section on recipes
   * User ability to upload their own photos
-  * 
+  * User ability to edit their own profile, change username or email and reset their password
 
 ## Technologies Used
-* [HTML](https://www.w3schools.com/html/html5_intro.asp) - [CSS](https://www.w3schools.com/css/) - [Javascript](https://www.w3schools.com/js/)
+* [HTML](https://www.w3schools.com/html/html5_intro.asp) - [CSS](https://www.w3schools.com/css/) - [Javascript](https://www.w3schools.com/js/) - [JQuery](https://jquery.com/) - [FontAwesome](https://fontawesome.com/) - [Google Fonts](https://fonts.googleapis.com/css?family=Muli:400,700i|Poppins:400,400i)
 
-    This website is written using HTML, CSS and Javascript.
+    This site's front end is written using HTML, CSS, Javascript and Jquery. It features iconography from FontAwesome's library and fonts from Google Fonts. 
 
-* [Cloud9](https://c9.io/login)
+* [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/introduction/) - [Bootswatch](https://bootswatch.com/)
 
-    This website was written on Cloud9. 
+    This website uses Bootstrap 4.1.3 and elements from Bootswatch to build the likes of the Navbar and the buttons for its framework and for responsivesness. 
 
-* [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/introduction/)
+* [AWS Cloud9](https://aws.amazon.com/cloud9/)
 
-    This website uses Bootstrap 4.1.3 for its framework. 
+    The IDE this website was written on is AWS Cloud9. 
 
-* [Bootswatch](https://bootswatch.com/)
+* [GitHub](https://github.com) - [Heroku](https://www.heroku.com/) - [Flask](http://flask.pocoo.org/) - [Jinja Python Templates](http://jinja.pocoo.org/) - [Python](https://www.python.org/)
 
-    This website uses elements from Bootswatch to build the likes of the Navbar and the buttons.
-
-* [JQuery](https://jquery.com/)
-
-    This website uses JQuery which helps implement javascript features from Bootstrap and the Google Maps Javascript API. 
+    This website's Git repository is published on GitHub and is deployed on Heroku. The backend code is written in Python and Flask is used as the Python web framework and uses Jinja templates.
     
+* [MongoDB](https://www.mongodb.com/) - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)    
 
-* [FontAwesome](https://fontawesome.com/)
+    MongoDB is the NoSQL database used for this site and is hosted by MongoDB Atlas. 
 
-    This website uses icons from FontAwesome in the Hero Image and the GitHub icon in the footer.
-
-* [Google Fonts](https://fonts.googleapis.com/css?family=Muli:400,700i|Poppins:400,400i)
-
-    This website uses...
-
-* [GitHub](https://github.com)
-
-    This website's repository is published on GitHub.   
     
-* [Heroku](https://www.heroku.com/)
-
-    This website is hosted and deployed on Heroku. 
 
 ## Testing
 
 ### Testing User Stories
 
-  * As a user,...  
-    **i.** 
-    **ii.**   
-    **iii.**  
-    **iv.** 
-
-  * As a user,...  
-    **i.**   
-    **ii.** 
-    **iii.**    
-    **iv.**   
-
-  * As a user, I want to be able to...
-    **i.** 
-    **ii.** 
-    **iii.**   
-
-  * As a user, I want...  
-    **i.**   
-    **ii.**  
-    **iii.**
+1. As a non-registered user, I would like to browse recipes the site has to offer without signing up.  
+   **i.** From the opening page - [http://my-recipe-db.herokuapp.com/](http://my-recipe-db.herokuapp.com/) - click on either the large "start Cooking" button that's prominent on the screen, click the "Browse Recipes" navbar link or click the Recipe Book brand name at the top left of the navbar.  
+   **ii.** Scroll down to the Browse All Recipes section after following one of the above paths and peruse the recipe cards.  
+   **iii.** Skip through the pages at the bottom of the page using the pagination controls. 
+  
+2. As a registered or non-registered user, I would like some suggestions as to what recipes other users are using to get some cooking inspiration.  
+   **i.** As a non-registered or registered user, if I navigate to the browse recipe page, the top of the page features the Most Popular section, featuring the 3 Most Popular recipes on the site.  
+   **ii.** As a non-registered or registered user, if I enter a search query with no results - for example, just by clicking on the search submit button with no query in the input field, the search will produce no results but will offer up the Most Popular section as a method of inspiration to users.     
+   **iii.** As a registered user, if I log in for the first time I will be taken to My Favourites page which will have no favourites. As long as I have not added any favourites, the Most Popular section will appear.   
+  
+  **3.** As a registered or non-registered vegetarian user, I would like to search the database with a query and have the results match my text search. 
+  
+  **4.** As a registered or non-registered user, I would like to be able to browse the profile and recipes of a User who has added recipes that I like. 
+  
+  **5.** As a registered user, I would like to save recipes that I like and find them with ease. 
+  
+  **6.** As a registered user, I would like to be able to have the recipes I've made compiled in one go-to page. 
+  
+  **7.** As a registered user, I would like to edit or delete a recipe I have added to the site. 
+  
+  **8.** As the Administrator of the site, I would like to be able to see the vital statistics of the site in one comprehensive and interactive list. i.e. how many recipes there currently are, how many users, how many deleted recipes etc. 
+  
+  **9.** As the Administrator of the site, I would like to restore a recipe I deleted previously to the active recipe collection. 
 
 ### Responsiveness
-  * I have tested out the responsivesness of the website on Google Chrome, Microsoft Edge and Mozilla Firefox using Dev tools, as well as testing it on Safari on various iOS devices. I have also tested the website on the devices below, both in horizontal and vertical view ports and they have all worked nicely.
+  * I have tested out the responsivesness of the website on Google Chrome, Microsoft Edge and Mozilla Firefox using Dev tools, as well as testing it on Safari on various iOS devices. The tests took place on the devices below, both in horizontal and vertical view ports. 
    
     * Small devices - iPhone 6s, Samsung J5, Samsung S9. 
     * Medium devices - iPad, Samsung Tablet. 
@@ -290,24 +296,18 @@ The code for this website was pushed from Cloud9 to a repository in GitHub and i
 
 
 ## Credits
-This website was designed by John O'Connor. 
+This website was designed by John O'Connor. Stack Overflow and the Code Institute Data-Centric Development channel were also extremely helpful during the production of this project.
 
 ### Content
 
 ### Media 
   All of the images on this page were taken from Pixabay and were sourced using google image search under the free to use search setting. They can be found at the following links  
   
-   - []().   
+   - The recipes I used in this website are mostly imported from a GitHub json that can be found [here](https://github.com/tabatkins/recipe-db/blob/master/db-recipes.json). All the photos associated are from that json. 
 
-   - []().  
+   - The backup photo for recipes without a photo and the Intro page background were taken from a free search of [Pixabay](https://pixabay.com/).  
    
-   - []().   
-   
-   - []().   
-   
-   - []().  
-
-  The favicon image was found at [https://icons8.com/icons/set/cookbook](https://icons8.com/icons/set/cookbook).
+   - The favicon image was found at [https://icons8.com/icons/set/cookbook](https://icons8.com/icons/set/cookbook).
 
 
 ## Acknowledgements
@@ -319,6 +319,5 @@ This website was designed by John O'Connor.
   * The logic for the pagination was inspired by Shane Muirhead and Heather Olcott's milestone projects. I was also inspired by Heather for her delete recipe process, which removed the deleted recipe from the recipe DB but first added it to another back up Database.
   * The recipe cards were inspired by [this demo](https://codepen.io/ahmedhosna95/pen/rZKLgg) on [https://freefrontend.com/css-cards/](https://freefrontend.com/css-cards/). 
   * The large button group for the Intro page was taken from Bootsnipp from the following link [https://bootsnipp.com/snippets/GqBjl](https://bootsnipp.com/snippets/GqBjl) and the button styling was made with a button generator at [http://blog.koalite.com/bbg/](http://blog.koalite.com/bbg/)
-  * The logic for the Recommended Section on the Browse All recipes page was taken from MongoDB's documentantion - [Here](https://docs.mongodb.com/manual/tutorial/aggregation-with-user-preference-data/#return-the-five-most-common-likes).
   * I looked to various sources for UX theory and inspiration but mostly returned to [UX Planet](https://uxplanet.org/). 
 

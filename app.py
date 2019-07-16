@@ -247,7 +247,7 @@ def deleted_recipe_display(recipe_id):
 @app.route('/restore_recipe/<recipe_id>')
 def restore_recipe(recipe_id):
     """
-    Restores the deleted recipe to the Recipe database and removes if from deleted. 
+    Restores the deleted recipe to the Recipe database and removes it from deleted. 
     Sets new fields in the recipe document stating who restored the recipe and when. 
     """
     
@@ -272,6 +272,12 @@ def restore_recipe(recipe_id):
                                                     })
             # Removes the recipe from the Deleted collection after restoration into Recipe collection
             deleted.remove({'_id': ObjectId(recipe_id)})
+            
+            deleted.update({},
+                        { "$set": {"favourite_count": 0} },
+                        upsert=False,
+                        multi=True)
+                        
         
         else:
             flash("Only the Admin can restore recipes!")
@@ -283,7 +289,7 @@ def restore_recipe(recipe_id):
     
     
     flash('Recipe Restored.')
-    return redirect(url_for('get_recipes'))     
+    return redirect(url_for('recipe_display', recipe_id=recipe_id))     
     
     
 @app.route('/add_to_favourites/<recipe_id>', methods=["GET", "POST"])

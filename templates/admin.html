@@ -110,7 +110,7 @@
                         {% for recipe in deleted %}
                         <tr>
                             <th scope="row"><a href="{{url_for('deleted_recipe_display', recipe_id=recipe._id)}}">{{ recipe.recipe_name }}</a></th>
-                            <td>{{ recipe.added_on }}</td>
+                            <td>{{ recipe.deleted_on }}</td>
                             <td>{{ recipe.deleted_by.username }}</td>
                             <td></td>
                         </tr>
