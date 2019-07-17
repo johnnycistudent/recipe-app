@@ -171,15 +171,15 @@ The pink colour is used to make vital statistics stand out next to the dark grey
   
   **2.** As a registered or non-registered user, I would like some suggestions as to what recipes other users are using to get some cooking inspiration.
   
-  **3.** As a registered or non-registered user, I would like to search the database with a query and have the results match my text search. 
+  **3.** As a registered or non-registered vegetarian user, I would like to search the database for vegetarian recipes.    
   
   **4.** As a registered or non-registered user, I would like to be able to browse the profile and recipes of a User who has added recipes that I like. 
   
-  **5.** As a registered user, I would like to save recipes that I like and find them with ease. 
+  **5.** As a registered user, I would like to add a recipe and then be able to view the recipe/recipes I’ve made compiled in one go-to page.    
   
-  **6.** As a registered user, I would like to be able to have the recipes I've made compiled in one go-to page. 
+  **6.** As a registered user, I would like to save recipes that I like and find them with ease. 
   
-  **7.** As a registered user, I would like to edit or delete a recipe I have added to the site. 
+  **7.** As a registered user, I would like to edit or delete a recipe I have added to the site.  
   
   **8.** As the Administrator of the site, I would like to be able to see the vital statistics of the site in one comprehensive and interactive list. i.e. how many recipes there currently are, how many users, how many deleted recipes etc. 
   
@@ -250,39 +250,93 @@ As mentioned in the [Skeleton](#skeleton) above, here are the wireframes.
 ### Testing User Stories
 
 1. As a non-registered user, I would like to browse recipes the site has to offer without signing up.  
+
    **i.** From the opening page - [http://my-recipe-db.herokuapp.com/](http://my-recipe-db.herokuapp.com/) - click on either the large "start Cooking" button that's prominent on the screen, click the "Browse Recipes" navbar link or click the Recipe Book brand name at the top left of the navbar.  
    **ii.** Scroll down to the Browse All Recipes section after following one of the above paths and peruse the recipe cards.  
    **iii.** Skip through the pages at the bottom of the page using the pagination controls. 
   
 2. As a registered or non-registered user, I would like some suggestions as to what recipes other users are using to get some cooking inspiration.  
+
    **i.** As a non-registered or registered user, if I navigate to the browse recipe page, the top of the page features the Most Popular section, featuring the 3 Most Popular recipes on the site.  
    **ii.** As a non-registered or registered user, if I enter a search query with no results - for example, just by clicking on the search submit button with no query in the input field, the search will produce no results but will offer up the Most Popular section as a method of inspiration to users.     
    **iii.** As a registered user, if I log in for the first time I will be taken to My Favourites page which will have no favourites. As long as I have not added any favourites, the Most Popular section will appear.   
   
-  **3.** As a registered or non-registered vegetarian user, I would like to search the database with a query and have the results match my text search. 
+3. As a registered or non-registered vegetarian user, I would like to search the database for vegetarian recipes. 
+
+   **i.** Navigate to the browse recipe section.  
+   **ii.** Type "vegetarian" into the input field and submit the search query.   
+   **iii.** Browse the results.   
+
   
-  **4.** As a registered or non-registered user, I would like to be able to browse the profile and recipes of a User who has added recipes that I like. 
+4. As a registered or non-registered user, I would like to be able to browse the profile and recipes of a User who has added recipes that I like. 
+
+   **i.** Browse the site's recipes and find a recipe you like.  
+   **ii.** Click into the recipe's full view.   
+   **iii.** Navigate to the Added By field on the form and click the Username which will be hyperlinked and will go to the recipe author's profile page.   
+   **iv.** Browse the profile of the recipe's author.     
+   
+5. As a registered user, I would like to add a recipe and then be able to view the recipe/recipes I've made compiled in one go-to page.
+
+   **i.** Navigate to the Add a Recipe page, either by the navbar link or the suggestion button in the My Recipe page.   
+   **ii.** Fill out the form and submit the new recipe and you will be taken to the new recipe display.   
+   **iii.** Either click on the navbar link entitled "My Recipes" or click on your own username displayed at the Added By field (as per the previous user story).     
+   **iv.** Browse the recipes you have added.   
+
+6. As a registered user, I would like to save recipes that I like and find them with ease.  
+
+   **i.** Browse the site's recipes and find a recipe you like.   
+   **ii.** Click into the recipe's full view.     
+   **iii.** Navigate to the Add to Favourites button below the recipe's photo and click.    
+   **iv.** The page will refresh with an alert informing you of the recipe has been added to your favourites.  
+   **v.** Navigate to your favourites page by clicking the navlink entitled My Favourites and check the recipe has been added.   
+   **vi.** Ensure the recipe cannot be added to your favourites again if it's already there by clicking on the Add to Favourites button again.   
+   **vii.** The page should refresh and inform you that the recipe has already been added to your favourites.   
+   **viii.** Double check the recipe hasn't been added to your favourites by navigating to your My Favourites page again and ensure the recipe is only present once.   
+
+7. As a registered user, I would like to edit or delete a recipe I have added to the site.   
+
+   **i.** Browse the site's recipes and find a recipe you want to edit/delete. It may be advisable to add a test recipe for the sake of this user story.   
+   **ii.** Click into the recipe's full view and click the Edit Recipe button.    
+   **iii.** Edit as many fields as you see fit, delete and add ingredients and tags to ensure their dynamic field inputs are working.   
+   **iv.** Submit the edited recipe and you will be returned to the newly edited recipe. Ensure your changes have taken effect.   
+   **v.** In order to delete this recipe, click on the Delete Recipe button beside the Edit Recipe button. BUT first, add the recipe to your favourites by clicking the Add to Favourites in order to check that when you delete this recipe, it will be removed from your favourites page.   
+   **vi.** A "Delete Recipe" Modal will pop up asking are you sure you want to delete this recipe. Click on "No, go back" to make sure the cancel option works or click anywhere else on the screen and watch the modal disappear.   
+   **vii.** Click on "Yes, Delete" to delete the recipe and you will be returned to the browse recipes page where an alert will inform you the recipe has been deleted.   
+   **viii.** Search the database for the recipe you have just deleted to ensure it has been removed from the site.  
+   **ix.** Check your My Favourites page for the recipe you have just deleted to make sure it has been removed from there too.   
+   
   
-  **5.** As a registered user, I would like to save recipes that I like and find them with ease. 
+8. As the Administrator of the site, I would like to be able to see the vital statistics of the site in one comprehensive and interactive list. i.e. how many recipes there currently are, how many users, how many deleted recipes etc.   
+
+   **i.** If you are logged in as an active user, log out by clicking the Log Out at the top right hand corner of the navbar.      
+   **ii.** Navigate to the Login page either by the navbar link or the "Sign In" button on the Intro page.      
+   **iii.** To Log in as the Administrator, type "admin" in to the username field, and "thisismypassword" in to the password field and submit. Ensure both username and password are all lowercase.      
+   **iv.** Confirm you have been logged in as the Administrator. You should be taken directly to the Admin Area upon logging in as Admin but if not, click Admin Area in the navbar link.   
+   **v.** Browse through the User, Recipes and Deleted Recipes reports in the accordion-style table.    
+   **vi.** Ensure all hyperlinks work - a view to each User's profile, a view to each Recipe display and a view to each Deleted Recipe.   
   
-  **6.** As a registered user, I would like to be able to have the recipes I've made compiled in one go-to page. 
-  
-  **7.** As a registered user, I would like to edit or delete a recipe I have added to the site. 
-  
-  **8.** As the Administrator of the site, I would like to be able to see the vital statistics of the site in one comprehensive and interactive list. i.e. how many recipes there currently are, how many users, how many deleted recipes etc. 
-  
-  **9.** As the Administrator of the site, I would like to restore a recipe I deleted previously to the active recipe collection. 
+9. As the Administrator of the site, I would like to restore a recipe I deleted previously to the active recipe collection.   
+
+   **i.** Following on from the above User story, remain logged in as the Administrator and stay on the Admin Area page.    
+   **ii.** Navigate to the Deleted Recipe view by clicking on the "Deleted Recipes Report" tab on the report table and click on the hyperlinked name of a recipe you would like to restore.   
+   **iii.** Click on the only button in red on the page entitled "Restore Recipe".   
+   **iv.** Like the Delete Recipe process, a Modal will appear asking if you are sure you would like to restore this recipe. Click Yes, Restore.   
+   **v.** You will be taken back to the Browse Recipes page and a message will appear stating the recipe has been restored.   
+   **vi.** Search the database for the restored recipe to ensure it has successfully been re-instated.   
 
 ### Responsiveness
-  * I have tested out the responsivesness of the website on Google Chrome, Microsoft Edge and Mozilla Firefox using Dev tools, as well as testing it on Safari on various iOS devices. The tests took place on the devices below, both in horizontal and vertical view ports. 
+  I have tested out the responsivesness of the website on Google Chrome, Microsoft Edge and Mozilla Firefox using Dev tools, as well as testing it on Safari on various iOS devices.  
+  The Recipe cards were designed to help the responsiveness of the site. On mobile view, the screen displays one recipe per column, on medium devices two cards are displayed and then three cards are displayed on anything larger. Bootstrap's grid system was very useful in this regard and meant the only media query I needed for the whole site was for the Admin Area info table.
+  The tests took place on the devices below, both in horizontal and vertical view ports. All buttons and links work on all devices.  
    
     * Small devices - iPhone 6s, Samsung J5, Samsung S9. 
     * Medium devices - iPad, Samsung Tablet. 
     * Large/Extra Large devices - Lenovo ideapad 520, Asus Vivobook.  
 
 ### Bugs
-  * Search showing incorrect results - when an author publishes a new recipe, for example "chicken wings", when a user searches for "chicken" or "wings" etc . 
-  * When...
+  Most of the bugs I encountered while developing this site had to do with how I previously stored the "Favourited Recipes". Initially, when a User saved a recipe, that recipe Object would be saved as an object in an array called "favourite_recipes". Using the similar logic, when a User published a new recipe, I would match their session username with their User username and save their entire User document as an object.  
+  This produced the following bugs when I asked family and friends to test my site:
+  * User search queries were showing incorrect results. Because my search function is based on text match, if a user published a new recipe called "Chicken wings"
   * When making the function that removes a users' favourite recipes from their profile page, I could only remove recipes from the current or very recent session. When I cleared the cache or used a different browser, I found I could not reach the recipe with the code I had written. I solved this by...
 
 ### Validation
@@ -296,18 +350,20 @@ The code for this website was pushed from Cloud9 to a repository in GitHub and i
 
 
 ## Credits
-This website was designed by John O'Connor. Stack Overflow and the Code Institute Data-Centric Development channel were also extremely helpful during the production of this project.
+This website was designed by John O'Connor. Stack Overflow, the Code Institute tutors and the Code Institute Data-Centric Development channel were also extremely helpful during the production of this project.
 
 ### Content
 
 ### Media 
   All of the images on this page were taken from Pixabay and were sourced using google image search under the free to use search setting. They can be found at the following links  
   
-   - The recipes I used in this website are mostly imported from a GitHub json that can be found [here](https://github.com/tabatkins/recipe-db/blob/master/db-recipes.json). All the photos associated are from that json. 
+   - The recipes I used in this website are mostly imported from a GitHub json that can be found [here](https://github.com/tabatkins/recipe-db/blob/master/db-recipes.json). All the recipes photos associated are from that json. 
 
    - The backup photo for recipes without a photo and the Intro page background were taken from a free search of [Pixabay](https://pixabay.com/).  
    
    - The favicon image was found at [https://icons8.com/icons/set/cookbook](https://icons8.com/icons/set/cookbook).
+   
+   - Any other photos uploaded by Users were sourced by them.
 
 
 ## Acknowledgements
