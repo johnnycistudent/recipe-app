@@ -334,18 +334,87 @@ As mentioned in the [Skeleton](#skeleton) above, here are the wireframes.
     * Large/Extra Large devices - Lenovo ideapad 520, Asus Vivobook.  
 
 ### Bugs
-  Most of the bugs I encountered while developing this site had to do with how I previously stored the "Favourited Recipes". Initially, when a User saved a recipe, that recipe Object would be saved as an object in an array called "favourite_recipes". Using the similar logic, when a User published a new recipe, I would match their session username with their User username and save their entire User document as an object.  
+  Most of the bugs I encountered while developing this site had to do with how I previously stored the "Favourited Recipes". Initially, when a User saved a recipe, that recipe Object would be saved as an object in an array called "favourite_recipes". Using the similar logic, when a User published a new recipe, I would match their session username with their User "username" and save their entire User document as an object in an array within that particular recipe document called "author".  
   This produced the following bugs when I asked family and friends to test my site:
-  * User search queries were showing incorrect results. Because my search function is based on text match, if a user published a new recipe called "Chicken wings"
-  * When making the function that removes a users' favourite recipes from their profile page, I could only remove recipes from the current or very recent session. When I cleared the cache or used a different browser, I found I could not reach the recipe with the code I had written. I solved this by...
+  * User search queries were showing incorrect results. Because my search function is based on text match, if a user published a new recipe called "Chicken wings", that recipe would appear in a search query that didn't mention "chicken" or "wings". I realised that this was because the User object saved in the "author" array of objects was triggering the search query. The user's "favourite_recipes" array had the chicken wings recipe embedded in it and was distorting the source. I changed the code so that only the User's username and their ObjectID were saved in the "author" array and fixed the bug. 
+  * When making the function that removes a users' favourite recipes from their profile page, I could only remove recipes from the current or very recent session. When I cleared the cache or used a different browser, I found I could not reach the recipe with the code I had written. I also realised that once a recipe was saved in a User's "favourite recipes" array and was subsequently edited, the "My Favourites" recipes would appear different to the actual recipes. 
+  I solved both of these problems by changing the way I saved the favourite recipes. I only saved the ObjectID of the recipe once a User saved that recipe to their favourites and then performed a find operation to search the recipe database with the favourited ObjectID/s when rendering the My Favourites page. This fix also solved the problem of being unable to remove favourite recipes from previous sessions.  
 
 ### Validation
 
   * I have validated my html code through [https://validator.w3.org/](https://validator.w3.org/) and my css code through [http://jigsaw.w3.org/css-validator/](http://jigsaw.w3.org/css-validator/) and no errors have occurred.
 
 ## Deployment
-The code for this website was pushed from Cloud9 to a repository in GitHub and is published on Heroku where you can access it here:
-[https://my-recipe-db.herokuapp.com/](https://my-recipe-db.herokuapp.com/)
+
+The app is deployed to Heroku and can be found at the following link: [https://my-recipe-db.herokuapp.com/](https://my-recipe-db.herokuapp.com/)
+
+  - Download the repo for my project or clone it using the following method: 
+  - Open a new workspace and download the git repository with the following CLI commands:
+  ```
+  git clone https://github.com/johnnycistudent/recipe-app.git
+  ```
+  - This method will put everything into a subfolder so cut and paste the project out of the subfolder and delete the subfolder so all the paths are correct.
+
+  - Ensure "debug" is set to true at the bottom of the app.py file like below:
+  ```
+  if __name__ == '__main__':
+      app.run(host=os.environ.get('IP'),
+              port=int(os.environ.get('PORT')),
+              debug=True),
+  ```
+  - Create a New App with Heroku that must have a unique name.
+  - Then log into Heroku via cloud9 bash "heroku login" then enter email and password
+  - "heroku apps" bash command lets you see what apps you have with heroku
+  - Install Flask and pymongo with the following commands in bash:
+  - Flask:
+  ```
+  sudo pip3 install flask
+  ```
+  - Pymongo:
+  ```
+  sudo pip3 install pymongo
+  ```
+  - To get Flask talking to Mongo, we need to install a 3rd party library called flask-pymongo:
+  ```
+  sudo pip3 install flask-pymongo
+  ```
+  - We also need to install the dnspython if it isn't already installed:
+  ```
+  sudo pip3 install dnspython
+  ```
+  - You can't push to Heroku without a requirements.txt file. Use the below command in bash to do that:
+  ```  
+  sudo pip3 freeze --local > requirements.txt
+  ```
+  - Next, add a procfile:
+  ```
+  echo web: python app.py > Procfile
+  ```
+  - Then commit to git and push to heroku:
+  ```
+  git add .
+  git commit -m "your commit statement"
+  push to heroku "git push heroku master"
+  ```
+  - Next we want to run our application, enter the following into bash:
+```
+heroku ps:scale web=1
+```
+  - Dynos are scaled with this command.
+  - Go to heroku and go to settings, and config Vars as follows:
+  - Enter IP and set value to 0.0.0.0 
+  - Enter PORT as the next key and enter 5000 as value
+  - Enter MONGO_DBNAME as key and myRecipeDB as value
+  - Enter MONGO_URI as key and mongodb+srv://<username>:<password>@myfirstcluster-2jd1l.mongodb.net/myRecipeDB?retryWrites=true. Update the username and password from the placeholders.
+  - Enter SECRET_KEY as key and the appropriate password as the value. 
+  - Make sure the below environ variables at the top of the app.py file are set in a hidden folder (.bashrc) or a .gitignore file for security purposes and that they match the config vars from the Heroku App settings:
+  ```
+    app.config['MONGO_DBNAME'] = 'myRecipeDB'
+    app.config['MONGO_URI'] = os.getenv("MONGO_URI")
+    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+  ```
+  - Click Open App in Heroku or go to [https://my-recipe-db.herokuapp.com/](https://my-recipe-db.herokuapp.com/).
+  - Restart dynos if there are any errors or consult the Heroku error log that appears upon unsuccessful deployment.
 
 
 
@@ -355,8 +424,7 @@ This website was designed by John O'Connor. Stack Overflow, the Code Institute t
 ### Content
 
 ### Media 
-  All of the images on this page were taken from Pixabay and were sourced using google image search under the free to use search setting. They can be found at the following links  
-  
+
    - The recipes I used in this website are mostly imported from a GitHub json that can be found [here](https://github.com/tabatkins/recipe-db/blob/master/db-recipes.json). All the recipes photos associated are from that json. 
 
    - The backup photo for recipes without a photo and the Intro page background were taken from a free search of [Pixabay](https://pixabay.com/).  
@@ -368,11 +436,11 @@ This website was designed by John O'Connor. Stack Overflow, the Code Institute t
 
 ## Acknowledgements
 
-  * Bootstrap was used for the framework for this website. [https://bootswatch.com/](https://bootswatch.com/)
   * [Stack Overflow](https://stackoverflow.com/), [W3Schools](https://www.w3schools.com/) and [Slack](https://slack.com/) were very useful when coming up against problems that many other people had also encountered.
+  * The following documentation that was consulted constantly - [MongoDB Manual](https://docs.mongodb.com/manual/), [Pymongo](https://api.mongodb.com/python/current/) and [Flask](https://flask.palletsprojects.com/en/1.0.x/).
   * The Social Media links in the footer were taken and edited from [this link at Bootsnipp.com](https://bootsnipp.com/snippets/84kpo)
   * The code for the User Login, Registration, User Authentication, Profile and Admin Pages functions were all taken and modified from Miroslav Svec's (username Miro) sessions from the Slack channel Data-Centric-Dev. 
-  * The logic for the pagination was inspired by Shane Muirhead and Heather Olcott's milestone projects. I was also inspired by Heather for her delete recipe process, which removed the deleted recipe from the recipe DB but first added it to another back up Database.
+  * The logic for the pagination was inspired by Shane Muirhead and Heather Olcott's milestone projects. I was also inspired by Heather for her delete recipe process, which removed the deleted recipe from the recipe collection but first added it to another back up collection.
   * The recipe cards were inspired by [this demo](https://codepen.io/ahmedhosna95/pen/rZKLgg) on [https://freefrontend.com/css-cards/](https://freefrontend.com/css-cards/). 
   * The large button group for the Intro page was taken from Bootsnipp from the following link [https://bootsnipp.com/snippets/GqBjl](https://bootsnipp.com/snippets/GqBjl) and the button styling was made with a button generator at [http://blog.koalite.com/bbg/](http://blog.koalite.com/bbg/)
   * I looked to various sources for UX theory and inspiration but mostly returned to [UX Planet](https://uxplanet.org/). 

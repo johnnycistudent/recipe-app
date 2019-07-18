@@ -272,11 +272,6 @@ def restore_recipe(recipe_id):
                                                     })
             # Removes the recipe from the Deleted collection after restoration into Recipe collection
             deleted.remove({'_id': ObjectId(recipe_id)})
-            
-            deleted.update({},
-                        { "$set": {"favourite_count": 0} },
-                        upsert=False,
-                        multi=True)
                         
         
         else:
@@ -540,8 +535,6 @@ def admin():
             users = mongo.db.users.find()
             recipes = mongo.db.recipes.find()
             deleted = mongo.db.deleted.find()
-            
-            
             
             return render_template('admin.html', users=users, recipes=recipes, deleted=deleted)
         else:
