@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     
-                    <div class="form-group">
+                    <div id="ingredient-parent" class="form-group">
                         <label for="ingredients"><h5>Ingredients</h5></label> 
                         {% for ingredient in recipe.ingredients %}
                         <div class="input-group add-on ingredient-block" id="ingredient-block">
@@ -109,36 +109,36 @@
                         <label for="instructions"><h5>Instructions</h5></label>
                         <textarea class="form-control" id="instructions" rows="8" name="instructions" value="{{ recipe.instructions }}">{{ recipe.instructions }}</textarea>
                     </div>
-                        <div class="input-group">
-                            <label for="tags">
-                                <h5 class="form-headings">Tags</h5>
-                                <small class="form-text text-muted"><em>Add Tags to make your recipe easier to search. Hashtags will be added after.</em></small>
-                            </label> 
+                    <div id="tags-parent" class="input-group">
+                        <label for="tags">
+                            <h5 class="form-headings">Tags</h5>
+                            <small class="form-text text-muted"><em>Add Tags to make your recipe easier to search. Hashtags will be added after.</em></small>
+                        </label> 
+                        
+                        {% for tag in recipe.tags %}
+                        
+                        <!-- Edit Recipe Tags Field -->
+                        <div class="input-group add-on tag-block">
+                            <input type="text" class="form-control" name="tags" value="{{ tag|title }}">
                             
-                            {% for tag in recipe.tags %}
-                            
-                            <!-- Edit Recipe Tags Field -->
-                            <div class="input-group add-on tag-block">
-                                <input type="text" class="form-control" name="tags" value="{{ tag|title }}">
-                                
-                                <!-- Button to Delete a Tag Field -->
-                                <div class="input-group-append" >
-                                    <button type="button" class="btn btn-delete delete-tag-button">Delete</button>
-                                </div>
+                            <!-- Button to Delete a Tag Field -->
+                            <div class="input-group-append" >
+                                <button type="button" class="btn btn-delete delete-tag-button">Delete</button>
                             </div>
-                            {% endfor %}
-                            
-                            <!-- Button to Add a New Tag Field -->
-                            <button type="button" class="btn btn-details btn-sm new-tag-button">Add New Tag +</button>
                         </div>
-                        <div class="form-buttons">
-                            
-                            <!-- Submit Edited Recipe Button -->
-                            <button type="submit" class="btn btn-main" name="action">Submit</button>
-                            
-                            <!-- Cancel Button -->
-                            <a role="button" class="btn btn-delete" onclick="history.go(-1)">Cancel</a>
-                        </div>
+                        {% endfor %}
+                        
+                        <!-- Button to Add a New Tag Field -->
+                        <button type="button" class="btn btn-details btn-sm new-tag-button">Add New Tag +</button>
+                    </div>
+                    <div class="form-buttons">
+                        
+                        <!-- Submit Edited Recipe Button -->
+                        <button type="submit" class="btn btn-main" name="action">Submit</button>
+                        
+                        <!-- Cancel Button -->
+                        <a role="button" class="btn btn-delete" onclick="history.go(-1)">Cancel</a>
+                    </div>
 
                     
                 </fieldset>

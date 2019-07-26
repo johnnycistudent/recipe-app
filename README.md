@@ -128,7 +128,7 @@ The information architecture of the database consists of three collections - Rec
 
 The interaction design for this site tries to keep things as simple as possible. The Initial page entitled Intro presents the three main steps for a user in big tempting, clickable buttons - Browse Recipes, Login or Register. The navigational structures from the Navbar are standard and should be familiar with all browser users that collapse to a hamburger menu on smaller devices. It was important to ensure that the user is presented with as many interactive elements as possible when navigating the site. 
 
-Once the User logs in or registers, they are immediately sent to their profile page. From there they are encouraged to go to the "Browse Recipes" page.
+Once the User logs in or registers, they are immediately sent to their favpurite recipes' page (entitled "My Favourites"). From there they are encouraged to go to the "Browse Recipes" page.
 
 The main focus of the Recipe Book are the recipes themselves. As with all good UX design, most components advertising the recipes should be interactive and if they are interactive, it should be obvious to the user. This effect is obtained on this website by changing the cursor to a pointer and having buttons hoverable if active.  The recipe name and photo are clickable as well as a button offering to "View Full Recipe" and will all take the user to the full recipe view - "Recipe Display". The User then has further options to favourite, edit or delete the recipe, all choices displayed on buttons below the photo and vital recipe statitics. 
 
@@ -190,7 +190,7 @@ The pink colour is used to make vital statistics stand out next to the dark grey
 
 ## Wireframes
 
-As mentioned in the [Skeleton](#skeleton) above, here are the wireframes. 
+As mentioned in the [Skeleton](#skeleton) above, here are the wireframes created and edited during the production of the site.  
 
  * [Mobile Wireframes](https://github.com/johnnycistudent/recipe-app/blob/master/static/images/Mobile%20Wireframes%20PDF.pdf)
  * [Desktop Wireframes](https://github.com/johnnycistudent/recipe-app/blob/master/static/images/Desktop%20Wireframes%20PDF.pdf)
@@ -203,10 +203,10 @@ As mentioned in the [Skeleton](#skeleton) above, here are the wireframes.
 
   *   **Navbar** - The Navbar offers an easy navigational view through the site for both non-registered and registered users and is always available to act as a reference point for any user not necessarily sure of their whereabouts on the site. 
   *   **Intro Page** - The Intro Page welcomes new Users to the site with a brief explainer and offers three options - Browse Recipes, Log in or Create an Account. 
-  *   **Browse All Recipes** - This function and page acts as the home page for the site and is linked by the Brand Name in the top left corner of the Navbar. The recipes are ordered by last added first so users can see their latest recipes feature full prominence on the site to encourage user activity inclusion.
+  *   **Browse Recipes** - This function and page acts as the home page for the site and is linked by the Brand Name in the top left corner of the Navbar. The recipes are ordered by last added first so users can see their latest recipes feature full prominence on the site to encourage user activity inclusion.
   *   **Search bar** - The Search bar on the Browse Recipes page is designed to match the text query of the user. The results of the user's queries follow best practices of UX design - the user is reminded of their query and informed of the number of results their query has generated. The search submit button can be triggered by the return or enter key on any device that the site is being viewed through.
   *   **Full Recipe Display** - The full recipe view is rendered when a registered or non registered user clicks on one of the cards displaying a recipes' information. The user is then taken to a page dedicated to only that particular recipe where all the recipe information is presented. This page offers many options to the registered user - Add Recipe to Favourites, Edit the Recipe or Delete it. It also offers both registered and non-registered Users the option to view the recipe author's other additions to the site by clicking on their username. 
-  *   **User Accounts** - Each user has the ability to create their own account which enables them to access a wider array of features on the website such as saving(favouriting), editing, deleting and creating recipes. 
+  *   **User Accounts** - Each user has the ability to create their own account which enables them to access a wider array of features on the website such as saving(favouriting), editing, deleting and creating recipes. The User is required to enter a Username, Email Address and Password. Their password is hashed on entry and not stored in plain text thanks to the werkzeug library. The password cannot be seen even when viewing the MongoDB on Atlas. All usernames and email addresses must be unique.    
   *   **Add and Edit Recipes** - Satisfying the Create and Update part of CRUD functions required for this site, registered users can add a new recipe to the site and also edit any one's recipes by interacting with the recipe forms, 
   *   **Favourite/Save Recipes** - Registered users can easily save recipes they like and want to refer to later. The recipes are stored in the "My Favourites" page which is represented in the Navbar so easy to navigate to. The ability to "favourite" a recipe ties in with the rating system in the Most Popular section, mentioned next. 
   *   **Most Popular Recipes Section** - The Most Popular section is designed to promote the most "favourited" recipes on the site, to inspire users to add to their favourites or give ideas for adding their own recipes and also as a recipe rating system. It appears when the User has no favourites on their "My Favourites" page, at the top of the browse all recipes page and when a user's search query returns no results. The Most Popular recipes appear on bootstrap customised cards in the same way the rest of the recipes on the site are represented except they also display the number of times the recipes have been favourited. 
@@ -291,7 +291,9 @@ As mentioned in the [Skeleton](#skeleton) above, here are the wireframes.
    **v.** Navigate to your favourites page by clicking the navlink entitled My Favourites and check the recipe has been added.   
    **vi.** Ensure the recipe cannot be added to your favourites again if it's already there by clicking on the Add to Favourites button again.   
    **vii.** The page should refresh and inform you that the recipe has already been added to your favourites.   
-   **viii.** Double check the recipe hasn't been added to your favourites by navigating to your My Favourites page again and ensure the recipe is only present once.   
+   **viii.** Double check the recipe hasn't been added to your favourites by navigating to your My Favourites page again and ensure the recipe is only present once.  
+   **ix.** Additionally, to check that you can easily remove a recipe from your favourites, go to your My Favourites page and click "Remove from Favourites" on one of the recipes.
+   **x.** The page should refresh with a message telling you that recipe has been removed from your favourites. 
 
 7. As a registered user, I would like to edit or delete a recipe I have added to the site.   
 
@@ -334,11 +336,13 @@ As mentioned in the [Skeleton](#skeleton) above, here are the wireframes.
     * Large/Extra Large devices - Lenovo ideapad 520, Asus Vivobook.  
 
 ### Bugs
-  Most of the bugs I encountered while developing this site had to do with how I previously stored the "Favourited Recipes". Initially, when a User saved a recipe, that recipe Object would be saved as an object in an array called "favourite_recipes". Using the similar logic, when a User published a new recipe, I would match their session username with their User "username" and save their entire User document as an object in an array within that particular recipe document called "author".  
+  Most of the bugs I encountered while developing this site had to do with how I previously stored the "Favourited Recipes". Initially, when a User saved a recipe, that recipe Object would be saved as an object in an array called "favourite_recipes". Using similar logic, when a User published a new recipe, I would match their session username with their User "username" and save their entire User document as an object in an array within that particular recipe document called "author".  
   This produced the following bugs when I asked family and friends to test my site:
   * User search queries were showing incorrect results. Because my search function is based on text match, if a user published a new recipe called "Chicken wings", that recipe would appear in a search query that didn't mention "chicken" or "wings". I realised that this was because the User object saved in the "author" array of objects was triggering the search query. The user's "favourite_recipes" array had the chicken wings recipe embedded in it and was distorting the source. I changed the code so that only the User's username and their ObjectID were saved in the "author" array and fixed the bug. 
   * When making the function that removes a users' favourite recipes from their profile page, I could only remove recipes from the current or very recent session. When I cleared the cache or used a different browser, I found I could not reach the recipe with the code I had written. I also realised that once a recipe was saved in a User's "favourite recipes" array and was subsequently edited, the "My Favourites" recipes would appear different to the actual recipes. 
   I solved both of these problems by changing the way I saved the favourite recipes. I only saved the ObjectID of the recipe once a User saved that recipe to their favourites and then performed a find operation to search the recipe database with the favourited ObjectID/s when rendering the My Favourites page. This fix also solved the problem of being unable to remove favourite recipes from previous sessions.  
+
+  Although these bugs seem simple and obvious now, at the time they caused a lot of frustration but are all part of the learning curve that help me become a better developer. 
 
 ### Validation
 

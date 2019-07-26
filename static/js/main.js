@@ -18,18 +18,18 @@ $(document).ready(function() {
 	});
 
 	/* -- Deletes an ingredient input field in form on Edit Recipe/Add Recipe page --*/
-	$('.delete-ingredient-button').on('click', function() {
+	$(document).on('click', '#ingredient-parent .delete-ingredient-button', function(){ 
 		$(this).closest('.ingredient-block').remove();
 	});
 
 
 	/* -- Adds a new "Tag" input field in form on Edit Recipe/Add Recipe page --*/
 	$('.new-tag-button').on('click', function() {
-		$('<div class="input-group add-on tag-block"><input type="text" class="form-control" name="tags" placeholder="Add New Tag"><div class="input-group-append" ><button type="button" class="btn btn-delete" id="">Delete</button></div>').insertBefore('.new-tag-button');
+		$('<div class="input-group add-on tag-block"><input type="text" class="form-control" name="tags" placeholder="Add New Tag"><div class="input-group-append" ><button type="button" class="btn btn-delete delete-tag-button" id="">Delete</button></div>').insertBefore('.new-tag-button');
 	});
 
 	/* -- Deletes "Tag" input field in form on Edit Recipe/Add Recipe page --*/
-	$('.delete-tag-button').on('click', function() {
+	$(document).on('click', '#tags-parent .delete-tag-button', function(){ 
 		$(this).closest('.tag-block').remove();
 	});
 
