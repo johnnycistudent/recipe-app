@@ -1,5 +1,5 @@
-import os, math, datetime, pprint
-from flask import Flask, render_template, redirect, request, url_for, session, flash, jsonify, json
+import os, math, datetime
+from flask import Flask, render_template, redirect, request, url_for, session, flash
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -38,14 +38,12 @@ def get_recipes():
     collection = mongo.db.recipes.count()
     pages = range(1, int(math.ceil(collection / p_limit)) + 1)
     total_page_no = int(math.ceil(collection/p_limit))
-    recipes = mongo.db.recipes.find().skip((current_page -1)*p_limit).limit(p_limit).sort('_id', pymongo.DESCENDING)
+    all_recipes = mongo.db.recipes.find().skip((current_page -1)*p_limit).limit(p_limit).sort('_id', pymongo.DESCENDING)
 
-    # Most Popular recipes
+    # Most Popular recipes - finds the recipes with the most favourite count and shows only the top 3
     recommended = mongo.db.recipes.find().sort("favourite_count", pymongo.DESCENDING).limit(3)
-          
-    
-                          
-    return render_template("showall.html", recipes=recipes, current_page=current_page, pages=pages, total_page_no=total_page_no, recommended=recommended)
+       
+    return render_template("showall.html", all_recipes=all_recipes, current_page=current_page, pages=pages, total_page_no=total_page_no, recommended=recommended)
     
     
 @app.route('/search')
@@ -82,6 +80,8 @@ def search():
                             recommended=recommended)    
     
     
+####### CRUD FUNCTIONS #######
+
 @app.route('/recipe_display/<recipe_id>')
 def recipe_display(recipe_id):
     
@@ -162,7 +162,6 @@ def insert_recipe():
     Inserts new recipe to the Recipes collection when user submits the form from the add_recipe page.
     """
     
-    recipes = mongo.db.recipes
     # Identifies the current user in order to capture the author of the new recipe.
     user = users.find_one({"username": session['user']})
     new_recipe = recipes.insert_one({
@@ -233,6 +232,9 @@ def delete_recipe(recipe_id):
     flash('Recipe Deleted.')
     return redirect(url_for('get_recipes')) 
     
+    
+####### DELETED RECIPE FUNCTIONS #######    
+    
 @app.route('/deleted_recipe_display/<recipe_id>')
 def deleted_recipe_display(recipe_id):
     
@@ -286,6 +288,36 @@ def restore_recipe(recipe_id):
     flash('Recipe Restored.')
     return redirect(url_for('recipe_display', recipe_id=recipe_id))     
     
+    
+####### FAVOURITE RECIPES FUNCTIONS #######    
+
+@app.route('/my_favourites/<user>')
+def my_favourites(user):
+    """
+    My Favourites Page displays all the recipes the user has added as their favourites. 
+    """
+    # Check if user is logged in
+    if 'user' in session:
+        user_in_db = users.find_one({"username": user})
+        favourites = mongo.db.users.find(user_in_db)
+        
+        # Defines favourite_recipes array from current User document
+        favourites_recipes = user_in_db["favourite_recipes"]
+        
+        # Finds favourite recipes in Recipe collection in order to display full recipes
+        favs = recipes.find({"_id" : {
+                                    "$in" : favourites_recipes }
+                            })
+        
+        # Most Popular recipes - appear when there are no results to the user's query
+        recommended = mongo.db.recipes.find().sort("favourite_count", pymongo.DESCENDING).limit(3)
+        
+    else:
+        flash("You must be logged in!")
+        return redirect(url_for('get_recipes'))
+        
+    return render_template('my_favourites.html', user=user_in_db, favourites=favourites, favourites_recipes=favourites_recipes, favs=favs, recommended=recommended)
+
     
 @app.route('/add_to_favourites/<recipe_id>', methods=["GET", "POST"])
 def add_to_favourites(recipe_id):
@@ -351,6 +383,8 @@ def remove_from_favourites(recipe_id):
         return redirect(url_for('get_recipes'))
         
     
+    
+####### USER FUNCTIONS #######    
     
 # Login - taken and modified from Miroslav Svec's (username Miro) sessions from Slack DCD channel
 @app.route('/login', methods=['GET'])
@@ -463,6 +497,9 @@ def logout():
     flash('You have been logged out!')
     return redirect(url_for('get_recipes'))
     
+
+####### PROFILE/ADMIN VIEWS #######     
+    
     
 @app.route('/profile/<user>')
 def profile(user):
@@ -489,60 +526,25 @@ def profile(user):
                                            users_recipes_count=users_recipes_count,
                                            current_page=current_page, pages=pages, total_page_no=total_page_no)
 
-@app.route('/my_favourites/<user>')
-def my_favourites(user):
-    """
-    My Favourites Page displays all the recipes the user has added as their favourites. 
-    """
-    # Check if user is logged in
-    if 'user' in session:
-        user_in_db = users.find_one({"username": user})
-        favourites = mongo.db.users.find(user_in_db)
-        
-        # Defines favourite_recipes array from current User document
-        favourites_recipes = user_in_db["favourite_recipes"]
-        
-        # Finds favourite recipes in Recipe collection in order to display full recipes
-        favs = recipes.find({"_id" : {
-                                    "$in" : favourites_recipes }
-                            });
-        
-        # Most Popular recipes - appear when there are no results to the user's query
-        recommended = mongo.db.recipes.find().sort("favourite_count", pymongo.DESCENDING).limit(3)
-        
-    else:
-        flash("You must be logged in!")
-        return redirect(url_for('get_recipes'))
-        
-    return render_template('my_favourites.html', user=user_in_db, favourites=favourites, favourites_recipes=favourites_recipes, favs=favs, recommended=recommended)
-    
-    
-        
-        
-
 @app.route('/admin')
 def admin():
     """
     Admin area. Allows the Admin to check on statistics about the Users, Recipes and Deleted recipes collections.
     """
-    # Check if user is logged in
-    if 'user' in session:
+
         
+    # Checks if user is the Admin
+    if session['user'] == "admin":
+        # Queries for Admin reports
+        users = mongo.db.users.find()
+        recipes = mongo.db.recipes.find()
+        deleted = mongo.db.deleted.find()
         
-        # Checks if user is the Admin
-        if session['user'] == "admin":
-            # Queries for Admin reports
-            users = mongo.db.users.find()
-            recipes = mongo.db.recipes.find()
-            deleted = mongo.db.deleted.find()
-            
-            return render_template('admin.html', users=users, recipes=recipes, deleted=deleted)
-        else:
-            flash('Only Admins can access this page!')
-            return redirect(url_for('get_recipes'))
+        return render_template('admin.html', users=users, recipes=recipes, deleted=deleted)
     else:
-        flash('You must be logged')
+        flash('Only Admins can access this page!')
         return redirect(url_for('get_recipes'))
+    
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

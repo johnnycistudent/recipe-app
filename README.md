@@ -8,12 +8,11 @@ Recipe Book can be accessed here: [https://my-recipe-db.herokuapp.com/](https://
 
 
 #### Strategy
-*WHY does this site exist? And for who? (Target Audience) Detail goal of creator/user.*  
 The idea behind this website is to have an online resource to store, look up, create and save recipes. As with any good idea, the basic premise is simple and the user should find it simple to use if it is to be successful. The target audience for this website is any one who needs to store recipes online. The advantages of an online recipe book are numerous as online resources are consistenly replacing more traditional media such as books or magazines. The User stories [here](#user-stories) outline some of the main goals that users of this site would look to achieve.
 
 #### Scope
-*WHAT are we doing? Outline features and functions that help achieve goals from Strategy.*  
 I chose a Non-relational database in the form of MongoDB for this project.  
+
 ###### Functional requirements
 The most basic requirements for this project are the ability to perform CRUD (Create, Read, Update and Delete) operations on the primary documents in this database - the recipes. The user should also be able to search the database with relative ease, including queries and navigating the entire database with pagination where necessary.  
 
@@ -36,8 +35,6 @@ The content requirements for the functions proposed above would be as follows:
   - Admin view. 
 
 #### Structure
-*HOW - How much content is there, how is it organised, how is it prioritised, interaction design and architecture*  
-
 The information architecture of the database consists of three collections - Recipes, Users and Deleted. When a User creates a recipe, their username and ObjectId is saved as a nested object within that Recipe document under the field "author". Using the same logic, when a User deletes a recipe, their ObjectId and Username is logged as a nested object under the field "deleted_by" in that Deleted recipe document. When a User saves a recipe as a favourite, the recipe's ObjectId is saved in an array in the recipe document under the field "favourite_recipes". The recipe has a field called "favourite_count" which increments by one every time a User adds that recipe to their favourite recipe array. When a recipe is deleted, the recipe is deleted from User's favourites as well as the recipe collection and the favourite count is reset to 0. See the schema below:
 
 1. Recipe 
@@ -140,8 +137,6 @@ I have tried to rely on the 3 Click Rule as much as possible. Each interaction s
 
 
 #### Skeleton
-*How is the information structured? How is it logically grouped?*
-
 The information structure is laid out in the wireframes below:
 
  * [Mobile Wireframes](https://github.com/johnnycistudent/recipe-app/blob/master/static/images/Mobile%20Wireframes%20PDF.pdf)
@@ -152,9 +147,6 @@ The five primary functions are represented in the Navbar links; Browse Recipes, 
 Non-registered Users can have only the Login, Register and Browse Recipes pages linked in the Navbar. 
 
 #### Surface
-*What will the finished product look like?*
-*What colours, typography and design elements will be used?*
-
 Repeating the mantra "keep it simple stupid", I used the Sandstone theme from [Bootswatch](https://bootswatch.com/sandstone/) and adjusted it fit my site's needs. I felt this theme was understated enough in its subtle tones to allow the website's content to flourish. The dark grey navbar and footer colour provides the upper and lower margins of the page and the white background allowed the vibrant colour of the buttons to stand out on the page and draw the users' eyes to the call to action components.
 
 The recipes' cards represent the vital stats and the use of FontAwesome's iconography is used liberally throughout the site and reinforces its simplicity to the user. The cards themselves are large and made to stand out with the box shadowing around them and indicate their importance to the user. The cards were inspired by [this demo](https://codepen.io/ahmedhosna95/pen/rZKLgg) on [FreeFrontEnd.com](https://freefrontend.com/) although I did not copy the code from this demo, I only took inspiration from the styling. 
@@ -336,7 +328,7 @@ As mentioned in the [Skeleton](#skeleton) above, here are the wireframes created
     * Large/Extra Large devices - Lenovo ideapad 520, Asus Vivobook.  
 
 ### Bugs
-  Most of the bugs I encountered while developing this site had to do with how I previously stored the "Favourited Recipes". Initially, when a User saved a recipe, that recipe Object would be saved as an object in an array called "favourite_recipes". Using similar logic, when a User published a new recipe, I would match their session username with their User "username" and save their entire User document as an object in an array within that particular recipe document called "author".  
+Most of the bugs I encountered while developing this site had to do with how I previously stored the "Favourited Recipes". Initially, when a User saved a recipe, that recipe Object would be saved as an object in an array called "favourite_recipes". Using similar logic, when a User published a new recipe, I would match their session username with their User "username" and save their entire User document as an object in an array within that particular recipe document called "author".  
   This produced the following bugs when I asked family and friends to test my site:
   * User search queries were showing incorrect results. Because my search function is based on text match, if a user published a new recipe called "Chicken wings", that recipe would appear in a search query that didn't mention "chicken" or "wings". I realised that this was because the User object saved in the "author" array of objects was triggering the search query. The user's "favourite_recipes" array had the chicken wings recipe embedded in it and was distorting the source. I changed the code so that only the User's username and their ObjectID were saved in the "author" array and fixed the bug. 
   * When making the function that removes a users' favourite recipes from their profile page, I could only remove recipes from the current or very recent session. When I cleared the cache or used a different browser, I found I could not reach the recipe with the code I had written. I also realised that once a recipe was saved in a User's "favourite recipes" array and was subsequently edited, the "My Favourites" recipes would appear different to the actual recipes. 
