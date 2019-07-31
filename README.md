@@ -4,6 +4,9 @@ Welcome to my Data-Centric Development Milestone Project which I have entitled "
 
 Recipe Book can be accessed here: [https://my-recipe-db.herokuapp.com/](https://my-recipe-db.herokuapp.com/)
 
+
+**Note for CI Assessors** - To Log in as the Administrator, type "admin" in to the username field, and "thisismypassword" in to the password field 
+
 ## UX
 
 
@@ -338,7 +341,7 @@ Most of the bugs I encountered while developing this site had to do with how I p
 
 ### Validation
 
-  * I have validated my html code through [https://validator.w3.org/](https://validator.w3.org/) and my css code through [http://jigsaw.w3.org/css-validator/](http://jigsaw.w3.org/css-validator/) and no errors have occurred.
+  * I have validated my html code through [https://validator.w3.org/](https://validator.w3.org/), my css code through [http://jigsaw.w3.org/css-validator/](http://jigsaw.w3.org/css-validator/) and my python code through[https://pythonbuddy.com/](https://pythonbuddy.com/) and no errors have occurred.
 
 ## Deployment
 
